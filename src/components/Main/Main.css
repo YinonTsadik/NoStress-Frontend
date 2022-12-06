@@ -1,0 +1,5 @@
+.main {
+    display: flex;
+    margin: 25px 25px;
+    border: 1px solid black;
+}
