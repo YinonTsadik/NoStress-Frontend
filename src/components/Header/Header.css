@@ -1,18 +1,24 @@
+* {
+    font-family: monospace;
+}
+
 .header {
     display: flex;
     align-items: center;
     height: 65px;
     background: linear-gradient(90deg, #3819c1 1%, #4e96c9 100%);
     border-bottom: 1px solid rgb(34, 94, 162);
-    color: rgb(255, 255, 255);
+    color: rgb(255, 161, 19);
 }
 
 .header--logo {
+    font-size: 40px;
     margin-left: 20px;
     cursor: pointer;
 }
 
 .header--title {
+    font-size: 25px;
     margin-left: 20px;
     cursor: pointer;
 }
@@ -21,4 +27,5 @@
     margin-left: auto;
     margin-right: 20px;
     cursor: pointer;
+    color: rgb(0, 0, 0);
 }

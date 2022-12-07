@@ -1,5 +1,7 @@
 .main {
     display: flex;
-    margin: 25px 25px;
+    align-items: center;
+    margin: 15px 15px;
+    height: 83vh;
     border: 1px solid black;
 }

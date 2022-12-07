@@ -1,0 +1,7 @@
+.calendar {
+    width: 60%;
+    margin: 15px 15px;
+    align-self: center;
+    border: 1px solid black;
+    font-size: 12px;
+}
