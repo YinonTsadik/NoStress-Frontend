@@ -1,1 +1,2 @@
-export {}
+const store = null
+export { store }
