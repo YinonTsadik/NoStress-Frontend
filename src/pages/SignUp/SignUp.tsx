@@ -1,9 +1,14 @@
 import { useQuery } from '@apollo/client'
 import { GET_ALL_USERNAMES } from '../../graphql'
+import { Container } from '@mui/material'
 import SignUpForm from '../../components/SignUpForm'
 
 export default function SignUp() {
-    const { data, loading } = useQuery(GET_ALL_USERNAMES)
+    const { data } = useQuery(GET_ALL_USERNAMES)
 
-    return <div>{loading ? <></> : <SignUpForm usernames={data.usernames} />}</div>
+    return (
+        <Container>
+            <SignUpForm usernames={data ? data.usernames : []} />
+        </Container>
+    )
 }

@@ -1,14 +1,14 @@
 // Form and validation
-import signUpSchema from './validation'
+import signInSchema from './validation'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 // Apollo and GraphQL
-import { useMutation } from '@apollo/client'
-import { CREATE_USER } from '../../graphql'
+import { useLazyQuery } from '@apollo/client'
+import { CHECK_AUTH_DEATAILS } from '../../graphql'
 
-// Interfaces
-import { SignUpFormProps, SignUpFormValues } from '../../interfaces'
+// Interface
+import { SignInFormValues } from '../../interfaces'
 
 // State
 import { useState } from 'react'
@@ -28,19 +28,20 @@ import {
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 
-export default function SignUpForm(props: SignUpFormProps) {
-    const schema = signUpSchema(props.usernames)
+export default function SignInForm() {
+    const schema = signInSchema()
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm<SignUpFormValues>({ resolver: yupResolver(schema) })
+    } = useForm<SignInFormValues>({ resolver: yupResolver(schema) })
 
-    // useMutation
+    const [checkAuthDeatails] = useLazyQuery(CHECK_AUTH_DEATAILS)
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [authError, setAuthError] = useState<boolean>(false)
 
     const navigate = useNavigate()
 
@@ -48,34 +49,38 @@ export default function SignUpForm(props: SignUpFormProps) {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
-    const onSubmit = (formData: SignUpFormValues) => {
-        alert(JSON.stringify(formData))
-        reset()
+    const toggleAuthError = () => {
+        setAuthError((prevAuthError) => !prevAuthError)
+    }
+
+    const onSubmit = (formData: SignInFormValues) => {
+        checkAuthDeatails({
+            variables: {
+                username: formData.username,
+                password: formData.password,
+            },
+        }).then(({ data }) => {
+            if (!data.checkAuthDetails) {
+                toggleAuthError()
+            } else {
+                toggleAuthError()
+                reset()
+                navigate('/')
+                console.log(data.checkAuthDetails)
+                console.log('Login successfully!')
+            }
+        })
     }
 
     return (
         <Container>
-            <Typography>Sign up to NoStress</Typography>
+            <Typography>Sign in to NoStress</Typography>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
-                    label="First Name"
-                    {...register('firstName')}
-                    error={Boolean(errors.firstName)}
-                    helperText={errors.firstName ? errors.firstName.message : ''}
-                />
-                <br />
-                <TextField
-                    label="Last Name"
-                    {...register('lastName')}
-                    error={Boolean(errors.lastName)}
-                    helperText={errors.lastName ? errors.lastName.message : ''}
-                />
-                <br />
-                <TextField
                     label="Username"
                     {...register('username')}
-                    error={Boolean(errors.username)}
+                    error={Boolean(errors.username || authError)}
                     helperText={errors.username ? errors.username.message : ''}
                 />
                 <br />
@@ -83,7 +88,7 @@ export default function SignUpForm(props: SignUpFormProps) {
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
                     {...register('password')}
-                    error={Boolean(errors.password)}
+                    error={Boolean(errors.password || authError)}
                     helperText={errors.password ? errors.password.message : ''}
                     InputProps={{
                         endAdornment: (
@@ -100,12 +105,18 @@ export default function SignUpForm(props: SignUpFormProps) {
                     }}
                 />
                 <br />
-                <Link href="/signin">
-                    <Typography>Already have an account? Sign in.</Typography>
+                {authError && (
+                    <Typography variant="caption" color="error" align="center">
+                        {'Incorrect username or password.'}
+                    </Typography>
+                )}
+                <br />
+                <Link href="/signup">
+                    <Typography>New to NoStress? Create an account.</Typography>
                 </Link>
                 <br />
                 <Button type="submit" variant="contained">
-                    Sign Up
+                    Sign In
                 </Button>
             </form>
         </Container>
