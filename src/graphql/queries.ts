@@ -5,12 +5,12 @@ export const GET_ALL_USERNAMES = gql`
         usernames
     }
 `
-export const CHECK_AUTH_DEATAILS = gql`
+export const USER_AUTHENTICATION = gql`
     query Query($username: String!, $password: String!) {
-        checkAuthDetails(username: $username, password: $password) {
+        user(username: $username, password: $password) {
             id
-            first_name
-            last_name
+            firstName
+            lastName
             username
         }
     }

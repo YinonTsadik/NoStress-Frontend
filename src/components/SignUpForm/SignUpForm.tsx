@@ -38,19 +38,35 @@ export default function SignUpForm(props: SignUpFormProps) {
         reset,
     } = useForm<SignUpFormValues>({ resolver: yupResolver(schema) })
 
-    // useMutation
-
-    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [createUser] = useMutation(CREATE_USER)
 
     const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
     const onSubmit = (formData: SignUpFormValues) => {
-        alert(JSON.stringify(formData))
-        reset()
+        const { firstName, lastName, username, password } = formData
+        createUser({
+            variables: {
+                input: {
+                    firstName,
+                    lastName,
+                    username,
+                    password,
+                },
+            },
+        }).then(({ data }) => {
+            if (data.createUser) {
+                console.log(data.createUser)
+                console.log('Signed up successfully!')
+                reset()
+                navigate('/')
+            }
+        })
     }
 
     return (
@@ -103,7 +119,6 @@ export default function SignUpForm(props: SignUpFormProps) {
                 <Link href="/signin">
                     <Typography>Already have an account? Sign in.</Typography>
                 </Link>
-                <br />
                 <Button type="submit" variant="contained">
                     Sign Up
                 </Button>

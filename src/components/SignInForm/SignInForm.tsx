@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 // Apollo and GraphQL
 import { useLazyQuery } from '@apollo/client'
-import { CHECK_AUTH_DEATAILS } from '../../graphql'
+import { USER_AUTHENTICATION } from '../../graphql'
 
 // Interface
 import { SignInFormValues } from '../../interfaces'
@@ -38,38 +38,42 @@ export default function SignInForm() {
         reset,
     } = useForm<SignInFormValues>({ resolver: yupResolver(schema) })
 
-    const [checkAuthDeatails] = useLazyQuery(CHECK_AUTH_DEATAILS)
-
-    const [showPassword, setShowPassword] = useState<boolean>(false)
-    const [authError, setAuthError] = useState<boolean>(false)
+    const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
 
     const navigate = useNavigate()
+
+    const [authError, setAuthError] = useState<boolean>(false)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
-    const toggleAuthError = () => {
-        setAuthError((prevAuthError) => !prevAuthError)
-    }
-
+    // After a valid form has been submitted, check the login details
     const onSubmit = (formData: SignInFormValues) => {
-        checkAuthDeatails({
+        const { username, password } = formData
+        checkAuthentication({
             variables: {
-                username: formData.username,
-                password: formData.password,
+                username,
+                password,
             },
         }).then(({ data }) => {
-            if (!data.checkAuthDetails) {
-                toggleAuthError()
+            if (!data.user) {
+                setAuthError(true)
+                // reset() // Maybe
             } else {
-                toggleAuthError()
+                console.log(data.user)
+                console.log('Logged in successfully!')
+                setAuthError(false)
                 reset()
                 navigate('/')
-                console.log(data.checkAuthDetails)
-                console.log('Login successfully!')
             }
         })
+    }
+
+    // Don't show form error(s) and a details error at the same time
+    if ((errors.username || errors.password) && authError) {
+        setAuthError(false)
     }
 
     return (
@@ -106,15 +110,13 @@ export default function SignInForm() {
                 />
                 <br />
                 {authError && (
-                    <Typography variant="caption" color="error" align="center">
-                        {'Incorrect username or password.'}
+                    <Typography variant="caption" color="error">
+                        {'Incorrect username or password'}
                     </Typography>
                 )}
-                <br />
                 <Link href="/signup">
                     <Typography>New to NoStress? Create an account.</Typography>
                 </Link>
-                <br />
                 <Button type="submit" variant="contained">
                     Sign In
                 </Button>

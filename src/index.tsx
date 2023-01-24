@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 // import { Provider } from 'react-redux'
@@ -14,12 +14,10 @@ const client = new ApolloClient({
 
 root.render(
     <React.StrictMode>
-        {/* <Suspense fallback={<Loading />}> */}
         <ApolloProvider client={client}>
             {/* <Provider store={store}> */}
             <App />
             {/* </Provider> */}
         </ApolloProvider>
-        {/* </Suspense> */}
     </React.StrictMode>
 )
