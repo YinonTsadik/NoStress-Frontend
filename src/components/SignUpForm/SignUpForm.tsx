@@ -1,20 +1,25 @@
 // Form and validation
-import signUpSchema from './validation'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import signUpSchema from './validation'
+
+// Interfaces
+import { SignUpFormProps, SignUpFormValues } from '../../interfaces'
 
 // Apollo and GraphQL
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '../../graphql'
 
-// Interfaces
-import { SignUpFormProps, SignUpFormValues } from '../../interfaces'
-
-// State
-import { useState } from 'react'
+// Redux
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../../redux'
 
 // Pages navigation
 import { useNavigate } from 'react-router-dom'
+
+// State
+import { useState } from 'react'
 
 // Material components and icons
 import {
@@ -29,16 +34,18 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 
 export default function SignUpForm(props: SignUpFormProps) {
-    const schema = signUpSchema(props.usernames)
-
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
-    } = useForm<SignUpFormValues>({ resolver: yupResolver(schema) })
+    } = useForm<SignUpFormValues>({
+        resolver: yupResolver(signUpSchema(props.usernames)),
+    })
 
     const [createUser] = useMutation(CREATE_USER)
+
+    const dispatch = useDispatch()
+    const { signIn } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -63,7 +70,7 @@ export default function SignUpForm(props: SignUpFormProps) {
             if (data.createUser) {
                 console.log(data.createUser)
                 console.log('Signed up successfully!')
-                reset()
+                signIn()
                 navigate('/')
             }
         })

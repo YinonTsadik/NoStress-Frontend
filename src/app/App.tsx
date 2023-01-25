@@ -1,6 +1,6 @@
 // import useStyles from './utils/AppStyles'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import PrivateRoutes from '../utils/PrivateRoutes'
+import PrivateHome from '../utils/PrivateHome'
 import { SignIn, SignUp, Home } from '../pages'
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
     return (
         <Router>
             <Routes>
-                <Route element={<PrivateRoutes />}>
+                <Route element={<PrivateHome />}>
                     <Route path="/" element={<Home />} />
                 </Route>
                 <Route path="/signin" element={<SignIn />} />
