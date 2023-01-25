@@ -47,8 +47,8 @@ export default function SignInForm() {
 
     const navigate = useNavigate()
 
-    const [authError, setAuthError] = useState<boolean>(false)
-    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [authError, setAuthError] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)

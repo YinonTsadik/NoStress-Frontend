@@ -49,7 +49,7 @@ export default function SignUpForm(props: SignUpFormProps) {
 
     const navigate = useNavigate()
 
-    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
