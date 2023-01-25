@@ -9,4 +9,4 @@ interface SignOut {
     type: UserStatusActionType.SIGN_OUT
 }
 
-export type UserStatusAction = SignIn | SignOut
+export type UserStatusActions = SignIn | SignOut

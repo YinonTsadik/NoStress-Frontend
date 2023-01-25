@@ -1,17 +1,17 @@
 import { Dispatch } from 'redux'
 
-import { UserStatusAction } from '../actions'
+import { UserStatusActions } from '../actions'
 import { UserStatusActionType } from '../action-types'
 
 // User Status
 export const signIn = () => {
-    return (dispatch: Dispatch<UserStatusAction>) => {
+    return (dispatch: Dispatch<UserStatusActions>) => {
         dispatch({ type: UserStatusActionType.SIGN_IN })
     }
 }
 
 export const signOut = () => {
-    return (dispatch: Dispatch<UserStatusAction>) => {
+    return (dispatch: Dispatch<UserStatusActions>) => {
         dispatch({ type: UserStatusActionType.SIGN_OUT })
     }
 }
