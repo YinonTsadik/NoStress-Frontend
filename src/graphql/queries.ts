@@ -12,6 +12,7 @@ export const USER_AUTHENTICATION = gql`
             firstName
             lastName
             username
+            password
         }
     }
 `

@@ -45,7 +45,7 @@ export default function SignUpForm(props: SignUpFormProps) {
     const [createUser] = useMutation(CREATE_USER)
 
     const dispatch = useDispatch()
-    const { signIn } = bindActionCreators(actionCreators, dispatch)
+    const { setUser, signIn } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -56,20 +56,13 @@ export default function SignUpForm(props: SignUpFormProps) {
     }
 
     const onSubmit = (formData: SignUpFormValues) => {
-        const { firstName, lastName, username, password } = formData
         createUser({
-            variables: {
-                input: {
-                    firstName,
-                    lastName,
-                    username,
-                    password,
-                },
-            },
+            variables: { input: { ...formData } },
         }).then(({ data }) => {
             if (data.createUser) {
-                console.log(data.createUser)
                 console.log('Signed up successfully!')
+                const { __typename, ...rest } = data.createUser
+                setUser(rest)
                 signIn()
                 navigate('/')
             }

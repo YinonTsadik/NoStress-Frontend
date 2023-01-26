@@ -43,7 +43,7 @@ export default function SignInForm() {
     const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
 
     const dispatch = useDispatch()
-    const { signIn } = bindActionCreators(actionCreators, dispatch)
+    const { setUser, signIn } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -56,22 +56,19 @@ export default function SignInForm() {
 
     // After a valid form has been submitted, check the login details
     const onSubmit = (formData: SignInFormValues) => {
-        const { username, password } = formData
         checkAuthentication({
-            variables: {
-                username,
-                password,
-            },
+            variables: { ...formData },
         }).then(({ data }) => {
-            if (!data.user) {
-                setAuthError(true)
-                // reset() // Maybe
-            } else {
-                console.log(data.user)
+            if (data.user) {
                 console.log('Logged in successfully!')
-                setAuthError(false)
+                const { __typename, ...rest } = data.user
+                setUser(rest)
                 signIn()
                 navigate('/')
+                setAuthError(false)
+            } else {
+                setAuthError(true)
+                // reset() // Maybe
             }
         })
     }

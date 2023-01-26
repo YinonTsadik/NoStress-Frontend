@@ -1,5 +1,2 @@
-// User Status
-export enum UserStatusActionType {
-    SIGN_IN,
-    SIGN_OUT,
-}
+export { UserStatusActionType } from './userStatus'
+export { UserActionType } from './user'
