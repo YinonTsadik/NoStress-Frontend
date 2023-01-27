@@ -1,4 +1,4 @@
 export enum UserStatusActionType {
-    SIGN_IN,
-    SIGN_OUT,
+    SIGN_IN = 'sign_in',
+    SIGN_OUT = 'sign_out',
 }

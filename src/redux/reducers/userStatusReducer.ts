@@ -6,9 +6,9 @@ const initialState: boolean = false
 const userStatusReducer = (state = initialState, action: UserStatusActions) => {
     switch (action.type) {
         case UserStatusActionType.SIGN_IN:
-            return true
+            return !state
         case UserStatusActionType.SIGN_OUT:
-            return false
+            return !state
         default:
             return state
     }
