@@ -1,3 +1,1 @@
-export interface SignUpFormProps {
-    usernames: string[]
-}
+export {}

@@ -1,27 +1,20 @@
-// Form and validation
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import signUpSchema from './validation'
+import signUpSchema from './SignUpFormSchema'
 
-// Interfaces
-import { SignUpFormProps, SignUpFormValues } from '../../interfaces'
+import { SignUpFormValues } from '../../interfaces'
 
-// Apollo and GraphQL
-import { useMutation } from '@apollo/client'
-import { CREATE_USER } from '../../graphql'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_USERNAMES, CREATE_USER } from '../../graphql'
 
-// Redux
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../../redux'
 
-// Pages navigation
 import { useNavigate } from 'react-router-dom'
 
-// State
 import { useState } from 'react'
 
-// Material components and icons
 import {
     Container,
     Typography,
@@ -33,19 +26,21 @@ import {
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 
-export default function SignUpForm(props: SignUpFormProps) {
+export default function SignUpForm() {
+    const { data } = useQuery(GET_USERNAMES)
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<SignUpFormValues>({
-        resolver: yupResolver(signUpSchema(props.usernames)),
+        resolver: yupResolver(signUpSchema(data ? data.usernames : [])),
     })
 
     const [createUser] = useMutation(CREATE_USER)
 
     const dispatch = useDispatch()
-    const { setUser, signIn } = bindActionCreators(actionCreators, dispatch)
+    const { setUser } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -63,7 +58,6 @@ export default function SignUpForm(props: SignUpFormProps) {
                 console.log('Signed up successfully!')
                 const { __typename, ...rest } = data.createUser
                 setUser(rest)
-                signIn()
                 navigate('/')
             }
         })

@@ -1,27 +1,20 @@
-// Form and validation
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import signInSchema from './validation'
+import signInSchema from './SignInFormSchema'
 
-// Interface
 import { SignInFormValues } from '../../interfaces'
 
-// Apollo and GraphQL
 import { useLazyQuery } from '@apollo/client'
 import { USER_AUTHENTICATION } from '../../graphql'
 
-// Redux
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../../redux'
 
-// Pages navigation
 import { useNavigate } from 'react-router-dom'
 
-// State
 import { useState } from 'react'
 
-// Material components and icons
 import {
     Container,
     Typography,
@@ -43,7 +36,7 @@ export default function SignInForm() {
     const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
 
     const dispatch = useDispatch()
-    const { setUser, signIn } = bindActionCreators(actionCreators, dispatch)
+    const { setUser } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -63,7 +56,6 @@ export default function SignInForm() {
                 console.log('Logged in successfully!')
                 const { __typename, ...rest } = data.user
                 setUser(rest)
-                signIn()
                 navigate('/')
                 setAuthError(false)
             } else {

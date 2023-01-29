@@ -1,3 +1,3 @@
 export enum UserActionType {
-    SET_USER = 'set_user',
+    SET_USER = 'SET_USER',
 }
