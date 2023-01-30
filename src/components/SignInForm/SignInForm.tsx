@@ -29,8 +29,10 @@ import { VisibilityOff, Visibility } from '@mui/icons-material'
 export default function SignInForm() {
     const {
         register,
+        setValue,
+        trigger,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm<SignInFormValues>({ resolver: yupResolver(signInSchema()) })
 
     const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
@@ -39,7 +41,6 @@ export default function SignInForm() {
     const { setUser } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
-
     const [authError, setAuthError] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -47,7 +48,15 @@ export default function SignInForm() {
         setShowPassword((prevShowPassword) => !prevShowPassword)
     }
 
-    // After a valid form has been submitted, check the login details
+    type FormFields = 'username' | 'password'
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthError(false)
+
+        const name = event.currentTarget.name as FormFields
+        setValue(name, event.currentTarget.value)
+        trigger(name)
+    }
+
     const onSubmit = (formData: SignInFormValues) => {
         checkAuthentication({
             variables: { ...formData },
@@ -65,11 +74,6 @@ export default function SignInForm() {
         })
     }
 
-    // Don't show form error(s) and a details error at the same time
-    if ((errors.username || errors.password) && authError) {
-        setAuthError(false)
-    }
-
     return (
         <Container>
             <Typography>Sign in to NoStress</Typography>
@@ -78,16 +82,20 @@ export default function SignInForm() {
                 <TextField
                     label="Username"
                     {...register('username')}
+                    name="username"
+                    onChange={onChange}
                     error={Boolean(errors.username || authError)}
-                    helperText={errors.username ? errors.username.message : ''}
+                    helperText={errors.username?.message}
                 />
                 <br />
                 <TextField
-                    label="Password"
                     type={showPassword ? 'text' : 'password'}
+                    label="Password"
                     {...register('password')}
+                    name="password"
+                    onChange={onChange}
                     error={Boolean(errors.password || authError)}
-                    helperText={errors.password ? errors.password.message : ''}
+                    helperText={errors.password?.message}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -111,7 +119,7 @@ export default function SignInForm() {
                 <Link href="/signup">
                     <Typography>New to NoStress? Create an account.</Typography>
                 </Link>
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="contained" disabled={!isValid}>
                     Sign In
                 </Button>
             </form>

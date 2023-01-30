@@ -31,8 +31,10 @@ export default function SignUpForm() {
 
     const {
         register,
+        setValue,
+        trigger,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm<SignUpFormValues>({
         resolver: yupResolver(signUpSchema(data ? data.usernames : [])),
     })
@@ -43,11 +45,17 @@ export default function SignUpForm() {
     const { setUser } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
-
     const [showPassword, setShowPassword] = useState(false)
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword)
+    }
+
+    type FormFields = 'firstName' | 'lastName' | 'username' | 'password'
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const name = event.currentTarget.name as FormFields
+        setValue(name, event.currentTarget.value)
+        trigger(name)
     }
 
     const onSubmit = (formData: SignUpFormValues) => {
@@ -71,30 +79,38 @@ export default function SignUpForm() {
                 <TextField
                     label="First Name"
                     {...register('firstName')}
+                    name="firstName"
+                    onChange={onChange}
                     error={Boolean(errors.firstName)}
-                    helperText={errors.firstName ? errors.firstName.message : ''}
+                    helperText={errors.firstName?.message}
                 />
                 <br />
                 <TextField
                     label="Last Name"
                     {...register('lastName')}
+                    name="lastName"
+                    onChange={onChange}
                     error={Boolean(errors.lastName)}
-                    helperText={errors.lastName ? errors.lastName.message : ''}
+                    helperText={errors.lastName?.message}
                 />
                 <br />
                 <TextField
                     label="Username"
                     {...register('username')}
+                    name="username"
+                    onChange={onChange}
                     error={Boolean(errors.username)}
-                    helperText={errors.username ? errors.username.message : ''}
+                    helperText={errors.username?.message}
                 />
                 <br />
                 <TextField
-                    label="Password"
                     type={showPassword ? 'text' : 'password'}
+                    label="Password"
                     {...register('password')}
+                    name="password"
+                    onChange={onChange}
                     error={Boolean(errors.password)}
-                    helperText={errors.password ? errors.password.message : ''}
+                    helperText={errors.password?.message}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -113,7 +129,7 @@ export default function SignUpForm() {
                 <Link href="/signin">
                     <Typography>Already have an account? Sign in.</Typography>
                 </Link>
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="contained" disabled={!isValid}>
                     Sign Up
                 </Button>
             </form>
