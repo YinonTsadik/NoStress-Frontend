@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/reducers'
+import { RootState } from '../redux'
 import { Outlet, Navigate } from 'react-router-dom'
 
 export default function PrivateHome() {

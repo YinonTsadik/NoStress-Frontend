@@ -1,4 +1,7 @@
 import store from './store'
-export default store
+import reducers from './reducers'
+import * as actionCreators from './action-creators'
 
-export * as actionCreators from './action-creators'
+export default store
+export type RootState = ReturnType<typeof reducers>
+export { actionCreators }

@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import {
-    Container,
+    FormLabel,
     Typography,
     TextField,
     Button,
@@ -25,8 +25,10 @@ import {
     Link,
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
+import useStyles from './SignInFormStyles'
 
 export default function SignInForm() {
+    const { classes } = useStyles()
     const {
         register,
         setValue,
@@ -53,7 +55,8 @@ export default function SignInForm() {
         setAuthError(false)
 
         const name = event.currentTarget.name as FormFields
-        setValue(name, event.currentTarget.value)
+        const value = event.currentTarget.value
+        setValue(name, value)
         trigger(name)
     }
 
@@ -75,27 +78,30 @@ export default function SignInForm() {
     }
 
     return (
-        <Container>
-            <Typography>Sign in to NoStress</Typography>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={classes.container}>
+            <FormLabel className={classes.formLabel}>Sign in to NoStress</FormLabel>
+            <Typography variant="caption" color="error">
+                {authError ? 'Incorrect username or password' : '\u2800'}
+            </Typography>
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                 <TextField
-                    label="Username"
+                    label="Username *"
                     {...register('username')}
                     name="username"
                     onChange={onChange}
                     error={Boolean(errors.username || authError)}
-                    helperText={errors.username?.message}
+                    helperText={errors.username ? errors.username.message : ' '}
+                    variant="filled"
+                    className={classes.textField}
                 />
-                <br />
                 <TextField
                     type={showPassword ? 'text' : 'password'}
-                    label="Password"
+                    label="Password *"
                     {...register('password')}
                     name="password"
                     onChange={onChange}
                     error={Boolean(errors.password || authError)}
-                    helperText={errors.password?.message}
+                    helperText={errors.password ? errors.password.message : ' '}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -109,20 +115,23 @@ export default function SignInForm() {
                             </InputAdornment>
                         ),
                     }}
+                    variant="filled"
+                    className={classes.textField}
                 />
-                <br />
-                {authError && (
-                    <Typography variant="caption" color="error">
-                        {'Incorrect username or password'}
-                    </Typography>
-                )}
                 <Link href="/signup">
-                    <Typography>New to NoStress? Create an account.</Typography>
+                    <Typography className={classes.link}>
+                        New to NoStress? Create an account.
+                    </Typography>
                 </Link>
-                <Button type="submit" variant="contained" disabled={!isValid}>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={!isValid}
+                    className={classes.button}
+                >
                     Sign In
                 </Button>
             </form>
-        </Container>
+        </div>
     )
 }
