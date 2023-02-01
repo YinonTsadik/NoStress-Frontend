@@ -1,14 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()({
-    container: {
-        backgroundColor: '#FEFFE5',
+    root: {
+        transform: `scale(0.95)`,
+        maxWidth: '35%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '35px 0',
+        padding: '35px',
         borderRadius: '20px',
-        maxWidth: '35%',
+        backgroundColor: '#FEFFE5',
         boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
     },
 
@@ -21,21 +22,16 @@ const useStyles = makeStyles()({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
         width: '80%',
     },
 
     textField: {
-        color: 'black',
         width: '100%',
         marginTop: '8px',
-        borderRadius: '5px',
     },
 
     link: {
         color: '#3f51b5',
-        marginBottom: '15px',
-        textAlign: 'center',
         fontSize: '15px',
         '&:hover': {
             textDecoration: 'underline',
@@ -43,12 +39,10 @@ const useStyles = makeStyles()({
     },
 
     button: {
-        width: '100%',
+        marginTop: '15px',
         backgroundColor: '#3f51b5',
-        color: 'white',
         padding: '10px',
         borderRadius: '5px',
-        border: 'none',
         fontWeight: 'bold',
         '&:hover': {
             backgroundColor: '#2b3d91',

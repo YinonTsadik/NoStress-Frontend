@@ -17,6 +17,7 @@ import { useState } from 'react'
 
 import {
     Container,
+    FormLabel,
     Typography,
     TextField,
     Button,
@@ -25,8 +26,11 @@ import {
     Link,
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
+import useStyles from './SignUpFormStyles'
 
 export default function SignUpForm() {
+    const { classes } = useStyles()
+
     const { data } = useQuery(GET_USERNAMES)
 
     const {
@@ -52,9 +56,10 @@ export default function SignUpForm() {
     }
 
     type FormFields = 'firstName' | 'lastName' | 'username' | 'password'
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         const name = event.currentTarget.name as FormFields
-        setValue(name, event.currentTarget.value)
+        const value = event.currentTarget.value
+        setValue(name, value)
         trigger(name)
     }
 
@@ -72,45 +77,51 @@ export default function SignUpForm() {
     }
 
     return (
-        <Container>
-            <Typography>Sign up to NoStress</Typography>
+        <Container className={classes.root}>
+            <FormLabel className={classes.formLabel}>Sign up to NoStress</FormLabel>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                 <TextField
-                    label="First Name"
+                    label="First Name *"
                     {...register('firstName')}
                     name="firstName"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.firstName)}
-                    helperText={errors.firstName?.message}
+                    helperText={errors.firstName ? errors.firstName.message : ' '}
+                    variant="filled"
+                    className={classes.textField}
                 />
                 <br />
                 <TextField
-                    label="Last Name"
+                    label="Last Name *"
                     {...register('lastName')}
                     name="lastName"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.lastName)}
-                    helperText={errors.lastName?.message}
+                    helperText={errors.lastName ? errors.lastName.message : ' '}
+                    variant="filled"
+                    className={classes.textField}
                 />
                 <br />
                 <TextField
-                    label="Username"
+                    label="Username *"
                     {...register('username')}
                     name="username"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.username)}
-                    helperText={errors.username?.message}
+                    helperText={errors.username ? errors.username.message : ' '}
+                    variant="filled"
+                    className={classes.textField}
                 />
                 <br />
                 <TextField
                     type={showPassword ? 'text' : 'password'}
-                    label="Password"
+                    label="Password *"
                     {...register('password')}
                     name="password"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.password)}
-                    helperText={errors.password?.message}
+                    helperText={errors.password ? errors.password.message : ' '}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -124,12 +135,19 @@ export default function SignUpForm() {
                             </InputAdornment>
                         ),
                     }}
+                    variant="filled"
+                    className={classes.textField}
                 />
                 <br />
-                <Link href="/signin">
+                <Link href="/signin" className={classes.link}>
                     <Typography>Already have an account? Sign in.</Typography>
                 </Link>
-                <Button type="submit" variant="contained" disabled={!isValid}>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={!isValid}
+                    className={classes.button}
+                >
                     Sign Up
                 </Button>
             </form>

@@ -1,7 +1,7 @@
 import useStyles from './AppStyles'
 import { Container } from '@mui/material'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from '../components/Header'
+import Header from '../commons/Header'
 import PrivateHome from '../utils/PrivateHome'
 import { SignIn, SignUp, Home } from '../pages'
 

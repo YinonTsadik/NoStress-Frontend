@@ -17,6 +17,7 @@ import { useState } from 'react'
 
 import {
     FormLabel,
+    Container,
     Typography,
     TextField,
     Button,
@@ -51,7 +52,7 @@ export default function SignInForm() {
     }
 
     type FormFields = 'username' | 'password'
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         setAuthError(false)
 
         const name = event.currentTarget.name as FormFields
@@ -78,7 +79,7 @@ export default function SignInForm() {
     }
 
     return (
-        <div className={classes.container}>
+        <Container className={classes.root}>
             <FormLabel className={classes.formLabel}>Sign in to NoStress</FormLabel>
             <Typography variant="caption" color="error">
                 {authError ? 'Incorrect username or password' : '\u2800'}
@@ -88,7 +89,7 @@ export default function SignInForm() {
                     label="Username *"
                     {...register('username')}
                     name="username"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.username || authError)}
                     helperText={errors.username ? errors.username.message : ' '}
                     variant="filled"
@@ -99,7 +100,7 @@ export default function SignInForm() {
                     label="Password *"
                     {...register('password')}
                     name="password"
-                    onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(errors.password || authError)}
                     helperText={errors.password ? errors.password.message : ' '}
                     InputProps={{
@@ -125,13 +126,13 @@ export default function SignInForm() {
                 </Link>
                 <Button
                     type="submit"
-                    variant="contained"
                     disabled={!isValid}
+                    variant="contained"
                     className={classes.button}
                 >
                     Sign In
                 </Button>
             </form>
-        </div>
+        </Container>
     )
 }
