@@ -1,18 +1,16 @@
-import useStyles from './HeaderStyles'
-import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
-
+import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import { EventNote } from '@mui/icons-material'
-
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux'
-
 import { useNavigate } from 'react-router-dom'
-
 import Profile from './Profile'
+import useStyles from './HeaderStyles'
 
 export default function Header() {
     const { classes } = useStyles()
+
     const navigate = useNavigate()
+
     const auth = Boolean(useSelector((state: RootState) => state.user).id)
 
     return (

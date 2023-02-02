@@ -1,10 +1,11 @@
-import useStyles from './ProfileMenuStyles'
 import { ProfileMenuProps } from '../../../../interfaces'
-import { Logout, PersonAdd, Settings } from '@mui/icons-material'
-import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material'
+import { Menu, MenuItem, Avatar, Divider, ListItemIcon } from '@mui/material'
+import { PersonAdd, Settings, Logout } from '@mui/icons-material'
+import useStyles from './ProfileMenuStyles'
 
 export default function ProfileMenu(props: ProfileMenuProps) {
     const { classes } = useStyles()
+
     const handleClose = () => {
         props.setAnchorEl(null)
     }
