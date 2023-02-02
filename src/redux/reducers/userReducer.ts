@@ -1,8 +1,8 @@
-import { User } from '../../interfaces/modules'
+import { User } from '../../interfaces'
 import { UserActions } from '../actions'
 import { UserActionType } from '../action-types'
 
-const initialState: User = {
+const emptyUser: User = {
     id: '',
     firstName: '',
     lastName: '',
@@ -10,10 +10,14 @@ const initialState: User = {
     password: '',
 }
 
+const initialState = emptyUser
+
 const userReducer = (state = initialState, action: UserActions) => {
     switch (action.type) {
-        case UserActionType.SET_USER:
+        case UserActionType.SIGN_IN:
             return { ...action.payload }
+        case UserActionType.SIGN_OUT:
+            return { ...emptyUser }
         default:
             return state
     }

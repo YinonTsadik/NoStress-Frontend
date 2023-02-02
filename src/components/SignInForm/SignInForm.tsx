@@ -41,7 +41,7 @@ export default function SignInForm() {
     const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
 
     const dispatch = useDispatch()
-    const { setUser } = bindActionCreators(actionCreators, dispatch)
+    const { signIn } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
     const [authError, setAuthError] = useState(false)
@@ -52,7 +52,7 @@ export default function SignInForm() {
     }
 
     type FormFields = 'username' | 'password'
-    const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAuthError(false)
 
         const name = event.currentTarget.name as FormFields
@@ -68,7 +68,7 @@ export default function SignInForm() {
             if (data.user) {
                 console.log('Logged in successfully!')
                 const { __typename, ...rest } = data.user
-                setUser(rest)
+                signIn(rest)
                 navigate('/')
                 setAuthError(false)
             } else {
@@ -89,7 +89,7 @@ export default function SignInForm() {
                     label="Username *"
                     {...register('username')}
                     name="username"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.username || authError)}
                     helperText={errors.username ? errors.username.message : ' '}
                     variant="filled"
@@ -100,7 +100,7 @@ export default function SignInForm() {
                     label="Password *"
                     {...register('password')}
                     name="password"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.password || authError)}
                     helperText={errors.password ? errors.password.message : ' '}
                     InputProps={{
@@ -119,8 +119,8 @@ export default function SignInForm() {
                     variant="filled"
                     className={classes.textField}
                 />
-                <Link href="/signup">
-                    <Typography className={classes.link}>
+                <Link href="/signup" className={classes.link}>
+                    <Typography align="center">
                         New to NoStress? Create an account.
                     </Typography>
                 </Link>

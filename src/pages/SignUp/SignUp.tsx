@@ -1,10 +1,6 @@
-import { Container } from '@mui/material'
+import SignInUp from '../AuthPage'
 import SignUpForm from '../../components/SignUpForm'
 
 export default function SignUp() {
-    return (
-        <Container>
-            <SignUpForm />
-        </Container>
-    )
+    return <SignInUp component={SignUpForm} />
 }

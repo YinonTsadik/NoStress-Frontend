@@ -13,3 +13,36 @@ export interface Calendar {
     startDate: Date
     endDate: Date
 }
+
+export interface Task {
+    id: string
+    calendarID: string
+    description: string
+    deadline: Date
+    workHours: number
+}
+
+export enum Type {
+    Studies,
+    Test,
+    Work,
+    Event,
+    Rest,
+    Other,
+}
+
+export interface Constraint {
+    id: string
+    calendarID: string
+    description: string
+    startTime: Date
+    endTime: Date
+    type: Type
+}
+
+export interface Event {
+    title: string
+    start: Date
+    end: Date
+    allDay: boolean
+}

@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()({
-    root: {},
+    root: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
 })
 
 export default useStyles

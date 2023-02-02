@@ -1,9 +1,13 @@
 import { UserActionType } from '../action-types'
-import { User } from '../../interfaces/modules'
+import { User } from '../../interfaces'
 
-interface SetUser {
-    type: UserActionType
+interface SignIn {
+    type: UserActionType.SIGN_IN
     payload: User
 }
 
-export type UserActions = SetUser
+interface SignOut {
+    type: UserActionType.SIGN_OUT
+}
+
+export type UserActions = SignIn | SignOut

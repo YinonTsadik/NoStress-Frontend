@@ -1,12 +1,16 @@
-import useStyles from './CopyrightStyles'
-import { Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 
 export default function Copyright() {
-    const { classes } = useStyles()
     return (
-        <Typography variant="body2" className={classes.root}>
-            {'Copyright © '}
-            Yinon Tsadik {new Date().getFullYear()}
-        </Typography>
+        <Box sx={{ position: 'fixed', bottom: '1.2vh', width: '100%' }}>
+            <Typography variant="body2" color="text.secondary" align="center">
+                {'Copyright © '}
+                <Link color="inherit" href="/">
+                    NoStress
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
+        </Box>
     )
 }

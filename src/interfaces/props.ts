@@ -1,3 +1,7 @@
+export interface SignInUpProps {
+    component: React.FC<{}>
+}
+
 export interface ProfileNameProps {
     name: string
 }

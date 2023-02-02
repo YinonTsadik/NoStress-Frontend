@@ -46,7 +46,7 @@ export default function SignUpForm() {
     const [createUser] = useMutation(CREATE_USER)
 
     const dispatch = useDispatch()
-    const { setUser } = bindActionCreators(actionCreators, dispatch)
+    const { signIn } = bindActionCreators(actionCreators, dispatch)
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
@@ -56,7 +56,7 @@ export default function SignUpForm() {
     }
 
     type FormFields = 'firstName' | 'lastName' | 'username' | 'password'
-    const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.currentTarget.name as FormFields
         const value = event.currentTarget.value
         setValue(name, value)
@@ -70,7 +70,7 @@ export default function SignUpForm() {
             if (data.createUser) {
                 console.log('Signed up successfully!')
                 const { __typename, ...rest } = data.createUser
-                setUser(rest)
+                signIn(rest)
                 navigate('/')
             }
         })
@@ -85,41 +85,38 @@ export default function SignUpForm() {
                     label="First Name *"
                     {...register('firstName')}
                     name="firstName"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.firstName)}
                     helperText={errors.firstName ? errors.firstName.message : ' '}
                     variant="filled"
                     className={classes.textField}
                 />
-                <br />
                 <TextField
                     label="Last Name *"
                     {...register('lastName')}
                     name="lastName"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.lastName)}
                     helperText={errors.lastName ? errors.lastName.message : ' '}
                     variant="filled"
                     className={classes.textField}
                 />
-                <br />
                 <TextField
                     label="Username *"
                     {...register('username')}
                     name="username"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.username)}
                     helperText={errors.username ? errors.username.message : ' '}
                     variant="filled"
                     className={classes.textField}
                 />
-                <br />
                 <TextField
                     type={showPassword ? 'text' : 'password'}
                     label="Password *"
                     {...register('password')}
                     name="password"
-                    onBlur={onBlur}
+                    onChange={onChange}
                     error={Boolean(errors.password)}
                     helperText={errors.password ? errors.password.message : ' '}
                     InputProps={{
@@ -138,9 +135,10 @@ export default function SignUpForm() {
                     variant="filled"
                     className={classes.textField}
                 />
-                <br />
                 <Link href="/signin" className={classes.link}>
-                    <Typography>Already have an account? Sign in.</Typography>
+                    <Typography align="center">
+                        Already have an account? Sign in.
+                    </Typography>
                 </Link>
                 <Button
                     type="submit"

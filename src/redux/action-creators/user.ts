@@ -1,11 +1,17 @@
 import { Dispatch } from 'redux'
 
-import { User } from '../../interfaces/modules'
+import { User } from '../../interfaces'
 import { UserActions } from '../actions'
 import { UserActionType } from '../action-types'
 
-export const setUser = (user: User) => {
+export const signIn = (user: User) => {
     return (dispatch: Dispatch<UserActions>) => {
-        dispatch({ type: UserActionType.SET_USER, payload: user })
+        dispatch({ type: UserActionType.SIGN_IN, payload: user })
+    }
+}
+
+export const signOut = () => {
+    return (dispatch: Dispatch<UserActions>) => {
+        dispatch({ type: UserActionType.SIGN_OUT })
     }
 }

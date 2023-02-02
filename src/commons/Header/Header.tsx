@@ -6,10 +6,13 @@ import { EventNote } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux'
 
+import { useNavigate } from 'react-router-dom'
+
 import Profile from './Profile'
 
 export default function Header() {
     const { classes } = useStyles()
+    const navigate = useNavigate()
     const auth = Boolean(useSelector((state: RootState) => state.user).id)
 
     return (
@@ -19,7 +22,7 @@ export default function Header() {
                     size="large"
                     edge="start"
                     color="inherit"
-                    aria-label="menu"
+                    onClick={() => navigate('/')}
                     sx={{ mr: 'auto' }}
                 >
                     <EventNote fontSize="large" sx={{ mr: 2 }} />
