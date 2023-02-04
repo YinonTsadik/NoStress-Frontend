@@ -1,6 +1,6 @@
 import { ProfileMenuProps } from '../../../../interfaces'
-import { Menu, MenuItem, Avatar, Divider, ListItemIcon } from '@mui/material'
-import { PersonAdd, Settings, Logout } from '@mui/icons-material'
+import { Menu, MenuItem, Typography, Divider, Box } from '@mui/material'
+import { Edit, Logout } from '@mui/icons-material'
 import useStyles from './ProfileMenuStyles'
 
 export default function ProfileMenu(props: ProfileMenuProps) {
@@ -10,6 +10,8 @@ export default function ProfileMenu(props: ProfileMenuProps) {
         props.setAnchorEl(null)
     }
 
+    const handleEditProfile = () => {}
+
     return (
         <Menu
             anchorEl={props.anchorEl}
@@ -17,59 +19,33 @@ export default function ProfileMenu(props: ProfileMenuProps) {
             onClose={handleClose}
             onClick={handleClose}
             PaperProps={{
-                elevation: 0,
-                sx: {
-                    overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                    mt: 1.5,
-                    '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                    },
-                    '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                    },
-                },
+                className: classes.root,
             }}
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            className={classes.root}
         >
-            <MenuItem onClick={handleClose}>
-                <Avatar /> Profile
+            <MenuItem className={classes.menuItem}>
+                <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="caption">Signed in as</Typography>
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                    >{`Yinon Tsadik`}</Typography>
+                </Box>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <Avatar /> My account
+
+            <Divider color="black" />
+
+            <MenuItem onClick={handleEditProfile}>
+                <Edit fontSize="small" sx={{ marginRight: '1vw' }} />
+                <Typography>Edit your profile</Typography>
             </MenuItem>
-            <Divider />
+
+            <Divider color="black" />
+
             <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <PersonAdd fontSize="small" />
-                </ListItemIcon>
-                Add another account
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <Settings fontSize="small" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <Logout fontSize="small" />
-                </ListItemIcon>
-                Logout
+                <Logout fontSize="small" sx={{ marginRight: '1vw' }} />
+                <Typography>Sign out</Typography>
             </MenuItem>
         </Menu>
     )

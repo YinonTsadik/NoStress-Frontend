@@ -11,7 +11,7 @@ export default function Header() {
 
     const navigate = useNavigate()
 
-    const auth = Boolean(useSelector((state: RootState) => state.user).id)
+    const isAuth = Boolean(useSelector((state: RootState) => state.user).id)
 
     return (
         <AppBar position="static" className={classes.root}>
@@ -24,11 +24,11 @@ export default function Header() {
                     sx={{ mr: 'auto' }}
                 >
                     <EventNote fontSize="large" sx={{ mr: 2 }} />
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6">
                         NoStress
                     </Typography>
                 </IconButton>
-                {auth && <Profile />}
+                {isAuth && <Profile />}
             </Toolbar>
         </AppBar>
     )
