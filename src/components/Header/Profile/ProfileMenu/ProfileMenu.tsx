@@ -7,7 +7,11 @@ import { RootState } from '../../../../redux'
 
 import { useState } from 'react'
 
-import EditProfile from './EditProfile'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../../../../redux'
+
+import EditProfileDialog from './EditProfileDialog'
 
 import useStyles from './ProfileMenuStyles'
 
@@ -17,6 +21,9 @@ export default function ProfileMenu(props: ProfileMenuProps) {
     const firstName = useSelector((state: RootState) => state.user).firstName
     const lastName = useSelector((state: RootState) => state.user).lastName
     const name = `${firstName} ${lastName}`
+
+    const dispatch = useDispatch()
+    const { signOut } = bindActionCreators(actionCreators, dispatch)
 
     const [openDialog, setOpenDialog] = useState(false)
 
@@ -31,6 +38,8 @@ export default function ProfileMenu(props: ProfileMenuProps) {
     const handleCloseDialog = () => {
         setOpenDialog(false)
     }
+
+    const handleSignOut = () => {}
 
     return (
         <>
@@ -62,12 +71,12 @@ export default function ProfileMenu(props: ProfileMenuProps) {
 
                 <Divider color="black" />
 
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleSignOut}>
                     <Logout fontSize="small" sx={{ marginRight: '1vw' }} />
                     <Typography>Sign out</Typography>
                 </MenuItem>
             </Menu>
-            <EditProfile open={openDialog} onClose={handleCloseDialog} />
+            <EditProfileDialog open={openDialog} handleClose={handleCloseDialog} />
         </>
     )
 }

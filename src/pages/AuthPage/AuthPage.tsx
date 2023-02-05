@@ -1,7 +1,7 @@
 import { SignInUpProps } from '../../interfaces'
 
 import { Container } from '@mui/material'
-import Copyright from '../../commons/Copyright'
+import Copyright from '../../components/Copyright'
 
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
