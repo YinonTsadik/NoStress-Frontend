@@ -7,8 +7,6 @@ import {
     DialogTitle,
 } from '@mui/material'
 
-import { useState } from 'react'
-
 export interface EditProfileProps {
     open: boolean
     handleClose: () => void
@@ -16,14 +14,9 @@ export interface EditProfileProps {
 
 export default function EditProfileDialog(props: EditProfileProps) {
     const { open, handleClose } = props
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // handle form submission, validate the input, and make any necessary updates
         handleClose()
     }
 
@@ -32,27 +25,10 @@ export default function EditProfileDialog(props: EditProfileProps) {
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit}>
-                    <TextField
-                        label="First Name"
-                        value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
-                    />
-                    <TextField
-                        label="Last Name"
-                        value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
-                    />
-                    <TextField
-                        label="Username"
-                        value={username}
-                        onChange={(event) => setUsername(event.target.value)}
-                    />
-                    <TextField
-                        label="Password"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                    />
+                    <TextField label="First Name" />
+                    <TextField label="Last Name" />
+                    <TextField label="Username" />
+                    <TextField label="Password" type="password" />
                 </form>
             </DialogContent>
             <DialogActions>

@@ -1,5 +1,5 @@
 import { ProfileMenuProps } from '../../../../interfaces'
-import { Menu, MenuItem, Typography, Divider, Box } from '@mui/material'
+import { Box, Menu, MenuItem, Typography, Divider } from '@mui/material'
 import { Edit, Logout } from '@mui/icons-material'
 
 import { useSelector } from 'react-redux'
@@ -39,10 +39,12 @@ export default function ProfileMenu(props: ProfileMenuProps) {
         setOpenDialog(false)
     }
 
-    const handleSignOut = () => {}
+    const handleSignOut = () => {
+        signOut()
+    }
 
     return (
-        <>
+        <Box>
             <Menu
                 anchorEl={props.anchorEl}
                 open={props.open}
@@ -77,6 +79,6 @@ export default function ProfileMenu(props: ProfileMenuProps) {
                 </MenuItem>
             </Menu>
             <EditProfileDialog open={openDialog} handleClose={handleCloseDialog} />
-        </>
+        </Box>
     )
 }

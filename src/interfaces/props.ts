@@ -1,4 +1,4 @@
-export interface SignInUpProps {
+export interface AuthPageProps {
     component: React.FC<{}>
 }
 
