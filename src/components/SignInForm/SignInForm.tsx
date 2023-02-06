@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signInSchema from './SignInFormSchema'
 
-import { SignInFormValues } from '../../interfaces'
+import { SignInFormValues, User } from '../../interfaces'
 
 import { useLazyQuery } from '@apollo/client'
 import { USER_AUTHENTICATION } from '../../graphql'
@@ -68,7 +68,7 @@ export default function SignInForm() {
             if (data.user) {
                 console.log('Logged in successfully!')
                 const { __typename, ...rest } = data.user
-                signIn(rest)
+                signIn(rest as User)
                 navigate('/')
                 setAuthError(false)
             } else {

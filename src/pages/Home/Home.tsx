@@ -1,12 +1,5 @@
-import BigCalendar from '../../components/BigCalendar'
-import useStyles from './HomeStyles'
+import HomePage from '../../components/HomePage'
 
 export default function Home() {
-    const { classes } = useStyles()
-
-    return (
-        <div className={classes.root}>
-            <BigCalendar />
-        </div>
-    )
+    return <HomePage />
 }

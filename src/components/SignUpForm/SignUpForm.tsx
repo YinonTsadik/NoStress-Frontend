@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signUpSchema from './SignUpFormSchema'
 
-import { SignUpFormValues } from '../../interfaces'
+import { SignUpFormValues, User } from '../../interfaces'
 
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_USERNAMES, CREATE_USER } from '../../graphql'
@@ -70,7 +70,7 @@ export default function SignUpForm() {
             if (data.createUser) {
                 console.log('Signed up successfully!')
                 const { __typename, ...rest } = data.createUser
-                signIn(rest)
+                signIn(rest as User)
                 navigate('/')
             }
         })

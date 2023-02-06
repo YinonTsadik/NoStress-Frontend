@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { Box, IconButton, Avatar } from '@mui/material'
 import ProfileMenu from './ProfileMenu'
@@ -35,9 +35,9 @@ const stringAvatar = (name: string) => {
 }
 
 export default function Profile() {
-    const firstName = useSelector((state: RootState) => state.user).firstName
-    const lastName = useSelector((state: RootState) => state.user).lastName
-    const name = `${firstName} ${lastName}`
+    const firstName = useSelector((state: RootState) => state.user.firstName)
+    const lastName = useSelector((state: RootState) => state.user.lastName)
+    const name = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName])
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const open = Boolean(anchorEl)
