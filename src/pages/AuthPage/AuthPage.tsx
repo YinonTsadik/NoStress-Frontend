@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { AuthPageProps } from '../../interfaces'
 
 import { Container } from '@mui/material'
@@ -14,8 +15,11 @@ export default function AuthPage(props: AuthPageProps) {
 
     const dispatch = useDispatch()
     const { signOut } = bindActionCreators(actionCreators, dispatch)
+
     // Handle sign out process
-    // signOut()
+    useEffect(() => {
+        signOut()
+    }, [signOut])
 
     const { component: Page } = props
 

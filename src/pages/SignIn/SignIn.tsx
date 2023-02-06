@@ -1,6 +1,6 @@
-import SignInUp from '../AuthPage'
+import AuthPage from '../AuthPage'
 import SignInForm from '../../components/SignInForm'
 
 export default function SignIn() {
-    return <SignInUp component={SignInForm} />
+    return <AuthPage component={SignInForm} />
 }
