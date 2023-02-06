@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div className={classes.root}>
-            Home
+            <h1>Home</h1>
             {calendarExist && <BigCalendar />}
         </div>
     )
