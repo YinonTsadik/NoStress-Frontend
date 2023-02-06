@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export default function signUpSchema(existingUsernames: string[]) {
+const signUpSchema = (existingUsernames: string[]) => {
     const onlyLetters = /^[a-zA-Z]+$/
     const noWhiteSpaces = /^\S*$/
 
@@ -30,3 +30,5 @@ export default function signUpSchema(existingUsernames: string[]) {
             .max(20, 'Password must be at most 20 characters'),
     })
 }
+
+export default signUpSchema

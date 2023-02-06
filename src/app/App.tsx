@@ -1,10 +1,12 @@
+import React from 'react'
+
 import useStyles from './AppStyles'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/Header'
 import PrivateHome from '../utils/PrivateHome'
 import { SignIn, SignUp, Home } from '../pages'
 
-export default function App() {
+const App: React.FC = () => {
     const { classes } = useStyles()
     return (
         <div className={classes.root}>
@@ -21,3 +23,5 @@ export default function App() {
         </div>
     )
 }
+
+export default App

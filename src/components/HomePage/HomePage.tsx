@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { useSelector } from 'react-redux'
 import { RootState, actionCreators } from '../../redux'
@@ -10,10 +10,10 @@ import { GET_USER_CALENDARS } from '../../graphql'
 
 import { Calendar } from '../../interfaces'
 
-import BigCalendar from '../../components/BigCalendar'
+import BigCalendar from './BigCalendar'
 import useStyles from './HomePageStyles'
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
     const { classes } = useStyles()
 
     const userID = useSelector((state: RootState) => state.user.id)
@@ -44,3 +44,5 @@ export default function HomePage() {
         </div>
     )
 }
+
+export default HomePage

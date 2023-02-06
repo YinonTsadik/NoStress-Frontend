@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export default function signInSchema() {
+const signInSchema = () => {
     const noWhiteSpaces = /^\S*$/
 
     return yup.object().shape({
@@ -18,3 +18,5 @@ export default function signInSchema() {
             .max(20, 'Password must be at most 20 characters'),
     })
 }
+
+export default signInSchema

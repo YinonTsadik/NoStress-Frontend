@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signInSchema from './SignInFormSchema'
@@ -13,8 +15,6 @@ import { actionCreators } from '../../redux'
 
 import { useNavigate } from 'react-router-dom'
 
-import { useState } from 'react'
-
 import {
     FormLabel,
     Container,
@@ -28,7 +28,7 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import useStyles from './SignInFormStyles'
 
-export default function SignInForm() {
+const SignInForm: React.FC = () => {
     const { classes } = useStyles()
     const {
         register,
@@ -136,3 +136,5 @@ export default function SignInForm() {
         </Container>
     )
 }
+
+export default SignInForm

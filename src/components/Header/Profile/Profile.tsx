@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux'
 
@@ -34,7 +36,7 @@ const stringAvatar = (name: string) => {
     }
 }
 
-export default function Profile() {
+const Profile: React.FC = () => {
     const firstName = useSelector((state: RootState) => state.user.firstName)
     const lastName = useSelector((state: RootState) => state.user.lastName)
     const name = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName])
@@ -61,3 +63,5 @@ export default function Profile() {
         </Box>
     )
 }
+
+export default Profile

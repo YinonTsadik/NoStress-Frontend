@@ -1,11 +1,11 @@
+import React, { useState } from 'react'
+
 import { ProfileMenuProps } from '../../../../interfaces'
 import { Box, Menu, MenuItem, Typography, Divider } from '@mui/material'
 import { Edit, Logout } from '@mui/icons-material'
 
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../redux'
-
-import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -15,7 +15,7 @@ import EditProfileDialog from './EditProfileDialog'
 
 import useStyles from './ProfileMenuStyles'
 
-export default function ProfileMenu(props: ProfileMenuProps) {
+const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     const { classes } = useStyles()
 
     const firstName = useSelector((state: RootState) => state.user).firstName
@@ -82,3 +82,5 @@ export default function ProfileMenu(props: ProfileMenuProps) {
         </Box>
     )
 }
+
+export default ProfileMenu

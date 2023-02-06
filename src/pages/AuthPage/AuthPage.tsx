@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+
 import { AuthPageProps } from '../../interfaces'
 
 import { Container } from '@mui/material'
@@ -10,7 +11,7 @@ import { actionCreators } from '../../redux'
 
 import useStyles from './AuthPageStyles'
 
-export default function AuthPage(props: AuthPageProps) {
+const AuthPage: React.FC<AuthPageProps> = (props) => {
     const { classes } = useStyles()
 
     const dispatch = useDispatch()
@@ -30,3 +31,5 @@ export default function AuthPage(props: AuthPageProps) {
         </Container>
     )
 }
+
+export default AuthPage

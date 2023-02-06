@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import { EventNote } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
@@ -6,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import Profile from './Profile'
 import useStyles from './HeaderStyles'
 
-export default function Header() {
+const Header: React.FC = () => {
     const { classes } = useStyles()
 
     const navigate = useNavigate()
@@ -24,12 +26,12 @@ export default function Header() {
                     sx={{ mr: 'auto' }}
                 >
                     <EventNote fontSize="large" sx={{ mr: 2 }} />
-                    <Typography variant="h6">
-                        NoStress
-                    </Typography>
+                    <Typography variant="h6">NoStress</Typography>
                 </IconButton>
                 {isAuth && <Profile />}
             </Toolbar>
         </AppBar>
     )
 }
+
+export default Header

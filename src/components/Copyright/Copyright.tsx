@@ -1,6 +1,8 @@
+import React from 'react'
+
 import { Box, Typography, Link } from '@mui/material'
 
-export default function Copyright() {
+const Copyright: React.FC = () => {
     return (
         <Box sx={{ position: 'fixed', bottom: '1.2vh', width: '100%' }}>
             <Typography variant="body2" color="text.secondary" align="center">
@@ -14,3 +16,5 @@ export default function Copyright() {
         </Box>
     )
 }
+
+export default Copyright

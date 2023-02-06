@@ -1,5 +1,5 @@
 export interface AuthPageProps {
-    component: React.FC<{}>
+    component: React.FC
 }
 
 export interface ProfileNameProps {

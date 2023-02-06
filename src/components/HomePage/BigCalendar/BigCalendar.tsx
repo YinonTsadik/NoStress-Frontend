@@ -1,6 +1,8 @@
+import React from 'react'
+
 import { Container } from '@mui/material'
 import { Calendar, dateFnsLocalizer, Event } from 'react-big-calendar'
-import { format, parse, startOfWeek, getDay , } from 'date-fns'
+import { format, parse, startOfWeek, getDay } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -20,7 +22,7 @@ const localizer = dateFnsLocalizer({
 
 const events: Event[] = []
 
-export default function BigCalendar() {
+const BigCalendar: React.FC = () => {
     const { classes } = useStyles()
 
     return (
@@ -35,3 +37,5 @@ export default function BigCalendar() {
         </Container>
     )
 }
+
+export default BigCalendar

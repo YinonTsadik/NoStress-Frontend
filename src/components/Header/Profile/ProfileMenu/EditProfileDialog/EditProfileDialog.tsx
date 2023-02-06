@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
     Button,
     TextField,
@@ -12,7 +14,7 @@ export interface EditProfileProps {
     handleClose: () => void
 }
 
-export default function EditProfileDialog(props: EditProfileProps) {
+const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
     const { open, handleClose } = props
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,3 +40,5 @@ export default function EditProfileDialog(props: EditProfileProps) {
         </Dialog>
     )
 }
+
+export default EditProfileDialog

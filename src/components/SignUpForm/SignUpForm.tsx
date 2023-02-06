@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signUpSchema from './SignUpFormSchema'
@@ -13,8 +15,6 @@ import { actionCreators } from '../../redux'
 
 import { useNavigate } from 'react-router-dom'
 
-import { useState } from 'react'
-
 import {
     Container,
     FormLabel,
@@ -28,7 +28,7 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import useStyles from './SignUpFormStyles'
 
-export default function SignUpForm() {
+const SignUpForm: React.FC = () => {
     const { classes } = useStyles()
 
     const { data } = useQuery(GET_USERNAMES)
@@ -152,3 +152,5 @@ export default function SignUpForm() {
         </Container>
     )
 }
+
+export default SignUpForm
