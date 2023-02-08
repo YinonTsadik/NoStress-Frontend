@@ -1,4 +1,5 @@
 export * from './user'
 export * from './calendars'
+export * from './currentCalendar'
 export * from './tasks'
 export * from './constraints'

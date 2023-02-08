@@ -39,9 +39,3 @@ export interface Constraint {
     endTime: Date
     type: Type
 }
-
-export interface Event {
-    title: string
-    start: Date
-    end: Date
-}
