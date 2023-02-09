@@ -1,11 +1,14 @@
 import React from 'react'
 
 import { Container } from '@mui/material'
-import { Calendar, dateFnsLocalizer, Event } from 'react-big-calendar'
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import { format, parse, startOfWeek, getDay } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
-
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux'
+
 import useStyles from './BigCalendarStyles'
 
 const locales = {
@@ -20,10 +23,10 @@ const localizer = dateFnsLocalizer({
     locales,
 })
 
-const events: Event[] = []
-
 const BigCalendar: React.FC = () => {
     const { classes } = useStyles()
+
+    const events = useSelector((state: RootState) => state.events.data)
 
     return (
         <Container className={classes.root}>
