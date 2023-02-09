@@ -12,3 +12,11 @@ export const setConstraints = (constraints: Constraint[]) => {
         })
     }
 }
+
+export const clearConstraints = () => {
+    return (dispatch: Dispatch<ConstraintsActions>) => {
+        dispatch({
+            type: ConstraintsActionType.CLEAR_CONSTRAINTS,
+        })
+    }
+}

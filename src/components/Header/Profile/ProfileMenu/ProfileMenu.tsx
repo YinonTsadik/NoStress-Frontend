@@ -7,9 +7,7 @@ import { Edit, Logout } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../redux'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { actionCreators } from '../../../../redux'
+import { useNavigate } from 'react-router-dom'
 
 import EditProfileDialog from './EditProfileDialog'
 
@@ -22,10 +20,9 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     const lastName = useSelector((state: RootState) => state.user).lastName
     const name = `${firstName} ${lastName}`
 
-    const dispatch = useDispatch()
-    const { signOut } = bindActionCreators(actionCreators, dispatch)
-
     const [openDialog, setOpenDialog] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleClose = () => {
         props.setAnchorEl(null)
@@ -40,7 +37,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     }
 
     const handleSignOut = () => {
-        signOut()
+        navigate('/signin')
     }
 
     return (

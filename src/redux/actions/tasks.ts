@@ -6,4 +6,8 @@ interface SetTasks {
     payload: Task[]
 }
 
-export type TasksActions = SetTasks
+interface ClearTasks {
+    type: TasksActionType.CLEAR_TASKS
+}
+
+export type TasksActions = SetTasks | ClearTasks

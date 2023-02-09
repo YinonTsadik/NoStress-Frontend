@@ -6,4 +6,8 @@ interface SetConstraints {
     payload: Constraint[]
 }
 
-export type ConstraintsActions = SetConstraints
+interface ClearConstraints {
+    type: ConstraintsActionType.CLEAR_CONSTRAINTS
+}
+
+export type ConstraintsActions = SetConstraints | ClearConstraints

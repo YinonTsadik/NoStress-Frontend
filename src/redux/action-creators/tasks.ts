@@ -12,3 +12,11 @@ export const setTasks = (tasks: Task[]) => {
         })
     }
 }
+
+export const clearTasks = () => {
+    return (dispatch: Dispatch<TasksActions>) => {
+        dispatch({
+            type: TasksActionType.CLEAR_TASKS,
+        })
+    }
+}

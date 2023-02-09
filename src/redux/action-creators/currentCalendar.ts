@@ -12,3 +12,11 @@ export const setCurrentCalendar = (calendar: Calendar) => {
         })
     }
 }
+
+export const clearCurrentCalendar = () => {
+    return (dispatch: Dispatch<CurrentCalendarActions>) => {
+        dispatch({
+            type: CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR,
+        })
+    }
+}

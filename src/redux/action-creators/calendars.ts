@@ -12,3 +12,11 @@ export const setCalendars = (calendars: Calendar[]) => {
         })
     }
 }
+
+export const clearCalendars = () => {
+    return (dispatch: Dispatch<CalendarsActions>) => {
+        dispatch({
+            type: CalendarsActionType.CLEAR_CALENDARS,
+        })
+    }
+}

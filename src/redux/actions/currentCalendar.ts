@@ -6,4 +6,8 @@ interface SetCurrentCalendar {
     payload: Calendar
 }
 
-export type CurrentCalendarActions = SetCurrentCalendar
+interface ClearCurrentCalendar {
+    type: CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR
+}
+
+export type CurrentCalendarActions = SetCurrentCalendar | ClearCurrentCalendar

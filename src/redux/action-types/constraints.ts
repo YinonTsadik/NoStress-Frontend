@@ -1,3 +1,4 @@
 export enum ConstraintsActionType {
     SET_CONSTRAINTS = 'SET_CONSTRAINTS',
+    CLEAR_CONSTRAINTS = 'CLEAR_CONSTRAINTS',
 }

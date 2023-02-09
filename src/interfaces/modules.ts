@@ -1,3 +1,5 @@
+import { Event as EventInterface } from 'react-big-calendar'
+
 export interface User {
     id: string
     firstName: string
@@ -39,3 +41,5 @@ export interface Constraint {
     endTime: Date
     type: Type
 }
+
+export interface Event extends EventInterface {}

@@ -1,13 +1,16 @@
-import { Calendar } from '../../interfaces'
+import { CurrentCalendarReducerPayload } from '../../interfaces'
 import { CurrentCalendarActions } from '../actions'
 import { CurrentCalendarActionType } from '../action-types'
 
-const initialState: Calendar = {
-    id: '',
-    userID: '',
-    name: '',
-    startDate: new Date(),
-    endDate: new Date(),
+const initialState: CurrentCalendarReducerPayload = {
+    data: {
+        id: '',
+        userID: '',
+        name: '',
+        startDate: new Date(),
+        endDate: new Date(),
+    },
+    fetched: false,
 }
 
 const currentCalendarReducer = (
@@ -16,7 +19,14 @@ const currentCalendarReducer = (
 ) => {
     switch (action.type) {
         case CurrentCalendarActionType.SET_CURRENT_CALENDAR:
-            return { ...action.payload }
+            return {
+                data: action.payload,
+                fetched: true,
+            } as CurrentCalendarReducerPayload
+
+        case CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR:
+            return { ...initialState }
+
         default:
             return state
     }

@@ -15,12 +15,31 @@ const AuthPage: React.FC<AuthPageProps> = (props) => {
     const { classes } = useStyles()
 
     const dispatch = useDispatch()
-    const { signOut } = bindActionCreators(actionCreators, dispatch)
+    const {
+        signOut,
+        clearCalendars,
+        clearCurrentCalendar,
+        clearTasks,
+        clearConstraints,
+        clearEvents,
+    } = bindActionCreators(actionCreators, dispatch)
 
     // Handle sign out process
     useEffect(() => {
         signOut()
-    }, [signOut])
+        clearCalendars()
+        clearCurrentCalendar()
+        clearTasks()
+        clearConstraints()
+        clearEvents()
+    }, [
+        signOut,
+        clearCalendars,
+        clearCurrentCalendar,
+        clearTasks,
+        clearConstraints,
+        clearEvents,
+    ])
 
     const { component: Page } = props
 

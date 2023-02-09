@@ -13,8 +13,7 @@ import {
     GET_CALENDAR_EVENTS,
 } from '../../graphql'
 
-import { Calendar, Task, Constraint } from '../../interfaces'
-import { Event } from 'react-big-calendar'
+import { Calendar, Task, Constraint, Event } from '../../interfaces'
 
 import BigCalendar from './BigCalendar'
 import useStyles from './HomePageStyles'
@@ -23,13 +22,19 @@ const HomePage: React.FC = () => {
     const { classes } = useStyles()
 
     const dispatch = useDispatch()
-    const { setCalendars, setCurrentCalendar, setTasks, setConstraints } =
+    const { setCalendars, setCurrentCalendar, setTasks, setConstraints, setEvents } =
         bindActionCreators(actionCreators, dispatch)
 
     const userID = useSelector((state: RootState) => state.user.id)
-    const calendars = useSelector((state: RootState) => state.calendars)
-    const calendarExist = Boolean(calendars.length)
-    const currentCalendar = useSelector((state: RootState) => state.currentCalendar)
+    const calendarsReducer = useSelector((state: RootState) => state.calendars)
+    const currentCalendarReducer = useSelector(
+        (state: RootState) => state.currentCalendar
+    )
+    const tasksReducer = useSelector((state: RootState) => state.tasks)
+    const constraintsReducer = useSelector((state: RootState) => state.constraints)
+    const eventsReducer = useSelector((state: RootState) => state.events)
+
+    const calendarExist = Boolean(calendarsReducer.data.length)
 
     const { data: calendarsData } = useQuery(GET_USER_CALENDARS, {
         variables: { userID },
@@ -42,7 +47,7 @@ const HomePage: React.FC = () => {
     const [getEvents, { data: eventsData }] = useLazyQuery(GET_CALENDAR_EVENTS)
 
     useEffect(() => {
-        if (calendarsData && !calendars.length) {
+        if (calendarsData && !calendarsReducer.fetched) {
             const calendars: Calendar[] = calendarsData.userCalendars.map(
                 (calendar: any) => {
                     const { __typename, ...rest } = calendar
@@ -52,23 +57,30 @@ const HomePage: React.FC = () => {
 
             setCalendars(calendars)
         }
-    }, [calendarsData, calendars.length, setCalendars])
+    }, [calendarsData, calendarsReducer, setCalendars])
 
     useEffect(() => {
-        if (calendarExist && !currentCalendar.id) {
-            setCurrentCalendar(calendars[0])
+        if (calendarExist && !currentCalendarReducer.fetched) {
+            setCurrentCalendar(calendarsReducer.data[0])
         }
-    }, [calendarExist, currentCalendar.id, calendars, setCurrentCalendar])
+    }, [calendarExist, currentCalendarReducer, calendarsReducer, setCurrentCalendar])
 
     useEffect(() => {
-        if (currentCalendar.id) {
-            getTasks({ variables: { calendarID: currentCalendar.id } })
-            getConstraints({ variables: { calendarID: currentCalendar.id } })
+        if (currentCalendarReducer.fetched) {
+            getTasks({
+                variables: { calendarID: currentCalendarReducer.data.id },
+            })
+            getConstraints({
+                variables: { calendarID: currentCalendarReducer.data.id },
+            })
+            getEvents({
+                variables: { calendarID: currentCalendarReducer.data.id },
+            })
         }
-    }, [currentCalendar, getTasks, getConstraints, getEvents])
+    }, [currentCalendarReducer, getTasks, getConstraints, getEvents])
 
     useEffect(() => {
-        if (tasksData) {
+        if (tasksData && !tasksReducer.fetched) {
             const tasks: Task[] = tasksData.calendarTasks.map((task: any) => {
                 const { __typename, ...rest } = task
                 return rest as Task
@@ -76,10 +88,10 @@ const HomePage: React.FC = () => {
 
             setTasks(tasks)
         }
-    }, [tasksData, setTasks])
+    }, [tasksData, tasksReducer, setTasks])
 
     useEffect(() => {
-        if (constraintsData) {
+        if (constraintsData && !constraintsReducer.fetched) {
             const constraints: Constraint[] =
                 constraintsData.calendarConstraints.map((constraint: any) => {
                     const { __typename, ...rest } = constraint
@@ -88,7 +100,25 @@ const HomePage: React.FC = () => {
 
             setConstraints(constraints)
         }
-    }, [constraintsData, setConstraints])
+    }, [constraintsData, constraintsReducer, setConstraints])
+
+    useEffect(() => {
+        if (eventsData && !eventsReducer.fetched) {
+            const events: Event[] = eventsData.calendarEvents.map((event: any) => {
+                const { description, startTime, endTime } = event
+
+                const formattedEvent: Event = {
+                    title: description,
+                    start: new Date(startTime),
+                    end: new Date(endTime),
+                }
+
+                return formattedEvent
+            })
+
+            setEvents(events)
+        }
+    }, [eventsData, eventsReducer, setEvents])
 
     return (
         <div className={classes.root}>
