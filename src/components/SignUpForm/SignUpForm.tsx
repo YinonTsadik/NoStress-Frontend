@@ -26,6 +26,7 @@ import {
     Link,
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
+
 import useStyles from './SignUpFormStyles'
 
 const SignUpForm: React.FC = () => {

@@ -28,7 +28,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
         props.setAnchorEl(null)
     }
 
-    const handleEditProfile = () => {
+    const handleOpenDialog = () => {
         setOpenDialog(true)
     }
 
@@ -63,7 +63,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
 
                 <Divider color="black" />
 
-                <MenuItem onClick={handleEditProfile}>
+                <MenuItem onClick={handleOpenDialog}>
                     <Edit fontSize="small" sx={{ marginRight: '1vw' }} />
                     <Typography>Edit your profile</Typography>
                 </MenuItem>

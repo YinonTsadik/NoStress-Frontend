@@ -62,9 +62,11 @@ const SignInForm: React.FC = () => {
     }
 
     const onSubmit = (formData: SignInFormValues) => {
+        console.log(formData)
         checkAuthentication({
             variables: { ...formData },
         }).then(({ data }) => {
+            console.log(data.user)
             if (data.user) {
                 console.log('Logged in successfully!')
                 const { __typename, ...rest } = data.user

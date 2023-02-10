@@ -11,3 +11,8 @@ export interface ProfileMenuProps {
     setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>
     open: boolean
 }
+
+export interface EditProfileProps {
+    open: boolean
+    handleClose: () => void
+}

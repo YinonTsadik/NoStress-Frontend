@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actionCreators } from '../../redux'
-import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { useQuery, useLazyQuery } from '@apollo/client'

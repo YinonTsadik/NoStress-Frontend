@@ -1,11 +1,15 @@
+interface FirstAndLastName {
+    firstName: string
+    lastName: string
+}
+
 export interface SignInFormValues {
     username: string
     password: string
 }
 
-export interface SignUpFormValues extends SignInFormValues {
-    firstName: string
-    lastName: string
+export interface EditProfileFormValues extends FirstAndLastName {
+    username: string
 }
 
-export interface EditProfileFormValues extends SignUpFormValues {}
+export interface SignUpFormValues extends FirstAndLastName, SignInFormValues {}
