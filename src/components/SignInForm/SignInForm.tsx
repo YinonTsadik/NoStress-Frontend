@@ -65,6 +65,7 @@ const SignInForm: React.FC = () => {
         console.log(formData)
         checkAuthentication({
             variables: { ...formData },
+            fetchPolicy: 'network-only',
         }).then(({ data }) => {
             console.log(data.user)
             if (data.user) {
