@@ -4,7 +4,7 @@ import { ConstraintsActionType } from '../action-types'
 
 const initialState: ConstraintsReducerPayload = {
     data: new Array<Constraint>(),
-    fetched: false,
+    loaded: false,
 }
 
 const constraintsReducer = (state = initialState, action: ConstraintsActions) => {
@@ -12,7 +12,7 @@ const constraintsReducer = (state = initialState, action: ConstraintsActions) =>
         case ConstraintsActionType.SET_CONSTRAINTS:
             return {
                 data: action.payload,
-                fetched: true,
+                loaded: true,
             } as ConstraintsReducerPayload
 
         case ConstraintsActionType.CLEAR_CONSTRAINTS:

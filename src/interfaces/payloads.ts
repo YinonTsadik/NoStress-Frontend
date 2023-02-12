@@ -1,7 +1,7 @@
 import { Calendar, Task, Constraint, Event } from './modules'
 
 interface ReducerPayload {
-    fetched: boolean
+    loaded: boolean
 }
 
 export interface CalendarsReducerPayload extends ReducerPayload {

@@ -38,7 +38,9 @@ const SignInForm: React.FC = () => {
         formState: { errors, isValid },
     } = useForm<SignInFormValues>({ resolver: yupResolver(signInSchema()) })
 
-    const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION)
+    const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { signIn } = bindActionCreators(actionCreators, dispatch)
@@ -62,12 +64,9 @@ const SignInForm: React.FC = () => {
     }
 
     const onSubmit = (formData: SignInFormValues) => {
-        console.log(formData)
         checkAuthentication({
             variables: { ...formData },
-            fetchPolicy: 'network-only',
         }).then(({ data }) => {
-            console.log(data.user)
             if (data.user) {
                 console.log('Logged in successfully!')
                 const { __typename, ...rest } = data.user

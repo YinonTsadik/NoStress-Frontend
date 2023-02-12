@@ -23,7 +23,7 @@ import useStyles from './EditProfileDialogStyles'
 const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
     const { classes } = useStyles()
     const { open, handleClose } = props
-    const { data, refetch } = useQuery(GET_USERNAMES)
+    const { data, refetch: refetchUsernames } = useQuery(GET_USERNAMES)
     const user = useSelector((state: RootState) => state.user)
 
     const {
@@ -60,11 +60,10 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
             variables: { input: { id: user.id, ...formData } },
         }).then(({ data }) => {
             if (data.updateUser) {
-                console.log(data.updateUser)
                 console.log('User updated successfully!')
                 const { __typename, ...rest } = data.updateUser
                 editUser(rest as User)
-                refetch()
+                refetchUsernames()
                 handleClose()
             }
         })
@@ -112,15 +111,22 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
                         variant="filled"
                         className={classes.textField}
                     />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        disabled={!isValid}
-                        className={classes.button}
-                    >
-                        Save Changes
-                    </Button>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <div className={classes.buttonContainer}>
+                        <Button
+                            onClick={handleClose}
+                            className={classes.cancelButton}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={!isValid}
+                            className={`${classes.cancelButton} ${classes.saveButton}`}
+                        >
+                            Save
+                        </Button>
+                    </div>
                 </form>
             </Container>
         </Dialog>

@@ -21,6 +21,7 @@ const useStyles = makeStyles()({
         marginBottom: '2vh',
         fontSize: '2.5vw',
         fontWeight: 'bold',
+        color: 'black',
     },
 
     form: {
@@ -40,7 +41,6 @@ const useStyles = makeStyles()({
         '&:hover': {
             textDecoration: 'underline',
         },
-
         '.MuiTypography-root': {
             fontSize: '1.8vw',
         },
@@ -51,8 +51,9 @@ const useStyles = makeStyles()({
         backgroundColor: '#3f51b5',
         padding: '2vh',
         borderRadius: '0.5vh',
-        fontSize: '1.7vw',
+        fontSize: '1.5vw',
         fontWeight: 'bold',
+        textTransform: 'none',
         '&:hover': {
             backgroundColor: '#2b3d91',
         },

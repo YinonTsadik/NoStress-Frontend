@@ -10,7 +10,7 @@ const initialState: CurrentCalendarReducerPayload = {
         startDate: new Date(),
         endDate: new Date(),
     },
-    fetched: false,
+    loaded: false,
 }
 
 const currentCalendarReducer = (
@@ -21,7 +21,7 @@ const currentCalendarReducer = (
         case CurrentCalendarActionType.SET_CURRENT_CALENDAR:
             return {
                 data: action.payload,
-                fetched: true,
+                loaded: true,
             } as CurrentCalendarReducerPayload
 
         case CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR:

@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
     const [getEvents, { data: eventsData }] = useLazyQuery(GET_CALENDAR_EVENTS)
 
     useEffect(() => {
-        if (calendarsData && !calendarsReducer.fetched) {
+        if (calendarsData && !calendarsReducer.loaded) {
             const calendars: Calendar[] = calendarsData.userCalendars.map(
                 (calendar: any) => {
                     const { __typename, ...rest } = calendar
@@ -59,13 +59,13 @@ const HomePage: React.FC = () => {
     }, [calendarsData, calendarsReducer, setCalendars])
 
     useEffect(() => {
-        if (calendarExist && !currentCalendarReducer.fetched) {
+        if (calendarExist && !currentCalendarReducer.loaded) {
             setCurrentCalendar(calendarsReducer.data[0])
         }
     }, [calendarExist, currentCalendarReducer, calendarsReducer, setCurrentCalendar])
 
     useEffect(() => {
-        if (currentCalendarReducer.fetched) {
+        if (currentCalendarReducer.loaded) {
             getTasks({
                 variables: { calendarID: currentCalendarReducer.data.id },
             })
@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
     }, [currentCalendarReducer, getTasks, getConstraints, getEvents])
 
     useEffect(() => {
-        if (tasksData && !tasksReducer.fetched) {
+        if (tasksData && !tasksReducer.loaded) {
             const tasks: Task[] = tasksData.calendarTasks.map((task: any) => {
                 const { __typename, ...rest } = task
                 return rest as Task
@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
     }, [tasksData, tasksReducer, setTasks])
 
     useEffect(() => {
-        if (constraintsData && !constraintsReducer.fetched) {
+        if (constraintsData && !constraintsReducer.loaded) {
             const constraints: Constraint[] =
                 constraintsData.calendarConstraints.map((constraint: any) => {
                     const { __typename, ...rest } = constraint
@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
     }, [constraintsData, constraintsReducer, setConstraints])
 
     useEffect(() => {
-        if (eventsData && !eventsReducer.fetched) {
+        if (eventsData && !eventsReducer.loaded) {
             const events: Event[] = eventsData.calendarEvents.map((event: any) => {
                 const { description, startTime, endTime } = event
 

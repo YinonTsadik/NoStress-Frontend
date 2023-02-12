@@ -4,7 +4,7 @@ import { CalendarsActionType } from '../action-types'
 
 const initialState: CalendarsReducerPayload = {
     data: new Array<Calendar>(),
-    fetched: false,
+    loaded: false,
 }
 
 const calendarsReducer = (state = initialState, action: CalendarsActions) => {
@@ -12,7 +12,7 @@ const calendarsReducer = (state = initialState, action: CalendarsActions) => {
         case CalendarsActionType.SET_CALENDARS:
             return {
                 data: action.payload,
-                fetched: true,
+                loaded: true,
             } as CalendarsReducerPayload
 
         case CalendarsActionType.CLEAR_CALENDARS:

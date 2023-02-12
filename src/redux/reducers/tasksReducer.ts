@@ -4,7 +4,7 @@ import { TasksActionType } from '../action-types'
 
 const initialState: TasksReducerPayload = {
     data: new Array<Task>(),
-    fetched: false,
+    loaded: false,
 }
 
 const tasksReducer = (state = initialState, action: TasksActions) => {
@@ -12,7 +12,7 @@ const tasksReducer = (state = initialState, action: TasksActions) => {
         case TasksActionType.SET_TASKS:
             return {
                 data: action.payload,
-                fetched: true,
+                loaded: true,
             } as TasksReducerPayload
 
         case TasksActionType.CLEAR_TASKS:

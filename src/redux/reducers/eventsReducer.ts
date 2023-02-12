@@ -4,7 +4,7 @@ import { EventsActionType } from '../action-types'
 
 const initialState: EventsReducerPayload = {
     data: new Array<Event>(),
-    fetched: false,
+    loaded: false,
 }
 
 const eventsReducer = (state = initialState, action: EventsActions) => {
@@ -12,7 +12,7 @@ const eventsReducer = (state = initialState, action: EventsActions) => {
         case EventsActionType.SET_EVENTS:
             return {
                 data: action.payload,
-                fetched: true,
+                loaded: true,
             } as EventsReducerPayload
 
         case EventsActionType.CLEAR_EVENTS:
