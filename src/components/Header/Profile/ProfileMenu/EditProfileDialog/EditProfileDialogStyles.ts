@@ -32,7 +32,7 @@ const useStyles = makeStyles()({
     },
 
     buttonContainer: {
-        padding: '0 1vw',
+        padding: '0 1.5vw',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -40,11 +40,11 @@ const useStyles = makeStyles()({
 
     cancelButton: {
         textTransform: 'none',
+        padding: '1vh',
     },
 
     saveButton: {
         backgroundColor: '#3f51b5',
-        padding: '2vh',
         borderRadius: '1vh',
         fontSize: '1vw',
         fontWeight: 'bold',
