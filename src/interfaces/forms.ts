@@ -8,8 +8,15 @@ export interface SignInFormValues {
     password: string
 }
 
+export interface SignUpFormValues extends FirstAndLastName, SignInFormValues {}
+
 export interface EditProfileFormValues extends FirstAndLastName {
     username: string
 }
 
-export interface SignUpFormValues extends FirstAndLastName, SignInFormValues {}
+export interface CreateCalendarFormValues {
+    userID: string
+    name: string
+    startDate: Date
+    endDate: Date
+}

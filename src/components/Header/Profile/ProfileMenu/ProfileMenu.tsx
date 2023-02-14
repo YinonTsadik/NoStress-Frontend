@@ -15,6 +15,7 @@ import useStyles from './ProfileMenuStyles'
 
 const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     const { classes } = useStyles()
+    const { anchorEl, setAnchorEl, open } = props
 
     const firstName = useSelector((state: RootState) => state.user).firstName
     const lastName = useSelector((state: RootState) => state.user).lastName
@@ -25,7 +26,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     const navigate = useNavigate()
 
     const handleClose = () => {
-        props.setAnchorEl(null)
+        setAnchorEl(null)
     }
 
     const handleOpenDialog = () => {
@@ -43,8 +44,8 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     return (
         <Box>
             <Menu
-                anchorEl={props.anchorEl}
-                open={props.open}
+                anchorEl={anchorEl}
+                open={open}
                 onClose={handleClose}
                 PaperProps={{
                     className: classes.root,
