@@ -13,6 +13,33 @@ export const setTasks = (tasks: Task[]) => {
     }
 }
 
+export const addTask = (task: Task) => {
+    return (dispatch: Dispatch<TasksActions>) => {
+        dispatch({
+            type: TasksActionType.ADD_TASK,
+            payload: task,
+        })
+    }
+}
+
+export const editTask = (task: Task) => {
+    return (dispatch: Dispatch<TasksActions>) => {
+        dispatch({
+            type: TasksActionType.EDIT_TASK,
+            payload: task,
+        })
+    }
+}
+
+export const deleteTask = (task: Task) => {
+    return (dispatch: Dispatch<TasksActions>) => {
+        dispatch({
+            type: TasksActionType.DELETE_TASK,
+            payload: task,
+        })
+    }
+}
+
 export const clearTasks = () => {
     return (dispatch: Dispatch<TasksActions>) => {
         dispatch({

@@ -13,13 +13,31 @@ const calendarsReducer = (state = initialState, action: CalendarsActions) => {
             return {
                 data: action.payload,
                 loaded: true,
-            } as CalendarsReducer
+            }
 
         case CalendarsActionType.ADD_CALENDAR:
             return {
+                ...state,
                 data: [...state.data, action.payload],
-                loaded: true,
-            } as CalendarsReducer
+            }
+
+        case CalendarsActionType.EDIT_CALENDAR:
+            return {
+                ...state,
+                data: state.data.map((calendar) => {
+                    return calendar.id === action.payload.id
+                        ? { ...action.payload }
+                        : calendar
+                }),
+            }
+
+        case CalendarsActionType.DELETE_CALENDAR:
+            return {
+                ...state,
+                data: state.data.filter(
+                    (calendar) => calendar.id !== action.payload.id
+                ),
+            }
 
         case CalendarsActionType.CLEAR_CALENDARS:
             return { ...initialState }

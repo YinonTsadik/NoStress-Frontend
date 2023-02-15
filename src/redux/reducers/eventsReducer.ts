@@ -13,7 +13,7 @@ const eventsReducer = (state = initialState, action: EventsActions) => {
             return {
                 data: action.payload,
                 loaded: true,
-            } as EventsReducer
+            }
 
         case EventsActionType.CLEAR_EVENTS:
             return { ...initialState }

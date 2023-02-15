@@ -18,7 +18,7 @@ const useStyles = makeStyles()({
         textAlign: 'center',
         backgroundColor: '#F5BC42',
         color: 'black',
-        borderRadius: '10px 10px 0 0',
+        borderRadius: '10px',
         padding: '1vw',
     },
 
@@ -27,7 +27,8 @@ const useStyles = makeStyles()({
         textAlign: 'center',
         backgroundColor: '#0A4D8C',
         color: 'white',
-        borderRadius: '0 0 10px 10px',
+        borderRadius: '10px',
+        marginTop: '-1vh',
         padding: '1vw',
     },
 
@@ -39,8 +40,8 @@ const useStyles = makeStyles()({
         textTransform: 'none',
         width: '22.5vw',
         height: '12.5vh',
-        marginTop: '5vh',
-        fontSize: '1.75vw',
+        marginTop: '7.5vh',
+        fontSize: '1.725vw',
         boxShadow: '0 0.5vh 2vh 0 rgba(0,0,0,0.2)',
         '&:hover': {
             backgroundColor: '#B8B6B6',

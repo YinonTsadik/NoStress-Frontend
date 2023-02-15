@@ -13,7 +13,29 @@ const tasksReducer = (state = initialState, action: TasksActions) => {
             return {
                 data: action.payload,
                 loaded: true,
-            } as TasksReducer
+            }
+
+        case TasksActionType.ADD_TASK:
+            return {
+                ...state,
+                data: [...state.data, action.payload],
+            }
+
+        case TasksActionType.EDIT_TASK:
+            return {
+                ...state,
+                data: state.data.map((task) => {
+                    return task.id === action.payload.id
+                        ? { ...action.payload }
+                        : task
+                }),
+            }
+
+        case TasksActionType.DELETE_TASK:
+            return {
+                ...state,
+                data: state.data.filter((task) => task.id !== action.payload.id),
+            }
 
         case TasksActionType.CLEAR_TASKS:
             return { ...initialState }

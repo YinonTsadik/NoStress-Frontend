@@ -22,7 +22,7 @@ const currentCalendarReducer = (
             return {
                 data: action.payload,
                 loaded: true,
-            } as CurrentCalendarReducer
+            }
 
         case CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR:
             return { ...initialState }

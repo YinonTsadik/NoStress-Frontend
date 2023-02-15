@@ -22,6 +22,24 @@ export const addCalendar = (calendar: Calendar) => {
     }
 }
 
+export const editCalendar = (calendar: Calendar) => {
+    return (dispatch: Dispatch<CalendarsActions>) => {
+        dispatch({
+            type: CalendarsActionType.EDIT_CALENDAR,
+            payload: calendar,
+        })
+    }
+}
+
+export const deleteCalendar = (calendar: Calendar) => {
+    return (dispatch: Dispatch<CalendarsActions>) => {
+        dispatch({
+            type: CalendarsActionType.DELETE_CALENDAR,
+            payload: calendar,
+        })
+    }
+}
+
 export const clearCalendars = () => {
     return (dispatch: Dispatch<CalendarsActions>) => {
         dispatch({

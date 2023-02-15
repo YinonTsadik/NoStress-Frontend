@@ -13,6 +13,33 @@ export const setConstraints = (constraints: Constraint[]) => {
     }
 }
 
+export const addConstraint = (constraint: Constraint) => {
+    return (dispatch: Dispatch<ConstraintsActions>) => {
+        dispatch({
+            type: ConstraintsActionType.ADD_CONSTRAINT,
+            payload: constraint,
+        })
+    }
+}
+
+export const editConstraint = (constraint: Constraint) => {
+    return (dispatch: Dispatch<ConstraintsActions>) => {
+        dispatch({
+            type: ConstraintsActionType.EDIT_CONSTRAINT,
+            payload: constraint,
+        })
+    }
+}
+
+export const deleteConstraint = (constraint: Constraint) => {
+    return (dispatch: Dispatch<ConstraintsActions>) => {
+        dispatch({
+            type: ConstraintsActionType.DELETE_CONSTRAINT,
+            payload: constraint,
+        })
+    }
+}
+
 export const clearConstraints = () => {
     return (dispatch: Dispatch<ConstraintsActions>) => {
         dispatch({
