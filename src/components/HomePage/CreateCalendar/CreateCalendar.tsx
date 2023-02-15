@@ -28,7 +28,7 @@ const CreateCalendar: React.FC = () => {
                 and events will appear here.
             </Typography>
             <Button onClick={handleOpenDialog} className={classes.button}>
-                Add your first calendar
+                Create your first calendar
             </Button>
             <CreateCalendarDialog
                 open={openDialog}

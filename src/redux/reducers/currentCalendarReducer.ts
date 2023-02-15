@@ -1,8 +1,8 @@
-import { CurrentCalendarReducerPayload } from '../../interfaces'
+import { CurrentCalendarReducer } from '../../interfaces'
 import { CurrentCalendarActions } from '../actions'
 import { CurrentCalendarActionType } from '../action-types'
 
-const initialState: CurrentCalendarReducerPayload = {
+const initialState: CurrentCalendarReducer = {
     data: {
         id: '',
         userID: '',
@@ -22,7 +22,7 @@ const currentCalendarReducer = (
             return {
                 data: action.payload,
                 loaded: true,
-            } as CurrentCalendarReducerPayload
+            } as CurrentCalendarReducer
 
         case CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR:
             return { ...initialState }

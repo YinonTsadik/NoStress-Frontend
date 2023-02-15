@@ -13,6 +13,15 @@ export const setCalendars = (calendars: Calendar[]) => {
     }
 }
 
+export const addCalendar = (calendar: Calendar) => {
+    return (dispatch: Dispatch<CalendarsActions>) => {
+        dispatch({
+            type: CalendarsActionType.ADD_CALENDAR,
+            payload: calendar,
+        })
+    }
+}
+
 export const clearCalendars = () => {
     return (dispatch: Dispatch<CalendarsActions>) => {
         dispatch({

@@ -6,8 +6,13 @@ interface SetCalendars {
     payload: Calendar[]
 }
 
+interface AddCalendar {
+    type: CalendarsActionType.ADD_CALENDAR
+    payload: Calendar
+}
+
 interface ClearCalendars {
     type: CalendarsActionType.CLEAR_CALENDARS
 }
 
-export type CalendarsActions = SetCalendars | ClearCalendars
+export type CalendarsActions = SetCalendars | AddCalendar | ClearCalendars

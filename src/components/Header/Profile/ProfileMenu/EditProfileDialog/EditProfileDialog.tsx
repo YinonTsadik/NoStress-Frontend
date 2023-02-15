@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actionCreators } from '../../../../../redux'
 import { bindActionCreators } from 'redux'
 
-import { Dialog, FormLabel, Container, TextField, Button } from '@mui/material'
+import { Dialog, FormLabel, Container, TextField, Box, Button } from '@mui/material'
 import useStyles from './EditProfileDialogStyles'
 
 const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
@@ -111,7 +111,7 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
                         variant="filled"
                         className={classes.textField}
                     />
-                    <div className={classes.buttonContainer}>
+                    <Box className={classes.buttonContainer}>
                         <Button
                             onClick={handleClose}
                             className={classes.cancelButton}
@@ -126,7 +126,7 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
                         >
                             Save
                         </Button>
-                    </div>
+                    </Box>
                 </form>
             </Container>
         </Dialog>

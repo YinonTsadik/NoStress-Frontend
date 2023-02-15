@@ -1,8 +1,8 @@
-import { EventsReducerPayload, Event } from '../../interfaces'
+import { EventsReducer, Event } from '../../interfaces'
 import { EventsActions } from '../actions'
 import { EventsActionType } from '../action-types'
 
-const initialState: EventsReducerPayload = {
+const initialState: EventsReducer = {
     data: new Array<Event>(),
     loaded: false,
 }
@@ -13,7 +13,7 @@ const eventsReducer = (state = initialState, action: EventsActions) => {
             return {
                 data: action.payload,
                 loaded: true,
-            } as EventsReducerPayload
+            } as EventsReducer
 
         case EventsActionType.CLEAR_EVENTS:
             return { ...initialState }

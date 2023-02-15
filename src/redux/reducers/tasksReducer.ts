@@ -1,8 +1,8 @@
-import { TasksReducerPayload, Task } from '../../interfaces'
+import { TasksReducer, Task } from '../../interfaces'
 import { TasksActions } from '../actions'
 import { TasksActionType } from '../action-types'
 
-const initialState: TasksReducerPayload = {
+const initialState: TasksReducer = {
     data: new Array<Task>(),
     loaded: false,
 }
@@ -13,7 +13,7 @@ const tasksReducer = (state = initialState, action: TasksActions) => {
             return {
                 data: action.payload,
                 loaded: true,
-            } as TasksReducerPayload
+            } as TasksReducer
 
         case TasksActionType.CLEAR_TASKS:
             return { ...initialState }

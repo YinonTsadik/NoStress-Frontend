@@ -1,8 +1,8 @@
-import { ConstraintsReducerPayload, Constraint } from '../../interfaces'
+import { ConstraintsReducer, Constraint } from '../../interfaces'
 import { ConstraintsActions } from '../actions'
 import { ConstraintsActionType } from '../action-types'
 
-const initialState: ConstraintsReducerPayload = {
+const initialState: ConstraintsReducer = {
     data: new Array<Constraint>(),
     loaded: false,
 }
@@ -13,7 +13,7 @@ const constraintsReducer = (state = initialState, action: ConstraintsActions) =>
             return {
                 data: action.payload,
                 loaded: true,
-            } as ConstraintsReducerPayload
+            } as ConstraintsReducer
 
         case ConstraintsActionType.CLEAR_CONSTRAINTS:
             return { ...initialState }
