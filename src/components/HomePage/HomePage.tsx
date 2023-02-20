@@ -14,8 +14,9 @@ import {
 
 import { Calendar, Task, Constraint, Event } from '../../interfaces'
 
-import BigCalendar from './BigCalendar'
 import CreateCalendar from './CreateCalendar'
+import Calendars from './Calendars'
+import BigCalendar from './BigCalendar'
 import useStyles from './HomePageStyles'
 
 const HomePage: React.FC = () => {
@@ -122,7 +123,14 @@ const HomePage: React.FC = () => {
 
     return (
         <div className={classes.root}>
-            {calendarExist ? <BigCalendar /> : <CreateCalendar />}
+            {!calendarExist ? (
+                <CreateCalendar />
+            ) : (
+                <div>
+                    <Calendars />
+                    <BigCalendar />
+                </div>
+            )}
         </div>
     )
 }

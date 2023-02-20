@@ -13,6 +13,7 @@ const useStyles = makeStyles()({
 
     header: {
         fontSize: '4vw',
+        textDecoration: 'underline',
         fontWeight: 'bold',
         marginBottom: '2vw',
         textAlign: 'center',
