@@ -4,7 +4,7 @@ import useStyles from './AppStyles'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/Header'
 import PrivateHome from '../utils/PrivateHome'
-import { SignIn, SignUp, Home } from '../pages'
+import { SignIn, SignUp, Home, Test } from '../pages'
 
 const App: React.FC = () => {
     const { classes } = useStyles()
@@ -18,6 +18,7 @@ const App: React.FC = () => {
                     </Route>
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/test" element={<Test />} />
                 </Routes>
             </Router>
         </div>

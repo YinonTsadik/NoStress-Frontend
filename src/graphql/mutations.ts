@@ -1,5 +1,17 @@
 import { gql } from '@apollo/client'
 
+export const DELETE_USERS_BY_START = gql`
+    mutation DeleteUsersByStart($start: String!) {
+        deleteUsersByStart(start: $start) {
+            id
+            firstName
+            lastName
+            username
+            password
+        }
+    }
+`
+
 export const CREATE_USER = gql`
     mutation CreateUser($input: CreateUserInput!) {
         createUser(input: $input) {
