@@ -7,13 +7,12 @@ import '@fontsource/roboto/700.css'
 
 const useStyles = makeStyles()({
     root: {
-        width: '65vw',
-        height: '75vh',
+        width: '65%',
+        height: '72.5%',
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
         position: 'fixed',
-        marginLeft: 0,
         bottom: '3vh',
     },
 

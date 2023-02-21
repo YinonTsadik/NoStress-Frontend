@@ -44,8 +44,12 @@ const Profile: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
     const open = Boolean(anchorEl)
 
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
+    }
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null)
     }
 
     return (
@@ -54,12 +58,16 @@ const Profile: React.FC = () => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenu}
+                onClick={handleOpenMenu}
                 color="inherit"
             >
                 <Avatar {...stringAvatar(name)} />
             </IconButton>
-            <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} open={open} />
+            <ProfileMenu
+                anchorEl={anchorEl}
+                open={open}
+                handleCloseMenu={handleCloseMenu}
+            />
         </Box>
     )
 }

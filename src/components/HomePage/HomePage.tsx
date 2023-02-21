@@ -41,11 +41,16 @@ const HomePage: React.FC = () => {
         variables: { userID },
     })
 
-    const [getTasks, { data: tasksData }] = useLazyQuery(GET_CALENDAR_TASKS)
+    const [getTasks, { data: tasksData }] = useLazyQuery(GET_CALENDAR_TASKS, {
+        fetchPolicy: 'network-only',
+    })
     const [getConstraints, { data: constraintsData }] = useLazyQuery(
-        GET_CALENDAR_CONSTRAINTS
+        GET_CALENDAR_CONSTRAINTS,
+        { fetchPolicy: 'network-only' }
     )
-    const [getEvents, { data: eventsData }] = useLazyQuery(GET_CALENDAR_EVENTS)
+    const [getEvents, { data: eventsData }] = useLazyQuery(GET_CALENDAR_EVENTS, {
+        fetchPolicy: 'network-only',
+    })
 
     useEffect(() => {
         if (calendarsData && !calendarsReducer.loaded) {

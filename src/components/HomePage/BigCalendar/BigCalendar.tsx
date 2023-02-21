@@ -27,14 +27,16 @@ const BigCalendar: React.FC = () => {
     const { classes } = useStyles()
 
     const events = useSelector((state: RootState) => state.events.data)
+    const startDate = useSelector(
+        (state: RootState) => state.currentCalendar.data.startDate
+    )
 
     return (
         <Container className={classes.root}>
             <Calendar
                 localizer={localizer}
                 events={events}
-                startAccessor="start"
-                endAccessor="end"
+                defaultDate={startDate}
                 className={classes.calendar}
             />
         </Container>

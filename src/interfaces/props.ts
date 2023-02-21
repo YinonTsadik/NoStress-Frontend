@@ -1,11 +1,13 @@
+import { Calendar } from './modules'
+
 export interface AuthPageProps {
     component: React.FC
 }
 
 export interface ProfileMenuProps {
     anchorEl: HTMLElement | null
-    setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>
     open: boolean
+    handleCloseMenu: () => void
 }
 
 interface DialogProps {
@@ -16,3 +18,8 @@ interface DialogProps {
 export interface EditProfileProps extends DialogProps {}
 
 export interface CreateCalendarProps extends DialogProps {}
+
+export interface CalendarProps {
+    calendar: Calendar
+    handleCloseMenu: () => void
+}
