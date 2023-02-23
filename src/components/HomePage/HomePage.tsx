@@ -14,6 +14,8 @@ import {
 
 import { Calendar, Task, Constraint, Event } from '../../interfaces'
 
+import { Box } from '@mui/material'
+
 import CreateCalendar from './CreateCalendar'
 import Calendars from './Calendars'
 import BigCalendar from './BigCalendar'
@@ -39,6 +41,7 @@ const HomePage: React.FC = () => {
 
     const { data: calendarsData } = useQuery(GET_USER_CALENDARS, {
         variables: { userID },
+        fetchPolicy: 'network-only',
     })
 
     const [getTasks, { data: tasksData }] = useLazyQuery(GET_CALENDAR_TASKS, {
@@ -127,16 +130,16 @@ const HomePage: React.FC = () => {
     }, [eventsData, eventsReducer, setEvents])
 
     return (
-        <div className={classes.root}>
+        <Box className={classes.root}>
             {!calendarExist ? (
                 <CreateCalendar />
             ) : (
-                <div>
+                <Box>
                     <Calendars />
                     <BigCalendar />
-                </div>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }
 

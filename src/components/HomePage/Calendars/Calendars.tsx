@@ -17,7 +17,7 @@ const Calendars: React.FC = () => {
         (state: RootState) => state.currentCalendar.data
     )
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
     const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget)
@@ -33,16 +33,12 @@ const Calendars: React.FC = () => {
                 aria-controls="calendars-menu"
                 aria-haspopup="true"
                 onClick={handleOpenMenu}
-                endIcon={
-                    Boolean(anchorEl) ? (
-                        <ArrowDropUp fontSize="large" />
-                    ) : (
-                        <ArrowDropDown fontSize="large" />
-                    )
-                }
+                endIcon={Boolean(anchorEl) ? <ArrowDropUp /> : <ArrowDropDown />}
                 className={classes.button}
             >
-                {currentCalendar.name}
+                <Box sx={{ width: '100%', textAlign: 'center' }}>
+                    {currentCalendar.name}
+                </Box>
             </Button>
             <Menu
                 anchorEl={anchorEl}

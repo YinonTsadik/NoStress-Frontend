@@ -4,26 +4,73 @@ import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../../../redux'
 import { bindActionCreators } from 'redux'
 
-import { CalendarProps } from '../../../../interfaces'
+import { useLazyQuery } from '@apollo/client'
+import {
+    GET_CALENDAR_TASKS,
+    GET_CALENDAR_CONSTRAINTS,
+    GET_CALENDAR_EVENTS,
+} from '../../../../graphql'
 
-import { MenuItem, Typography, IconButton } from '@mui/material'
+import { CalendarProps, Task, Constraint, Event } from '../../../../interfaces'
+
+import { MenuItem, Box, Typography, IconButton } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 
 const Calendar: React.FC<CalendarProps> = (props) => {
     const { calendar, handleCloseMenu } = props
 
     const dispatch = useDispatch()
-    const { clearTasks, clearConstraints, clearEvents, setCurrentCalendar } =
+    const { setCurrentCalendar, setTasks, setConstraints, setEvents } =
         bindActionCreators(actionCreators, dispatch)
 
+    const [getTasks] = useLazyQuery(GET_CALENDAR_TASKS)
+    const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS)
+    const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
+
     const handleChoose = async () => {
-        console.log('handleChoose')
-
-        clearTasks()
-        clearConstraints()
-        clearEvents()
-
         setCurrentCalendar(calendar)
+
+        await getTasks({ variables: { calendarID: calendar.id } }).then(
+            ({ data }) => {
+                if (data.calendarTasks) {
+                    const tasks: Task[] = data.calendarTasks.map((task: any) => {
+                        const { __typename, ...rest } = task
+                        return rest as Task
+                    })
+                    setTasks(tasks)
+                }
+            }
+        )
+        await getConstraints({ variables: { calendarID: calendar.id } }).then(
+            ({ data }) => {
+                if (data.calendarConstraints) {
+                    const constraints: Constraint[] = data.calendarConstraints.map(
+                        (constraint: any) => {
+                            const { __typename, ...rest } = constraint
+                            return rest as Constraint
+                        }
+                    )
+                    setConstraints(constraints)
+                }
+            }
+        )
+        await getEvents({ variables: { calendarID: calendar.id } }).then(
+            ({ data }) => {
+                if (data.calendarEvents) {
+                    const events: Event[] = data.calendarEvents.map((event: any) => {
+                        const { description, startTime, endTime } = event
+                        const formattedEvent: Event = {
+                            title: description,
+                            start: new Date(startTime),
+                            end: new Date(endTime),
+                        }
+                        return formattedEvent
+                    })
+                    setEvents(events)
+                }
+            }
+        )
+
         handleCloseMenu()
     }
 
@@ -33,10 +80,16 @@ const Calendar: React.FC<CalendarProps> = (props) => {
 
     return (
         <MenuItem>
-            <Typography onClick={handleChoose} sx={{ margin: 'auto' }}>
-                {calendar.name}
-            </Typography>
-            <IconButton onClick={handleEdit} sx={{ ml: 'auto' }}>
+            <Box
+                onClick={handleChoose}
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                }}
+            >
+                <Typography>{calendar.name}</Typography>
+            </Box>
+            <IconButton onClick={handleEdit}>
                 <Edit />
             </IconButton>
         </MenuItem>

@@ -13,6 +13,10 @@ const useStyles = makeStyles()({
 
     button: {
         width: '100%',
+        display: 'flex',
+        paddingInline: '1vw',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         color: 'black',
         textTransform: 'none',
         fontSize: '1.25vw',
