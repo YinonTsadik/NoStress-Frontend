@@ -21,14 +21,14 @@ const useStyles = makeStyles()({
         textTransform: 'none',
         fontSize: '1.25vw',
         fontWeight: 'bold',
-        backgroundColor: '#E1DFE1',
+        backgroundColor: 'silver',
         '&:hover': {
             backgroundColor: '#B8B6B6',
         },
     },
 
     menu: {
-        backgroundColor: '#E1DFE1',
+        backgroundColor: '#A9A9A9',
         width: '20%',
     },
 })

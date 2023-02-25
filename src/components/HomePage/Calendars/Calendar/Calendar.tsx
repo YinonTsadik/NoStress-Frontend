@@ -13,10 +13,13 @@ import {
 
 import { CalendarProps, Task, Constraint, Event } from '../../../../interfaces'
 
-import { MenuItem, Box, Typography, IconButton } from '@mui/material'
+import { Box, MenuItem, Typography, IconButton } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 
+import useStyles from './CalendarStyles'
+
 const Calendar: React.FC<CalendarProps> = (props) => {
+    const { classes } = useStyles()
     const { calendar, handleCloseMenu } = props
 
     const dispatch = useDispatch()
@@ -27,21 +30,19 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS)
     const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
 
-    const handleChoose = async () => {
+    const handleChoose = () => {
         setCurrentCalendar(calendar)
 
-        await getTasks({ variables: { calendarID: calendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarTasks) {
-                    const tasks: Task[] = data.calendarTasks.map((task: any) => {
-                        const { __typename, ...rest } = task
-                        return rest as Task
-                    })
-                    setTasks(tasks)
-                }
+        getTasks({ variables: { calendarID: calendar.id } }).then(({ data }) => {
+            if (data.calendarTasks) {
+                const tasks: Task[] = data.calendarTasks.map((task: any) => {
+                    const { __typename, ...rest } = task
+                    return rest as Task
+                })
+                setTasks(tasks)
             }
-        )
-        await getConstraints({ variables: { calendarID: calendar.id } }).then(
+        })
+        getConstraints({ variables: { calendarID: calendar.id } }).then(
             ({ data }) => {
                 if (data.calendarConstraints) {
                     const constraints: Constraint[] = data.calendarConstraints.map(
@@ -54,22 +55,20 @@ const Calendar: React.FC<CalendarProps> = (props) => {
                 }
             }
         )
-        await getEvents({ variables: { calendarID: calendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarEvents) {
-                    const events: Event[] = data.calendarEvents.map((event: any) => {
-                        const { description, startTime, endTime } = event
-                        const formattedEvent: Event = {
-                            title: description,
-                            start: new Date(startTime),
-                            end: new Date(endTime),
-                        }
-                        return formattedEvent
-                    })
-                    setEvents(events)
-                }
+        getEvents({ variables: { calendarID: calendar.id } }).then(({ data }) => {
+            if (data.calendarEvents) {
+                const events: Event[] = data.calendarEvents.map((event: any) => {
+                    const { description, startTime, endTime } = event
+                    const formattedEvent: Event = {
+                        title: description,
+                        start: new Date(startTime),
+                        end: new Date(endTime),
+                    }
+                    return formattedEvent
+                })
+                setEvents(events)
             }
-        )
+        })
 
         handleCloseMenu()
     }
@@ -79,20 +78,16 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     }
 
     return (
-        <MenuItem>
-            <Box
-                onClick={handleChoose}
-                sx={{
-                    width: '100%',
-                    height: '100%',
-                }}
-            >
-                <Typography>{calendar.name}</Typography>
-            </Box>
-            <IconButton onClick={handleEdit}>
-                <Edit />
-            </IconButton>
-        </MenuItem>
+        <Box>
+            <MenuItem className={classes.root}>
+                <Box onClick={handleChoose} className={classes.root}>
+                    <Typography>{calendar.name}</Typography>
+                </Box>
+                <IconButton onClick={handleEdit}>
+                    <Edit />
+                </IconButton>
+            </MenuItem>
+        </Box>
     )
 }
 

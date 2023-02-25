@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux'
 
-import { Box, Button, Menu } from '@mui/material'
+import { Box, Button, Menu, Divider } from '@mui/material'
 import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
 
 import Calendar from './Calendar'
@@ -54,6 +54,11 @@ const Calendars: React.FC = () => {
                             calendar={calendar}
                             handleCloseMenu={handleCloseMenu}
                         />
+                        {calendar !== calendars[calendars.length - 1] ? (
+                            <Divider color="black" />
+                        ) : (
+                            <></>
+                        )}
                     </Box>
                 ))}
             </Menu>
