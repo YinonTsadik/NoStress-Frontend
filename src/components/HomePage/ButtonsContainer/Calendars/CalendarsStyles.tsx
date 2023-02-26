@@ -27,6 +27,11 @@ const useStyles = makeStyles()({
         },
     },
 
+    text: {
+        width: '100%',
+        textAlign: 'center',
+    },
+
     menu: {
         backgroundColor: '#A9A9A9',
         width: '20%',

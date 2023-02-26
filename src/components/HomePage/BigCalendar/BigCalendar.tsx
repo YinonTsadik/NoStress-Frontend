@@ -36,7 +36,7 @@ const BigCalendar: React.FC = () => {
             <Calendar
                 localizer={localizer}
                 events={events}
-                defaultDate={startDate}
+                defaultDate={new Date(startDate)}
                 className={classes.calendar}
             />
         </Container>

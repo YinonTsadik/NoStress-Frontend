@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Container, Typography, Button } from '@mui/material'
 
-import CreateCalendarDialog from './CreateCalendarDialog'
+import AddCalendarDialog from './AddCalendarDialog'
 import useStyles from './CreateCalendarStyles'
 
 const CreateCalendar: React.FC = () => {
@@ -30,10 +30,7 @@ const CreateCalendar: React.FC = () => {
             <Button onClick={handleOpenDialog} className={classes.button}>
                 Create your first calendar
             </Button>
-            <CreateCalendarDialog
-                open={openDialog}
-                handleClose={handleCloseDialog}
-            />
+            <AddCalendarDialog open={openDialog} handleClose={handleCloseDialog} />
         </Container>
     )
 }

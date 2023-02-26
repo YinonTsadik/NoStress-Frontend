@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../../../../redux'
+import { actionCreators } from '../../../../../redux'
 import { bindActionCreators } from 'redux'
 
 import { useLazyQuery } from '@apollo/client'
@@ -9,9 +9,9 @@ import {
     GET_CALENDAR_TASKS,
     GET_CALENDAR_CONSTRAINTS,
     GET_CALENDAR_EVENTS,
-} from '../../../../graphql'
+} from '../../../../../graphql'
 
-import { CalendarProps, Task, Constraint, Event } from '../../../../interfaces'
+import { CalendarProps, Task, Constraint, Event } from '../../../../../interfaces'
 
 import { Box, MenuItem, Typography, IconButton } from '@mui/material'
 import { Edit } from '@mui/icons-material'

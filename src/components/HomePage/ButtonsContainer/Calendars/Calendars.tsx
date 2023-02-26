@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux'
+import { RootState } from '../../../../redux'
 
 import { Box, Button, Menu, Divider } from '@mui/material'
 import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
@@ -30,15 +30,11 @@ const Calendars: React.FC = () => {
     return (
         <Box className={classes.root}>
             <Button
-                aria-controls="calendars-menu"
-                aria-haspopup="true"
                 onClick={handleOpenMenu}
                 endIcon={Boolean(anchorEl) ? <ArrowDropUp /> : <ArrowDropDown />}
                 className={classes.button}
             >
-                <Box sx={{ width: '100%', textAlign: 'center' }}>
-                    {currentCalendar.name}
-                </Box>
+                <Box className={classes.text}>{currentCalendar.name}</Box>
             </Button>
             <Menu
                 anchorEl={anchorEl}

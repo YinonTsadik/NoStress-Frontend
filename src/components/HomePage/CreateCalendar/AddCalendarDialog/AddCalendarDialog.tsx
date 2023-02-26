@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import createCalendarSchema from './CreateCalendarDialogSchema'
+import createCalendarSchema from './AddCalendarDialogSchema'
 
 import {
     CreateCalendarProps,
@@ -22,9 +22,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
-import useStyles from './CreateCalendarDialogStyles'
+import useStyles from './AddCalendarDialogStyles'
 
-const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
+const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     const { classes } = useStyles()
     const { open, handleClose: handleCloseDialog } = props
     const user = useSelector((state: RootState) => state.user)
@@ -49,7 +49,10 @@ const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     const [createCalendar] = useMutation(CREATE_CALENDAR)
 
     const dispatch = useDispatch()
-    const { addCalendar } = bindActionCreators(actionCreators, dispatch)
+    const { addCalendar, setCurrentCalendar } = bindActionCreators(
+        actionCreators,
+        dispatch
+    )
 
     useEffect(() => {
         const isValidDates =
@@ -82,6 +85,7 @@ const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
                 console.log('Calendar created successfully!')
                 const { __typename, ...rest } = data.createCalendar
                 addCalendar(rest as Calendar)
+                setCurrentCalendar(rest as Calendar)
                 handleClose()
             }
         })
@@ -94,9 +98,7 @@ const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     return (
         <Dialog open={open} onClose={handleClose}>
             <Container className={classes.root}>
-                <FormLabel className={classes.formLabel}>
-                    Create A Calendar
-                </FormLabel>
+                <FormLabel className={classes.formLabel}>Add a calendar</FormLabel>
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <TextField
@@ -168,7 +170,7 @@ const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
                             variant="contained"
                             className={`${classes.cancelButton} ${classes.saveButton}`}
                         >
-                            Create
+                            Add
                         </Button>
                     </Box>
                 </form>
@@ -177,4 +179,4 @@ const CreateCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     )
 }
 
-export default CreateCalendarDialog
+export default AddCalendarDialog

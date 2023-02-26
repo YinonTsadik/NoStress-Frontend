@@ -17,7 +17,7 @@ import { Calendar, Task, Constraint, Event } from '../../interfaces'
 import { Box } from '@mui/material'
 
 import CreateCalendar from './CreateCalendar'
-import Calendars from './Calendars'
+import ButtonsContainer from './ButtonsContainer'
 import BigCalendar from './BigCalendar'
 import useStyles from './HomePageStyles'
 
@@ -135,7 +135,7 @@ const HomePage: React.FC = () => {
                 <CreateCalendar />
             ) : (
                 <Box>
-                    <Calendars />
+                    <ButtonsContainer />
                     <BigCalendar />
                 </Box>
             )}
