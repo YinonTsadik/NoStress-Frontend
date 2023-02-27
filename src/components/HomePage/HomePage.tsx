@@ -19,6 +19,8 @@ import { Box } from '@mui/material'
 import CreateCalendar from './CreateCalendar'
 import ButtonsContainer from './ButtonsContainer'
 import BigCalendar from './BigCalendar'
+import TasksAndConstraints from './TasksAndConstraints'
+
 import useStyles from './HomePageStyles'
 
 const HomePage: React.FC = () => {
@@ -137,6 +139,7 @@ const HomePage: React.FC = () => {
                 <Box>
                     <ButtonsContainer />
                     <BigCalendar />
+                    <TasksAndConstraints />
                 </Box>
             )}
         </Box>

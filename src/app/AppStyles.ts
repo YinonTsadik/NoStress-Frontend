@@ -7,6 +7,7 @@ const useStyles = makeStyles()({
         height: '100%',
         top: 0,
         left: 0,
+        overflow: 'hidden',
         backgroundImage: 'linear-gradient(to right, #266870, #A6BBC1)',
     },
 })

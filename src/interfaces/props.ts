@@ -1,4 +1,4 @@
-import { Calendar } from './modules'
+import { Calendar, Task, Constraint } from './modules'
 
 export interface AuthPageProps {
     component: React.FC
@@ -22,4 +22,12 @@ export interface CreateCalendarProps extends DialogProps {}
 export interface CalendarProps {
     calendar: Calendar
     handleCloseMenu: () => void
+}
+
+export interface TaskProps {
+    task: Task
+}
+
+export interface ConstraintProps {
+    constraint: Constraint
 }

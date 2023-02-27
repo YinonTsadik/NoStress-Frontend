@@ -49,10 +49,8 @@ const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     const [createCalendar] = useMutation(CREATE_CALENDAR)
 
     const dispatch = useDispatch()
-    const { addCalendar, setCurrentCalendar } = bindActionCreators(
-        actionCreators,
-        dispatch
-    )
+    const { addCalendar, setCurrentCalendar, setTasks, setConstraints, setEvents } =
+        bindActionCreators(actionCreators, dispatch)
 
     useEffect(() => {
         const isValidDates =
@@ -86,6 +84,10 @@ const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
                 const { __typename, ...rest } = data.createCalendar
                 addCalendar(rest as Calendar)
                 setCurrentCalendar(rest as Calendar)
+                setTasks([])
+                setConstraints([])
+                setEvents([])
+                
                 handleClose()
             }
         })
