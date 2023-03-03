@@ -12,7 +12,7 @@ export interface ProfileMenuProps {
 
 interface DialogProps {
     open: boolean
-    handleClose: () => void
+    onClose: () => void
 }
 
 export interface EditProfileProps extends DialogProps {}
@@ -24,6 +24,8 @@ export interface CalendarProps {
     handleCloseMenu: () => void
 }
 
-export interface TaskOrConstraintProps {
-    content: Task | Constraint
+export interface ElementProps {
+    element: Task | Constraint
 }
+
+export interface EditElementProps extends DialogProps, ElementProps {}

@@ -26,7 +26,7 @@ import useStyles from './AddCalendarDialogStyles'
 
 const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
     const { classes } = useStyles()
-    const { open, handleClose: handleCloseDialog } = props
+    const { open, onClose: handleCloseDialog } = props
     const user = useSelector((state: RootState) => state.user)
 
     const [startDate, setStartDate] = useState<Date | null>(null)
@@ -87,7 +87,7 @@ const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
                 setTasks([])
                 setConstraints([])
                 setEvents([])
-                
+
                 handleClose()
             }
         })

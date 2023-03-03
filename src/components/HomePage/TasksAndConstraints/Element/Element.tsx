@@ -1,34 +1,30 @@
 import React, { useState } from 'react'
 
-import { TaskOrConstraintProps, Task, Constraint } from '../../../../interfaces'
+import { ElementProps, Task, Constraint } from '../../../../interfaces'
 
-import {
-    Box,
-    Typography,
-    Divider,
-    IconButton,
-    Dialog,
-    DialogTitle,
-} from '@mui/material'
+import { Box, Typography, Divider, IconButton } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 
-import useStyles from './TaskOrConstraintStyles'
+import EditElementDialog from './EditElementDialog'
 
-const TaskOrConstraint: React.FC<TaskOrConstraintProps> = (props) => {
+import useStyles from './ElementStyles'
+
+const Element: React.FC<ElementProps> = (props) => {
+    const { classes } = useStyles()
+    const { element } = props
+
     const [openDialog, setOpenDialog] = useState(false)
 
-    const handleEdit = () => {
+    const handleOpenDialog = () => {
         setOpenDialog(true)
     }
 
-    const handleClose = () => {
+    const handleCloseDialog = () => {
         setOpenDialog(false)
     }
-    const { classes } = useStyles()
-    const { content } = props
 
-    if ('deadline' in content) {
-        const task = content as Task
+    if ('deadline' in element) {
+        const task = element as Task
         return (
             <>
                 <Box
@@ -47,20 +43,22 @@ const TaskOrConstraint: React.FC<TaskOrConstraintProps> = (props) => {
                         {task.workHours}
                     </Typography>
                     <IconButton
-                        onClick={handleEdit}
+                        onClick={handleOpenDialog}
                         size="small"
                         className={classes.iconButton}
                     >
                         <Edit />
                     </IconButton>
                 </Box>
-                <Dialog open={openDialog} onClose={handleClose}>
-                    <DialogTitle>Edit Task</DialogTitle>
-                </Dialog>
+                <EditElementDialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    element={element as Task}
+                ></EditElementDialog>
             </>
         )
     } else {
-        const constraint = content as Constraint
+        const constraint = element as Constraint
         return (
             <>
                 <Box
@@ -83,19 +81,21 @@ const TaskOrConstraint: React.FC<TaskOrConstraintProps> = (props) => {
                         {constraint.type}
                     </Typography>
                     <IconButton
-                        onClick={handleEdit}
+                        onClick={handleOpenDialog}
                         size="small"
                         className={classes.iconButton}
                     >
                         <Edit />
                     </IconButton>
                 </Box>
-                <Dialog open={openDialog} onClose={handleClose}>
-                    <DialogTitle>Edit Constraint</DialogTitle>
-                </Dialog>
+                <EditElementDialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    element={element as Constraint}
+                ></EditElementDialog>
             </>
         )
     }
 }
 
-export default TaskOrConstraint
+export default Element

@@ -28,7 +28,7 @@ const AddCalendarButton: React.FC = () => {
             >
                 <Box className={classes.text}>Add calendar</Box>
             </Button>
-            <AddCalendarDialog open={openDialog} handleClose={handleCloseDialog} />
+            <AddCalendarDialog open={openDialog} onClose={handleCloseDialog} />
         </Box>
     )
 }

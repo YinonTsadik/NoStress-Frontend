@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux'
 
-import TaskOrConstraint from './TaskOrConstraint'
+import Element from './Element'
 
 import { Box, Switch, Typography } from '@mui/material'
 import useStyles from './TasksAndConstraintsStyles'
@@ -52,24 +52,48 @@ const TasksAndConstraints: React.FC = () => {
             <Box className={classes.content}>
                 {showTasks ? (
                     <>
-                        {/* <Typography variant="caption">Description</Typography>
-                        <Typography variant="caption">Deadline</Typography>
-                        <Typography variant="caption">Hours</Typography> */}
+                        <Box className={classes.headers}>
+                            <Typography
+                                variant="caption"
+                                className={classes.description}
+                            >
+                                Description
+                            </Typography>
+                            <Typography
+                                variant="caption"
+                                className={classes.deadline}
+                            >
+                                Deadline
+                            </Typography>
+                            <Typography variant="caption" className={classes.hours}>
+                                Hours
+                            </Typography>
+                        </Box>
                         {tasks.map((task) => (
-                            <TaskOrConstraint key={task.id} content={task} />
+                            <Element key={task.id} element={task} />
                         ))}
                     </>
                 ) : (
                     <>
-                        {/* <Typography variant="caption">Description</Typography>
-                        <Typography variant="caption">Start</Typography>
-                        <Typography variant="caption">End</Typography>
-                        <Typography variant="caption">Type</Typography> */}
+                        <Box className={classes.headers}>
+                            <Typography
+                                variant="caption"
+                                className={classes.description}
+                            >
+                                Description
+                            </Typography>
+                            <Typography variant="caption" className={classes.start}>
+                                Start
+                            </Typography>
+                            <Typography variant="caption" className={classes.end}>
+                                End
+                            </Typography>
+                            <Typography variant="caption" className={classes.type}>
+                                Type
+                            </Typography>
+                        </Box>
                         {constraints.map((constraint) => (
-                            <TaskOrConstraint
-                                key={constraint.id}
-                                content={constraint}
-                            />
+                            <Element key={constraint.id} element={constraint} />
                         ))}
                     </>
                 )}

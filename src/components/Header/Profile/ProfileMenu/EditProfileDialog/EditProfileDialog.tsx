@@ -22,7 +22,8 @@ import useStyles from './EditProfileDialogStyles'
 
 const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
     const { classes } = useStyles()
-    const { open, handleClose } = props
+    const { open, onClose: handleCloseDialog } = props
+
     const { data, refetch: refetchUsernames } = useQuery(GET_USERNAMES)
     const user = useSelector((state: RootState) => state.user)
 
@@ -64,13 +65,13 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
                 const { __typename, ...rest } = data.updateUser
                 editUser(rest as User)
                 refetchUsernames()
-                handleClose()
+                handleCloseDialog()
             }
         })
     }
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleCloseDialog}>
             <Container className={classes.root}>
                 <FormLabel className={classes.formLabel}>
                     Edit Your Profile
@@ -113,7 +114,7 @@ const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
                     />
                     <Box className={classes.buttonContainer}>
                         <Button
-                            onClick={handleClose}
+                            onClick={handleCloseDialog}
                             className={classes.cancelButton}
                         >
                             Cancel

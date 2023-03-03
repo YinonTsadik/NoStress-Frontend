@@ -30,7 +30,7 @@ const CreateCalendar: React.FC = () => {
             <Button onClick={handleOpenDialog} className={classes.button}>
                 Create your first calendar
             </Button>
-            <AddCalendarDialog open={openDialog} handleClose={handleCloseDialog} />
+            <AddCalendarDialog open={openDialog} onClose={handleCloseDialog} />
         </Container>
     )
 }

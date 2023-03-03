@@ -23,6 +23,7 @@ const useStyles = makeStyles()({
         backgroundColor: 'white',
         borderRadius: '7px',
         padding: '3vh 1vw',
+        boxShadow: '0 0.5vh 2vh 0 rgba(0,0,0,0.2)',
     },
 })
 

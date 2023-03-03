@@ -72,7 +72,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
                     <Typography>Sign out</Typography>
                 </MenuItem>
             </Menu>
-            <EditProfileDialog open={openDialog} handleClose={handleCloseDialog} />
+            <EditProfileDialog open={openDialog} onClose={handleCloseDialog} />
         </Box>
     )
 }
