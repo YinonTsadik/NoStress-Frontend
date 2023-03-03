@@ -24,10 +24,6 @@ export interface CalendarProps {
     handleCloseMenu: () => void
 }
 
-export interface TaskProps {
-    task: Task
-}
-
-export interface ConstraintProps {
-    constraint: Constraint
+export interface TaskOrConstraintProps {
+    content: Task | Constraint
 }

@@ -2,30 +2,42 @@ import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()({
     root: {
-        border: '1px solid red',
-        maxWidth: '37.5%',
-        maxHeight: '60%',
-        marginLeft: 'auto',
-        marginTop: '-12.5vh',
+        width: '32.5%',
+        height: '82.5vh',
+        margin: '-6.75vh 1.75vw 3.5vh auto',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        transform: 'translate(0%, 0%) scale(0.825)',
+        backgroundColor: '#FEFFE5',
+        borderRadius: '7px',
     },
 
-    button: {
+    switchBox: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem',
+        margin: '2vh 0',
+    },
+
+    switch: {
+        margin: '0 0.75vw',
+    },
+
+    switchLabel: {
+        width: '6vw',
+        textAlign: 'center',
     },
 
     content: {
-        flex: 1,
+        border: '1px solid silver',
         display: 'flex',
         flexDirection: 'column',
-        maxHeight: '80%',
-        overflowY: 'scroll',
+        alignItems: 'center',
+        height: '80%',
+        margin: '3%',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        borderRadius: '7px',
     },
 })
 
