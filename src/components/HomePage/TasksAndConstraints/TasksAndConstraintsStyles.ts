@@ -2,9 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()({
     root: {
-        width: '32.5%',
+        width: '30%',
         height: '85vh',
-        margin: '-7.5vh 2vw 0 auto',
+        margin: '-7.5vh 3vw 0 auto',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -50,7 +50,7 @@ const useStyles = makeStyles()({
     },
 
     start: {
-        marginLeft: '2.85vw',
+        marginLeft: '2.65vw',
         fontWeight: 'bold',
     },
 

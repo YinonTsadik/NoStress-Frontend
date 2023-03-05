@@ -4,7 +4,7 @@ const useStyles = makeStyles()({
     root: {
         display: 'flex',
         alignContent: 'center',
-        width: '20%',
+        width: '30%',
         borderRadius: '7px',
         marginLeft: '0.5vw',
         border: '1px solid black',

@@ -82,6 +82,7 @@ const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
             if (data.createCalendar) {
                 console.log('Calendar created successfully!')
                 const { __typename, ...rest } = data.createCalendar
+
                 addCalendar(rest as Calendar)
                 setCurrentCalendar(rest as Calendar)
                 setTasks([])

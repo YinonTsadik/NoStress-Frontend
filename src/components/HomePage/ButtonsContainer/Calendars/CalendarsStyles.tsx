@@ -4,7 +4,7 @@ const useStyles = makeStyles()({
     root: {
         display: 'flex',
         alignContent: 'center',
-        width: '20%',
+        width: '30%',
         borderRadius: '7px',
         marginLeft: '2vw',
         border: '1px solid black',
@@ -34,7 +34,7 @@ const useStyles = makeStyles()({
 
     menu: {
         backgroundColor: '#A9A9A9',
-        width: '20%',
+        width: '19%',
     },
 })
 

@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 
 import Calendars from './Calendars'
 import AddCalendarButton from './AddCalendarButton'
+import AddElementButton from './AddElementButton'
 
 import useStyles from './ButtonsContainerStyles'
 
@@ -13,6 +14,7 @@ const ButtonsContainer: React.FC = () => {
         <Box className={classes.root}>
             <Calendars />
             <AddCalendarButton />
+            <AddElementButton />
         </Box>
     )
 }

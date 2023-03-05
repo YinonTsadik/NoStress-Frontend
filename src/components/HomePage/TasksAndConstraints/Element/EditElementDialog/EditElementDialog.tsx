@@ -15,7 +15,7 @@ const EditElementDialog: React.FC<EditElementProps> = (props) => {
             {'deadline' in element ? (
                 <Typography>Edit Task</Typography>
             ) : (
-                <Typography>Edit Constrant</Typography>
+                <Typography>Edit Constraint</Typography>
             )}
         </Dialog>
     )

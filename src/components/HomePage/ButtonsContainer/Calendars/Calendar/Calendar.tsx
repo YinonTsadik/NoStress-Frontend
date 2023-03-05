@@ -30,19 +30,22 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS)
     const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
 
-    const handleChoose = () => {
+    const handleChoose = async () => {
         setCurrentCalendar(calendar)
 
-        getTasks({ variables: { calendarID: calendar.id } }).then(({ data }) => {
-            if (data.calendarTasks) {
-                const tasks: Task[] = data.calendarTasks.map((task: any) => {
-                    const { __typename, ...rest } = task
-                    return rest as Task
-                })
-                setTasks(tasks)
+        await getTasks({ variables: { calendarID: calendar.id } }).then(
+            ({ data }) => {
+                if (data.calendarTasks) {
+                    const tasks: Task[] = data.calendarTasks.map((task: any) => {
+                        const { __typename, ...rest } = task
+                        return rest as Task
+                    })
+                    setTasks(tasks)
+                }
             }
-        })
-        getConstraints({ variables: { calendarID: calendar.id } }).then(
+        )
+
+        await getConstraints({ variables: { calendarID: calendar.id } }).then(
             ({ data }) => {
                 if (data.calendarConstraints) {
                     const constraints: Constraint[] = data.calendarConstraints.map(
@@ -55,20 +58,23 @@ const Calendar: React.FC<CalendarProps> = (props) => {
                 }
             }
         )
-        getEvents({ variables: { calendarID: calendar.id } }).then(({ data }) => {
-            if (data.calendarEvents) {
-                const events: Event[] = data.calendarEvents.map((event: any) => {
-                    const { description, startTime, endTime } = event
-                    const formattedEvent: Event = {
-                        title: description,
-                        start: new Date(startTime),
-                        end: new Date(endTime),
-                    }
-                    return formattedEvent
-                })
-                setEvents(events)
+
+        await getEvents({ variables: { calendarID: calendar.id } }).then(
+            ({ data }) => {
+                if (data.calendarEvents) {
+                    const events: Event[] = data.calendarEvents.map((event: any) => {
+                        const { description, startTime, endTime } = event
+                        const formattedEvent: Event = {
+                            title: description,
+                            start: new Date(startTime),
+                            end: new Date(endTime),
+                        }
+                        return formattedEvent
+                    })
+                    setEvents(events)
+                }
             }
-        })
+        )
 
         handleCloseMenu()
     }
