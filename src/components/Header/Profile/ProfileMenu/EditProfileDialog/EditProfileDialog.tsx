@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import editProfileSchema from './EditProfileDialogSchema'
 
 import {
-    EditProfileProps,
+    EditProfileDialogProps,
     EditProfileFormValues,
     User,
 } from '../../../../../interfaces'
@@ -20,7 +20,7 @@ import { bindActionCreators } from 'redux'
 import { Dialog, FormLabel, Container, TextField, Box, Button } from '@mui/material'
 import useStyles from './EditProfileDialogStyles'
 
-const EditProfileDialog: React.FC<EditProfileProps> = (props) => {
+const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
     const { classes } = useStyles()
     const { open, onClose: handleCloseDialog } = props
 

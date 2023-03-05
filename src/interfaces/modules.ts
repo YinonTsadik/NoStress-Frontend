@@ -25,12 +25,12 @@ export interface Task {
 }
 
 export enum Type {
-    Studies,
-    Test,
-    Work,
-    Event,
-    Rest,
-    Other,
+    Studies = 'Studies',
+    Test = 'Test',
+    Work = 'Work',
+    Event = 'Event',
+    Rest = 'Rest',
+    Other = 'Other',
 }
 
 export interface Constraint {

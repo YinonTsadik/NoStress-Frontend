@@ -23,22 +23,23 @@ const Element: React.FC<ElementProps> = (props) => {
         setOpenDialog(false)
     }
 
+    const MyDivider: React.FC = () => {
+        return <Divider orientation="vertical" className={classes.divider} />
+    }
+
     if ('deadline' in element) {
         const task = element as Task
         return (
             <>
-                <Box
-                    className={classes.root}
-                    sx={{ backgroundColor: '#F5BC42', position: 'relative' }}
-                >
+                <Box className={classes.root} sx={{ backgroundColor: '#F5BC42' }}>
                     <Typography variant="caption" className={classes.description}>
                         {task.description}
                     </Typography>
-                    <Divider orientation="vertical" className={classes.divider} />
+                    <MyDivider />
                     <Typography variant="caption" className={classes.property}>
                         {new Date(task.deadline).toLocaleString()}
                     </Typography>
-                    <Divider orientation="vertical" className={classes.divider} />
+                    <MyDivider />
                     <Typography variant="caption" className={classes.property}>
                         {task.workHours}
                     </Typography>
@@ -54,29 +55,26 @@ const Element: React.FC<ElementProps> = (props) => {
                     open={openDialog}
                     onClose={handleCloseDialog}
                     element={element as Task}
-                ></EditElementDialog>
+                />
             </>
         )
     } else {
         const constraint = element as Constraint
         return (
             <>
-                <Box
-                    className={classes.root}
-                    sx={{ backgroundColor: '#4CAF50', position: 'relative' }}
-                >
+                <Box className={classes.root} sx={{ backgroundColor: '#4CAF50' }}>
                     <Typography variant="caption" className={classes.description}>
                         {constraint.description}
                     </Typography>
-                    <Divider orientation="vertical" className={classes.divider} />
+                    <MyDivider />
                     <Typography variant="caption" className={classes.property}>
                         {new Date(constraint.startTime).toLocaleString()}
                     </Typography>
-                    <Divider orientation="vertical" className={classes.divider} />
+                    <MyDivider />
                     <Typography variant="caption" className={classes.property}>
                         {new Date(constraint.endTime).toLocaleString()}
                     </Typography>
-                    <Divider orientation="vertical" className={classes.divider} />
+                    <MyDivider />
                     <Typography variant="caption" className={classes.property}>
                         {constraint.type}
                     </Typography>
@@ -92,7 +90,7 @@ const Element: React.FC<ElementProps> = (props) => {
                     open={openDialog}
                     onClose={handleCloseDialog}
                     element={element as Constraint}
-                ></EditElementDialog>
+                />
             </>
         )
     }

@@ -15,9 +15,15 @@ interface DialogProps {
     onClose: () => void
 }
 
-export interface EditProfileProps extends DialogProps {}
+export interface EditProfileDialogProps extends DialogProps {}
 
-export interface CreateCalendarProps extends DialogProps {}
+export interface AddCalendarDialogProps extends DialogProps {}
+
+export type ElementType = 'Task' | 'Constraint'
+
+export interface AddElementDialogProps extends DialogProps {
+    elementType: ElementType
+}
 
 export interface CalendarProps {
     calendar: Calendar

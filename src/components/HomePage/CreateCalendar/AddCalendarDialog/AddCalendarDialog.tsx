@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import createCalendarSchema from './AddCalendarDialogSchema'
-
 import {
-    CreateCalendarProps,
+    AddCalendarDialogProps,
     CreateCalendarFormValues,
     Calendar,
 } from '../../../../interfaces'
+
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import createCalendarSchema from './AddCalendarDialogSchema'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_CALENDAR } from '../../../../graphql'
@@ -17,14 +17,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actionCreators } from '../../../../redux'
 import { bindActionCreators } from 'redux'
 
+import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
+
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
 import useStyles from './AddCalendarDialogStyles'
 
-const AddCalendarDialog: React.FC<CreateCalendarProps> = (props) => {
+const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
     const { classes } = useStyles()
     const { open, onClose: handleCloseDialog } = props
     const user = useSelector((state: RootState) => state.user)

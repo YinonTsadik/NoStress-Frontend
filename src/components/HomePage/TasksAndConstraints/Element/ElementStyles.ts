@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()({
     root: {
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         padding: '3.5%',

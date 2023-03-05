@@ -1,3 +1,5 @@
+import { Type } from './modules'
+
 interface FirstAndLastName {
     firstName: string
     lastName: string
@@ -20,3 +22,22 @@ export interface CreateCalendarFormValues {
     startDate: Date
     endDate: Date
 }
+
+export interface CreateTaskFormValues {
+    calendarID: string
+    description: string
+    deadline: Date
+    workHours: number
+}
+
+export interface CreateConstraintFormValues {
+    calendarID: string
+    description: string
+    startTime: Date
+    endTime: Date
+    type: Type
+}
+
+export type CreateElementFormValues =
+    | CreateTaskFormValues
+    | CreateConstraintFormValues
