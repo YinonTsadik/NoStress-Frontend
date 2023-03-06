@@ -2,6 +2,7 @@ import * as yup from 'yup'
 import { Type } from '../../../../../interfaces'
 
 const noStartWithSpace = /^\S.*$/
+const types = Object.values(Type)
 
 export const createTaskSchema = () => {
     return yup.object().shape({
@@ -27,6 +28,6 @@ export const createConstraintSchema = () => {
             ),
         startTime: yup.date().required(' ').nullable(false),
         endTime: yup.date().required(' ').nullable(false),
-        type: yup.string().required(' ').oneOf(Object.values(Type)),
+        type: yup.string().required(' ').oneOf(types),
     })
 }

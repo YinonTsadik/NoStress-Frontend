@@ -63,8 +63,11 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
 
     const handleClose = () => {
         reset()
+
         setStartDate(null)
         setEndDate(null)
+        setValidDates(false)
+
         handleCloseDialog()
     }
 
@@ -77,6 +80,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
     }
 
     const onSubmit = (formData: CreateCalendarFormValues) => {
+        setValue('userID', user.id)
+
         createCalendar({
             variables: { input: { ...formData } },
         }).then(({ data }) => {
@@ -99,6 +104,10 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
     }
 
+    const prevDay = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
+    }
+
     return (
         <Dialog open={open} onClose={handleClose}>
             <Container className={classes.root}>
@@ -111,7 +120,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                             name="name"
                             error={Boolean(errors.name)}
                             onChange={onChange}
-                            helperText={errors.name ? errors.name.message : ' '}
+                            helperText={errors.name?.message || ' '}
                             variant="filled"
                         />
                         <Controller
@@ -146,10 +155,10 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                     disableMaskedInput={true}
                                     disabled={startDate == null}
                                     minDate={startDate && nextDay(startDate)}
-                                    value={value || null}
+                                    value={value ? prevDay(value) : null}
                                     onChange={(newValue) => {
-                                        newValue && onChange(newValue)
-                                        newValue && setStartDate(newValue)
+                                        newValue && onChange(nextDay(newValue))
+                                        newValue && setEndDate(nextDay(newValue))
                                     }}
                                     renderInput={(params) => (
                                         <TextField {...params} />

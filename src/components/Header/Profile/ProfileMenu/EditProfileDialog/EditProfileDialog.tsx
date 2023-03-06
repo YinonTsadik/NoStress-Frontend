@@ -74,7 +74,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
         <Dialog open={open} onClose={handleCloseDialog}>
             <Container className={classes.root}>
                 <FormLabel className={classes.formLabel}>
-                    Edit Your Profile
+                    Edit your profile
                 </FormLabel>
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <TextField
