@@ -123,9 +123,9 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                     disablePast
                                     disableMaskedInput
                                     value={value || null}
-                                    onChange={(date) => {
-                                        onChange(date)
-                                        date && setStartDate(date)
+                                    onChange={(newValue) => {
+                                        newValue && onChange(newValue)
+                                        newValue && setStartDate(newValue)
                                     }}
                                     renderInput={(params) => (
                                         <TextField {...params} />
@@ -147,9 +147,9 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                     disabled={startDate == null}
                                     minDate={startDate && nextDay(startDate)}
                                     value={value || null}
-                                    onChange={(date) => {
-                                        onChange(date)
-                                        date && setEndDate(date)
+                                    onChange={(newValue) => {
+                                        newValue && onChange(newValue)
+                                        newValue && setStartDate(newValue)
                                     }}
                                     renderInput={(params) => (
                                         <TextField {...params} />
