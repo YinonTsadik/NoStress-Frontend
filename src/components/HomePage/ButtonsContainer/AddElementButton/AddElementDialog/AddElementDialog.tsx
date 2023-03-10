@@ -43,10 +43,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 
-// import useStyles from './AddElementDialogStyles'
+import useStyles from './AddElementDialogStyles'
 
 const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
-    // const { classes } = useStyles()
+    const { classes } = useStyles()
     const { open, onClose: handleCloseDialog, elementType } = props
 
     const currentCalendar = useSelector(
@@ -111,13 +111,14 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
     }
 
     const onSubmit = async (formData: CreateElementFormValues) => {
-        setValue('calendarID', currentCalendar.id)
         await handleAddElement(formData)
         await handleOptimize()
         handleClose()
     }
 
     const handleAddElement = async (formData: CreateElementFormValues) => {
+        setValue('calendarID', currentCalendar.id)
+
         if (elementType === 'Task') {
             const taskFormData = formData as CreateTaskFormValues
             await createTask({ variables: { input: { ...taskFormData } } }).then(
@@ -175,9 +176,11 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <Container>
-                <FormLabel>{`Add a ${elementType.toLowerCase()}`}</FormLabel>
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <Container className={classes.root}>
+                <FormLabel
+                    className={classes.formLabel}
+                >{`Add a ${elementType.toLowerCase()}`}</FormLabel>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <TextField
                             label="Description *"
@@ -215,6 +218,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
                                             PopperProps={{ placement: 'auto' }}
+                                            className={classes.field}
                                         />
                                     )}
                                 />
@@ -224,12 +228,12 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                     {...register('workHours')}
                                     name="workHours"
                                     InputProps={{ inputProps: { min: 1 } }}
-                                    InputLabelProps={{ shrink: true }}
                                     onChange={onChange}
                                     error={Boolean(
                                         'workHours' in errors && errors.workHours
                                     )}
                                     variant="filled"
+                                    className={classes.field}
                                 />
                             </>
                         )}
@@ -261,6 +265,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
                                             PopperProps={{ placement: 'auto' }}
+                                            className={classes.field}
                                         />
                                     )}
                                 />
@@ -289,10 +294,15 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
                                             PopperProps={{ placement: 'auto' }}
+                                            className={classes.field}
                                         />
                                     )}
                                 />
-                                <RadioGroup name="Type" onChange={onChange}>
+                                <RadioGroup
+                                    name="Type"
+                                    onChange={onChange}
+                                    className={classes.field}
+                                >
                                     {types.map((type) => {
                                         return (
                                             <FormControlLabel
@@ -308,8 +318,13 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                             </>
                         )}
                     </LocalizationProvider>
-                    <Box>
-                        <Button onClick={handleClose}>Cancel</Button>
+                    <Box className={classes.buttonContainer}>
+                        <Button
+                            onClick={handleClose}
+                            className={classes.cancelButton}
+                        >
+                            Cancel
+                        </Button>
                         <Button
                             type="submit"
                             disabled={
@@ -318,6 +333,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                     : !isValid || !validDates
                             }
                             variant="contained"
+                            className={`${classes.cancelButton} ${classes.saveButton}`}
                         >
                             Add
                         </Button>

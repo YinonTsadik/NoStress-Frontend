@@ -32,10 +32,10 @@ const useStyles = makeStyles()({
     },
 
     buttonContainer: {
-        padding: '0 1.5vw',
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 1.5vw',
     },
 
     cancelButton: {
