@@ -41,3 +41,20 @@ export interface CreateConstraintFormValues {
 export type CreateElementFormValues =
     | CreateTaskFormValues
     | CreateConstraintFormValues
+
+export interface EditTaskFormValues {
+    id: string
+    description: string
+    deadline: Date
+    workHours: number
+}
+
+export interface EditConstraintFormValues {
+    id: string
+    description: string
+    startTime: Date
+    endTime: Date
+    type: Type
+}
+
+export type EditElementFormValues = EditTaskFormValues | EditConstraintFormValues

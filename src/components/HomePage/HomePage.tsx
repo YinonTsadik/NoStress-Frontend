@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actionCreators } from '../../redux'
@@ -39,7 +39,13 @@ const HomePage: React.FC = () => {
     const constraintsReducer = useSelector((state: RootState) => state.constraints)
     const eventsReducer = useSelector((state: RootState) => state.events)
 
-    const calendarExist = Boolean(calendarsReducer.data.length)
+    const [calendarExist, setCalendarExist] = useState(
+        Boolean(calendarsReducer.data.length)
+    )
+
+    useEffect(() => {
+        setCalendarExist(Boolean(calendarsReducer.data.length))
+    }, [calendarsReducer])
 
     const { data: calendarsData } = useQuery(GET_USER_CALENDARS, {
         variables: { userID },

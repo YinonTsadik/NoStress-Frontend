@@ -1,13 +1,22 @@
 import React from 'react'
 
-import { EditElementProps } from '../../../../../interfaces'
+import {
+    EditElementProps,
+    EditElementFormValues,
+    EditTaskFormValues,
+    EditConstraintFormValues,
+    Type,
+    Task,
+    Constraint,
+    Event,
+} from '../../../../../interfaces'
 
 import { Dialog, Typography } from '@mui/material'
 
-// import useStyles from './EditElementDialogStyles'
+import useStyles from './EditElementDialogStyles'
 
 const EditElementDialog: React.FC<EditElementProps> = (props) => {
-    // const { classes } = useStyles()
+    const { classes } = useStyles()
     const { open, onClose: handleCloseDialog, element } = props
 
     return (

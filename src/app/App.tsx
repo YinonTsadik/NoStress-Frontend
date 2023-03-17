@@ -3,7 +3,7 @@ import React from 'react'
 import useStyles from './AppStyles'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from '../components/Header'
-import PrivateHome from '../utils/PrivateHome'
+import PrivateHome from './PrivateHome'
 import { SignIn, SignUp, Home } from '../pages'
 
 const App: React.FC = () => {

@@ -27,8 +27,8 @@ const BigCalendar: React.FC = () => {
     const { classes } = useStyles()
 
     const events = useSelector((state: RootState) => state.events.data)
-    const startDate = useSelector(
-        (state: RootState) => state.currentCalendar.data.startDate
+    const { startDate, endDate } = useSelector(
+        (state: RootState) => state.currentCalendar.data
     )
 
     return (
@@ -37,6 +37,8 @@ const BigCalendar: React.FC = () => {
                 localizer={localizer}
                 events={events}
                 defaultDate={new Date(startDate)}
+                min={new Date(startDate)}
+                max={new Date(endDate)}
                 className={classes.calendar}
             />
         </Container>

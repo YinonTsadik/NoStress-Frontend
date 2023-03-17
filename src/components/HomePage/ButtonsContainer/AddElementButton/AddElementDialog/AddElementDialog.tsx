@@ -69,6 +69,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         resolver: yupResolver(
             elementType === 'Task' ? createTaskSchema() : createConstraintSchema()
         ),
+        defaultValues: { calendarID: currentCalendar.id },
     })
 
     const [createTask] = useMutation(CREATE_TASK)
@@ -117,8 +118,6 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
     }
 
     const handleAddElement = async (formData: CreateElementFormValues) => {
-        setValue('calendarID', currentCalendar.id)
-
         if (elementType === 'Task') {
             const taskFormData = formData as CreateTaskFormValues
             await createTask({ variables: { input: { ...taskFormData } } }).then(
