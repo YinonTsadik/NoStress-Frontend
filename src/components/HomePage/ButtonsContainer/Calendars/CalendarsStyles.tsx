@@ -9,6 +9,7 @@ const useStyles = makeStyles()({
         marginLeft: '2vw',
         border: '1px solid black',
         boxShadow: '0 0.5vh 2vh 0 rgba(0,0,0,0.2)',
+        overflowY: 'auto',
     },
 
     button: {

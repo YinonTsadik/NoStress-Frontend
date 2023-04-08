@@ -79,10 +79,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
         trigger(name)
     }
 
-    const onSubmit = (formData: CreateCalendarFormValues) => {
-        setValue('userID', user.id)
-
-        createCalendar({
+    const onSubmit = async (formData: CreateCalendarFormValues) => {
+        await createCalendar({
             variables: { input: { ...formData } },
         }).then(({ data }) => {
             if (data.createCalendar) {

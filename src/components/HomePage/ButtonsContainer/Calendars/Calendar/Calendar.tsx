@@ -88,6 +88,13 @@ const Calendar: React.FC<CalendarProps> = (props) => {
             <MenuItem className={classes.root}>
                 <Box onClick={handleChoose} className={classes.root}>
                     <Typography>{calendar.name}</Typography>
+                    <Typography variant="caption">
+                        {`${new Date(
+                            calendar.startDate
+                        ).toLocaleDateString()} - ${new Date(
+                            calendar.endDate
+                        ).toLocaleDateString()}`}
+                    </Typography>
                 </Box>
                 <IconButton onClick={handleEdit}>
                     <Edit />
