@@ -39,6 +39,7 @@ export interface CreateConstraintFormValues {
 }
 
 export type CreateElementFormValues =
+    | CreateCalendarFormValues
     | CreateTaskFormValues
     | CreateConstraintFormValues
 

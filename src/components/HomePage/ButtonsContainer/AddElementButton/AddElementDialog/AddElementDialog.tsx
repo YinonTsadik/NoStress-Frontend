@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import {
     AddElementDialogProps,
     CreateElementFormValues,
+    CreateCalendarFormValues,
     CreateTaskFormValues,
     CreateConstraintFormValues,
     Type,
@@ -13,10 +14,11 @@ import {
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { createTaskSchema, createConstraintSchema } from './AddElementDialogSchema'
+import createElementSchema from './AddElementDialogSchema'
 
 import { useMutation, useLazyQuery } from '@apollo/client'
 import {
+    CREATE_CALENDAR,
     CREATE_TASK,
     CREATE_CONSTRAINT,
     OPTIMIZE,
@@ -66,9 +68,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         handleSubmit,
         formState: { errors, isValid },
     } = useForm<CreateTaskFormValues | CreateConstraintFormValues>({
-        resolver: yupResolver(
-            elementType === 'Task' ? createTaskSchema() : createConstraintSchema()
-        ),
+        resolver: yupResolver(createElementSchema(elementType)()),
         defaultValues: { calendarID: currentCalendar.id },
     })
 
@@ -90,7 +90,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
             startTime.getTime() < endTime.getTime()
         setValidDates(isValidDates)
     }, [startTime, endTime])
-
+    
     const types = Object.values(Type)
 
     const handleClose = () => {
