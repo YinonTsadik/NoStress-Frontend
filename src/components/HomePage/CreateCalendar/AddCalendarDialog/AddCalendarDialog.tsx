@@ -63,6 +63,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
 
     const handleClose = () => {
         reset()
+        setValue('startDate', null)
+        setValue('endDate', null)
 
         setStartDate(null)
         setEndDate(null)

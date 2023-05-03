@@ -3,31 +3,29 @@ import React, { useState, useEffect } from 'react'
 import {
     AddElementDialogProps,
     CreateElementFormValues,
-    CreateCalendarFormValues,
     CreateTaskFormValues,
     CreateConstraintFormValues,
     Type,
     Task,
     Constraint,
-    Event,
 } from '../../../../../interfaces'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import createElementSchema from './AddElementDialogSchema'
 
-import { useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {
-    CREATE_CALENDAR,
+    // CREATE_CALENDAR,
     CREATE_TASK,
     CREATE_CONSTRAINT,
-    OPTIMIZE,
-    GET_CALENDAR_EVENTS,
 } from '../../../../../graphql'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, actionCreators } from '../../../../../redux'
 import { bindActionCreators } from 'redux'
+
+import { useOptimize } from '../../../../../hooks'
 
 import {
     Dialog,
@@ -67,21 +65,17 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         reset,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<CreateTaskFormValues | CreateConstraintFormValues>({
+    } = useForm<CreateElementFormValues>({
         resolver: yupResolver(createElementSchema(elementType)()),
-        defaultValues: { calendarID: currentCalendar.id },
     })
 
     const [createTask] = useMutation(CREATE_TASK)
     const [createConstraint] = useMutation(CREATE_CONSTRAINT)
-    const [optimize] = useMutation(OPTIMIZE)
-    const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
 
     const dispatch = useDispatch()
-    const { addTask, addConstraint, setEvents } = bindActionCreators(
-        actionCreators,
-        dispatch
-    )
+    const { addTask, addConstraint } = bindActionCreators(actionCreators, dispatch)
+
+    const handleOptimize = useOptimize(currentCalendar.id)
 
     useEffect(() => {
         const isValidDates =
@@ -90,11 +84,14 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
             startTime.getTime() < endTime.getTime()
         setValidDates(isValidDates)
     }, [startTime, endTime])
-    
+
     const types = Object.values(Type)
 
     const handleClose = () => {
         reset()
+        setValue('deadline', null)
+        setValue('startTime', null)
+        setValue('endTime', null)
 
         setStartTime(null)
         setEndTime(null)
@@ -120,6 +117,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
     const handleAddElement = async (formData: CreateElementFormValues) => {
         if (elementType === 'Task') {
             const taskFormData = formData as CreateTaskFormValues
+            taskFormData.calendarID = currentCalendar.id
             await createTask({ variables: { input: { ...taskFormData } } }).then(
                 ({ data }) => {
                     if (data.createTask) {
@@ -129,8 +127,9 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                     }
                 }
             )
-        } else {
+        } else if (elementType === 'Constraint') {
             const constraintFormData = formData as CreateConstraintFormValues
+            constraintFormData.calendarID = currentCalendar.id
             await createConstraint({
                 variables: { input: { ...constraintFormData } },
             }).then(({ data }) => {
@@ -141,36 +140,6 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                 }
             })
         }
-    }
-
-    const handleOptimize = async () => {
-        // await optimize({ variables: { calendarID: currentCalendar.id } }).then(
-        //     ({ data }) => {
-        //         if (data.optimize) {
-        //             console.log('Optimized successfully!')
-        //         }
-        //     }
-        // )
-
-        await getEvents({ variables: { calendarID: currentCalendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarEvents) {
-                    const events: Event[] = data.calendarEvents.map((event: any) => {
-                        const { description, startTime, endTime } = event
-
-                        const formattedEvent: Event = {
-                            title: description,
-                            start: new Date(startTime),
-                            end: new Date(endTime),
-                        }
-
-                        return formattedEvent
-                    })
-
-                    setEvents(events)
-                }
-            }
-        )
     }
 
     return (

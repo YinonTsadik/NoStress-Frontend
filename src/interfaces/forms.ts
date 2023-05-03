@@ -19,29 +19,28 @@ export interface EditProfileFormValues extends FirstAndLastName {
 export interface CreateCalendarFormValues {
     userID: string
     name: string
-    startDate: Date
-    endDate: Date
+    startDate: Date | null
+    endDate: Date | null
 }
 
 export interface CreateTaskFormValues {
     calendarID: string
     description: string
-    deadline: Date
+    deadline: Date | null
     workHours: number
 }
 
 export interface CreateConstraintFormValues {
     calendarID: string
     description: string
-    startTime: Date
-    endTime: Date
+    startTime: Date | null
+    endTime: Date | null
     type: Type
 }
 
 export type CreateElementFormValues =
-    | CreateCalendarFormValues
-    | CreateTaskFormValues
-    | CreateConstraintFormValues
+    // | CreateCalendarFormValues
+    CreateTaskFormValues | CreateConstraintFormValues
 
 export interface EditTaskFormValues {
     id: string
