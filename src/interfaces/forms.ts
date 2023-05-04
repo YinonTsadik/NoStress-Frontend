@@ -39,8 +39,8 @@ export interface CreateConstraintFormValues {
 }
 
 export type CreateElementFormValues =
-    // | CreateCalendarFormValues
-    CreateTaskFormValues | CreateConstraintFormValues
+    | CreateTaskFormValues
+    | CreateConstraintFormValues
 
 export interface EditTaskFormValues {
     id: string

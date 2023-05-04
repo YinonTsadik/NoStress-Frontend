@@ -31,12 +31,18 @@ const useStyles = makeStyles()({
         textAlign: 'center',
     },
 
-    iconButton: {
+    editButton: {
         position: 'absolute',
         top: 0,
         right: 0,
         padding: 0,
-        margin: 0,
+    },
+
+    deleteButton: {
+        position: 'absolute',
+        marginTop: '10%',
+        right: 0,
+        padding: 0,
     },
 })
 

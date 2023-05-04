@@ -1,20 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../../../../redux'
 import { bindActionCreators } from 'redux'
 
-import { useLazyQuery } from '@apollo/client'
-import {
-    GET_CALENDAR_TASKS,
-    GET_CALENDAR_CONSTRAINTS,
-    GET_CALENDAR_EVENTS,
-} from '../../../../../graphql'
+import { useSetTasks, useSetConstraints, useSetEvents } from '../../../../../hooks'
 
-import { CalendarProps, Task, Constraint, Event } from '../../../../../interfaces'
+import { CalendarProps } from '../../../../../interfaces'
 
 import { Box, MenuItem, Typography, IconButton } from '@mui/material'
-import { Edit } from '@mui/icons-material'
+import { Edit, Delete } from '@mui/icons-material'
 
 import useStyles from './CalendarStyles'
 
@@ -23,81 +18,75 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const { calendar, handleCloseMenu } = props
 
     const dispatch = useDispatch()
-    const { setCurrentCalendar, setTasks, setConstraints, setEvents } =
-        bindActionCreators(actionCreators, dispatch)
+    const { setCurrentCalendar } = bindActionCreators(actionCreators, dispatch)
 
-    const [getTasks] = useLazyQuery(GET_CALENDAR_TASKS)
-    const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS)
-    const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
+    const handleSetTasks = useSetTasks(calendar.id)
+    const handleSetConstraints = useSetConstraints(calendar.id)
+    const handleSetEvents = useSetEvents(calendar.id)
+
+    const [openEditDialog, setOpenEditDialog] = useState(false)
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+
+    const handleOpenEditDialog = () => {
+        console.log('handleOpenEditDialog')
+        setOpenEditDialog(true)
+    }
+
+    const handleCloseEditDialog = () => {
+        setOpenEditDialog(false)
+    }
+
+    const handleOpenDeleteDialog = () => {
+        console.log('handleOpenDeleteDialog')
+        setOpenDeleteDialog(true)
+    }
+
+    const handleCloseDeleteDialog = () => {
+        setOpenDeleteDialog(false)
+    }
 
     const handleChoose = async () => {
+        console.log('handleChoose')
+
         setCurrentCalendar(calendar)
 
-        await getTasks({ variables: { calendarID: calendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarTasks) {
-                    const tasks: Task[] = data.calendarTasks.map((task: any) => {
-                        const { __typename, ...rest } = task
-                        return rest as Task
-                    })
-                    setTasks(tasks)
-                }
-            }
-        )
-
-        await getConstraints({ variables: { calendarID: calendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarConstraints) {
-                    const constraints: Constraint[] = data.calendarConstraints.map(
-                        (constraint: any) => {
-                            const { __typename, ...rest } = constraint
-                            return rest as Constraint
-                        }
-                    )
-                    setConstraints(constraints)
-                }
-            }
-        )
-
-        await getEvents({ variables: { calendarID: calendar.id } }).then(
-            ({ data }) => {
-                if (data.calendarEvents) {
-                    const events: Event[] = data.calendarEvents.map((event: any) => {
-                        const { description, startTime, endTime } = event
-                        const formattedEvent: Event = {
-                            title: description,
-                            start: new Date(startTime),
-                            end: new Date(endTime),
-                        }
-                        return formattedEvent
-                    })
-                    setEvents(events)
-                }
-            }
-        )
+        await handleSetTasks()
+        await handleSetConstraints()
+        await handleSetEvents()
 
         handleCloseMenu()
     }
 
-    const handleEdit = () => {
-        console.log('handleEdit')
+    const prevDay = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
     }
 
     return (
         <Box>
             <MenuItem className={classes.root}>
-                <Box onClick={handleChoose} className={classes.root}>
+                <Box onClick={handleChoose}>
                     <Typography>{calendar.name}</Typography>
-                    <Typography variant="caption">
+                    <Typography variant="caption" className={classes.caption}>
                         {`${new Date(
                             calendar.startDate
-                        ).toLocaleDateString()} - ${new Date(
-                            calendar.endDate
+                        ).toLocaleDateString()} - ${prevDay(
+                            new Date(calendar.endDate)
                         ).toLocaleDateString()}`}
                     </Typography>
                 </Box>
-                <IconButton onClick={handleEdit}>
+                <IconButton
+                    onClick={handleOpenEditDialog}
+                    size="small"
+                    className={classes.editButton}
+                >
                     <Edit />
+                </IconButton>
+                <IconButton
+                    onClick={handleOpenDeleteDialog}
+                    size="small"
+                    className={classes.deleteButton}
+                >
+                    <Delete />
                 </IconButton>
             </MenuItem>
         </Box>

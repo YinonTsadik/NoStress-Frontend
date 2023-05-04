@@ -1,15 +1,6 @@
 import React from 'react'
 
-import {
-    EditElementProps,
-    EditElementFormValues,
-    EditTaskFormValues,
-    EditConstraintFormValues,
-    Type,
-    Task,
-    Constraint,
-    Event,
-} from '../../../../../interfaces'
+import { EditElementProps } from '../../../../../interfaces'
 
 import { Dialog, Typography } from '@mui/material'
 
@@ -17,13 +8,12 @@ import useStyles from './EditElementDialogStyles'
 
 const EditElementDialog: React.FC<EditElementProps> = (props) => {
     const { classes } = useStyles()
-    const { open, onClose: handleCloseDialog, element } = props
+    const { open, onClose: handleCloseDialog, elementType } = props
 
     return (
         <Dialog open={open} onClose={handleCloseDialog}>
-            {'deadline' in element ? (
-                <Typography>Edit Task</Typography>
-            ) : (
+            {elementType === 'Task' && <Typography>Edit Task</Typography>}
+            {elementType === 'Constraint' && (
                 <Typography>Edit Constraint</Typography>
             )}
         </Dialog>

@@ -3,19 +3,16 @@ import React, { useState, useEffect } from 'react'
 import {
     AddCalendarDialogProps,
     CreateCalendarFormValues,
-    Calendar,
 } from '../../../../interfaces'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import createCalendarSchema from './AddCalendarDialogSchema'
 
-import { useMutation } from '@apollo/client'
-import { CREATE_CALENDAR } from '../../../../graphql'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../redux'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, actionCreators } from '../../../../redux'
-import { bindActionCreators } from 'redux'
+import { useAddCalendar } from '../../../../hooks'
 
 import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
 
@@ -47,11 +44,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
         defaultValues: { userID: user.id },
     })
 
-    const [createCalendar] = useMutation(CREATE_CALENDAR)
-
-    const dispatch = useDispatch()
-    const { addCalendar, setCurrentCalendar, setTasks, setConstraints, setEvents } =
-        bindActionCreators(actionCreators, dispatch)
+    const handleAddCalendar = useAddCalendar()
 
     useEffect(() => {
         const isValidDates =
@@ -82,22 +75,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
     }
 
     const onSubmit = async (formData: CreateCalendarFormValues) => {
-        await createCalendar({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
-            if (data.createCalendar) {
-                console.log('Calendar created successfully!')
-                const { __typename, ...rest } = data.createCalendar
-
-                addCalendar(rest as Calendar)
-                setCurrentCalendar(rest as Calendar)
-                setTasks([])
-                setConstraints([])
-                setEvents([])
-
-                handleClose()
-            }
-        })
+        await handleAddCalendar(formData)
+        handleClose()
     }
 
     const nextDay = (date: Date) => {

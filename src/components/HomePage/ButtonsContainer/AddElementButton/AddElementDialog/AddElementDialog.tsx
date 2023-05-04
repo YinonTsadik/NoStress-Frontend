@@ -6,26 +6,21 @@ import {
     CreateTaskFormValues,
     CreateConstraintFormValues,
     Type,
-    Task,
-    Constraint,
 } from '../../../../../interfaces'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import createElementSchema from './AddElementDialogSchema'
 
-import { useMutation } from '@apollo/client'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux'
+
 import {
-    // CREATE_CALENDAR,
-    CREATE_TASK,
-    CREATE_CONSTRAINT,
-} from '../../../../../graphql'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, actionCreators } from '../../../../../redux'
-import { bindActionCreators } from 'redux'
-
-import { useOptimize } from '../../../../../hooks'
+    useAddTask,
+    useAddConstraint,
+    useOptimize,
+    useSetEvents,
+} from '../../../../../hooks'
 
 import {
     Dialog,
@@ -69,13 +64,10 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         resolver: yupResolver(createElementSchema(elementType)()),
     })
 
-    const [createTask] = useMutation(CREATE_TASK)
-    const [createConstraint] = useMutation(CREATE_CONSTRAINT)
-
-    const dispatch = useDispatch()
-    const { addTask, addConstraint } = bindActionCreators(actionCreators, dispatch)
-
+    const handleAddTask = useAddTask()
+    const handleAddConstraint = useAddConstraint()
     const handleOptimize = useOptimize(currentCalendar.id)
+    const handleSetEvents = useSetEvents(currentCalendar.id)
 
     useEffect(() => {
         const isValidDates =
@@ -110,7 +102,8 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
 
     const onSubmit = async (formData: CreateElementFormValues) => {
         await handleAddElement(formData)
-        await handleOptimize()
+        // await handleOptimize()
+        await handleSetEvents()
         handleClose()
     }
 
@@ -118,27 +111,11 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         if (elementType === 'Task') {
             const taskFormData = formData as CreateTaskFormValues
             taskFormData.calendarID = currentCalendar.id
-            await createTask({ variables: { input: { ...taskFormData } } }).then(
-                ({ data }) => {
-                    if (data.createTask) {
-                        console.log('Task created successfully!')
-                        const { __typename, ...rest } = data.createTask
-                        addTask(rest as Task)
-                    }
-                }
-            )
+            await handleAddTask(taskFormData)
         } else if (elementType === 'Constraint') {
             const constraintFormData = formData as CreateConstraintFormValues
             constraintFormData.calendarID = currentCalendar.id
-            await createConstraint({
-                variables: { input: { ...constraintFormData } },
-            }).then(({ data }) => {
-                if (data.createConstraint) {
-                    console.log('Constraint created successfully!')
-                    const { __typename, ...rest } = data.createConstraint
-                    addConstraint(rest as Constraint)
-                }
-            })
+            await handleAddConstraint(constraintFormData)
         }
     }
 

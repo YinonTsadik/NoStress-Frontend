@@ -19,7 +19,7 @@ export interface EditProfileDialogProps extends DialogProps {}
 
 export interface AddCalendarDialogProps extends DialogProps {}
 
-export type ElementType = 'Calendar' | 'Task' | 'Constraint'
+export type ElementType = 'Task' | 'Constraint'
 
 export interface AddElementDialogProps extends DialogProps {
     elementType: ElementType
@@ -31,6 +31,7 @@ export interface CalendarProps {
 }
 
 export interface ElementProps {
+    elementType: ElementType
     element: Task | Constraint
 }
 

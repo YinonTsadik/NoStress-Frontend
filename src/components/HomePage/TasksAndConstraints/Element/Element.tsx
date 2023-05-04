@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { ElementProps, Task, Constraint } from '../../../../interfaces'
 
 import { Box, Typography, Divider, IconButton } from '@mui/material'
-import { Edit } from '@mui/icons-material'
+import { Edit, Delete } from '@mui/icons-material'
 
 import EditElementDialog from './EditElementDialog'
 
@@ -11,23 +11,32 @@ import useStyles from './ElementStyles'
 
 const Element: React.FC<ElementProps> = (props) => {
     const { classes } = useStyles()
-    const { element } = props
+    const { elementType, element } = props
 
-    const [openDialog, setOpenDialog] = useState(false)
+    const [openEditDialog, setOpenEditDialog] = useState(false)
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
-    const handleOpenDialog = () => {
-        setOpenDialog(true)
+    const handleOpenEditDialog = () => {
+        setOpenEditDialog(true)
     }
 
-    const handleCloseDialog = () => {
-        setOpenDialog(false)
+    const handleCloseEditDialog = () => {
+        setOpenEditDialog(false)
+    }
+
+    const handleOpenDeleteDialog = () => {
+        setOpenDeleteDialog(true)
+    }
+
+    const handleCloseDeleteDialog = () => {
+        setOpenDeleteDialog(false)
     }
 
     const MyDivider: React.FC = () => {
         return <Divider orientation="vertical" className={classes.divider} />
     }
 
-    if ('deadline' in element) {
+    if (elementType === 'Task') {
         const task = element as Task
         return (
             <>
@@ -44,16 +53,24 @@ const Element: React.FC<ElementProps> = (props) => {
                         {task.workHours}
                     </Typography>
                     <IconButton
-                        onClick={handleOpenDialog}
+                        onClick={handleOpenEditDialog}
                         size="small"
-                        className={classes.iconButton}
+                        className={classes.editButton}
                     >
                         <Edit />
                     </IconButton>
+                    <IconButton
+                        onClick={handleOpenDeleteDialog}
+                        size="small"
+                        className={classes.deleteButton}
+                    >
+                        <Delete />
+                    </IconButton>
                 </Box>
                 <EditElementDialog
-                    open={openDialog}
-                    onClose={handleCloseDialog}
+                    open={openEditDialog}
+                    onClose={handleCloseEditDialog}
+                    elementType="Task"
                     element={element as Task}
                 />
             </>
@@ -79,16 +96,24 @@ const Element: React.FC<ElementProps> = (props) => {
                         {constraint.type}
                     </Typography>
                     <IconButton
-                        onClick={handleOpenDialog}
+                        onClick={handleOpenEditDialog}
                         size="small"
-                        className={classes.iconButton}
+                        className={classes.editButton}
                     >
                         <Edit />
                     </IconButton>
+                    <IconButton
+                        onClick={handleOpenDeleteDialog}
+                        size="small"
+                        className={classes.deleteButton}
+                    >
+                        <Delete />
+                    </IconButton>
                 </Box>
                 <EditElementDialog
-                    open={openDialog}
-                    onClose={handleCloseDialog}
+                    open={openEditDialog}
+                    onClose={handleCloseEditDialog}
+                    elementType="Constraint"
                     element={element as Constraint}
                 />
             </>

@@ -70,7 +70,11 @@ const TasksAndConstraints: React.FC = () => {
                             </Typography>
                         </Box>
                         {tasks.map((task) => (
-                            <Element key={task.id} element={task} />
+                            <Element
+                                key={task.id}
+                                element={task}
+                                elementType="Task"
+                            />
                         ))}
                     </>
                 ) : (
@@ -93,7 +97,11 @@ const TasksAndConstraints: React.FC = () => {
                             </Typography>
                         </Box>
                         {constraints.map((constraint) => (
-                            <Element key={constraint.id} element={constraint} />
+                            <Element
+                                key={constraint.id}
+                                element={constraint}
+                                elementType="Constraint"
+                            />
                         ))}
                     </>
                 )}
