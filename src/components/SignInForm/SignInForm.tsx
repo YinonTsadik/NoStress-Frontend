@@ -4,14 +4,9 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signInSchema from './SignInFormSchema'
 
-import { SignInFormValues, User } from '../../interfaces'
+import { SignInFormValues } from '../../interfaces'
 
-import { useLazyQuery } from '@apollo/client'
-import { USER_AUTHENTICATION } from '../../graphql'
-
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { actionCreators } from '../../redux'
+import { useSignIn } from '../../hooks'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -26,6 +21,7 @@ import {
     Link,
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
+
 import useStyles from './SignInFormStyles'
 
 const SignInForm: React.FC = () => {
@@ -38,12 +34,7 @@ const SignInForm: React.FC = () => {
         formState: { errors, isValid },
     } = useForm<SignInFormValues>({ resolver: yupResolver(signInSchema()) })
 
-    const [checkAuthentication] = useLazyQuery(USER_AUTHENTICATION, {
-        fetchPolicy: 'network-only',
-    })
-
-    const dispatch = useDispatch()
-    const { signIn } = bindActionCreators(actionCreators, dispatch)
+    const handleSignIn = useSignIn()
 
     const navigate = useNavigate()
     const [authError, setAuthError] = useState(false)
@@ -63,20 +54,15 @@ const SignInForm: React.FC = () => {
         trigger(name)
     }
 
-    const onSubmit = (formData: SignInFormValues) => {
-        checkAuthentication({
-            variables: { ...formData },
-        }).then(({ data }) => {
-            if (data.user) {
-                console.log('Logged in successfully!')
-                const { __typename, ...rest } = data.user
-                signIn(rest as User)
-                navigate('/')
-                setAuthError(false)
-            } else {
-                setAuthError(true)
-            }
-        })
+    const onSubmit = async (formData: SignInFormValues) => {
+        const isAuthenticated = await handleSignIn(formData)
+
+        if (isAuthenticated) {
+            navigate('/')
+            setAuthError(false)
+        } else {
+            setAuthError(true)
+        }
     }
 
     return (

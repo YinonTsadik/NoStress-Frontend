@@ -4,14 +4,12 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import signUpSchema from './SignUpFormSchema'
 
-import { SignUpFormValues, User } from '../../interfaces'
+import { SignUpFormValues } from '../../interfaces'
 
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_USERNAMES, CREATE_USER } from '../../graphql'
+import { useSignUp } from '../../hooks'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { actionCreators } from '../../redux'
+import { useQuery } from '@apollo/client'
+import { GET_USERNAMES } from '../../graphql'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -44,12 +42,7 @@ const SignUpForm: React.FC = () => {
         resolver: yupResolver(signUpSchema(data ? data.usernames : [])),
     })
 
-    const [createUser] = useMutation(CREATE_USER, {
-        fetchPolicy: 'network-only',
-    })
-
-    const dispatch = useDispatch()
-    const { signIn } = bindActionCreators(actionCreators, dispatch)
+    const handleSignUp = useSignUp()
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
@@ -66,17 +59,12 @@ const SignUpForm: React.FC = () => {
         trigger(name)
     }
 
-    const onSubmit = (formData: SignUpFormValues) => {
-        createUser({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
-            if (data.createUser) {
-                console.log('Signed up successfully!')
-                const { __typename, ...rest } = data.createUser
-                signIn(rest as User)
-                navigate('/')
-            }
-        })
+    const onSubmit = async (formData: SignUpFormValues) => {
+        const isSignedUp = await handleSignUp(formData)
+
+        if (isSignedUp) {
+            navigate('/')
+        }
     }
 
     return (
