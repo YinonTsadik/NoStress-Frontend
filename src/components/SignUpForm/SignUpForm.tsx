@@ -90,7 +90,7 @@ const SignUpForm: React.FC = () => {
                     name="firstName"
                     onChange={onChange}
                     error={Boolean(errors.firstName)}
-                    helperText={errors.firstName ? errors.firstName.message : ' '}
+                    helperText={errors.firstName?.message || ' '}
                     variant="filled"
                     className={classes.textField}
                 />
@@ -100,7 +100,7 @@ const SignUpForm: React.FC = () => {
                     name="lastName"
                     onChange={onChange}
                     error={Boolean(errors.lastName)}
-                    helperText={errors.lastName ? errors.lastName.message : ' '}
+                    helperText={errors.lastName?.message || ' '}
                     variant="filled"
                     className={classes.textField}
                 />
@@ -110,7 +110,7 @@ const SignUpForm: React.FC = () => {
                     name="username"
                     onChange={onChange}
                     error={Boolean(errors.username)}
-                    helperText={errors.username ? errors.username.message : ' '}
+                    helperText={errors.username?.message || ' '}
                     variant="filled"
                     className={classes.textField}
                 />
@@ -121,7 +121,7 @@ const SignUpForm: React.FC = () => {
                     name="password"
                     onChange={onChange}
                     error={Boolean(errors.password)}
-                    helperText={errors.password ? errors.password.message : ' '}
+                    helperText={errors.password?.message || ' '}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

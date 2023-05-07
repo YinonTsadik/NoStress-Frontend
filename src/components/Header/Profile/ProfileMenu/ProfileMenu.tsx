@@ -61,15 +61,15 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
                 <Divider color="black" />
 
                 <MenuItem onClick={handleOpenDialog}>
-                    <Edit fontSize="small" sx={{ marginRight: '1vw' }} />
                     <Typography>Edit your profile</Typography>
+                    <Edit fontSize="small" className={classes.iconButton} />
                 </MenuItem>
 
                 <Divider color="black" />
 
                 <MenuItem onClick={handleSignOut}>
-                    <Logout fontSize="small" sx={{ marginRight: '1vw' }} />
                     <Typography>Sign out</Typography>
+                    <Logout fontSize="small" className={classes.iconButton} />
                 </MenuItem>
             </Menu>
             <EditProfileDialog open={openDialog} onClose={handleCloseDialog} />

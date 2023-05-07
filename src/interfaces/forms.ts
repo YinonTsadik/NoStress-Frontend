@@ -1,18 +1,21 @@
 import { Type } from './modules'
 
-interface FirstAndLastName {
-    firstName: string
-    lastName: string
-}
-
 export interface SignInFormValues {
     username: string
     password: string
 }
 
-export interface SignUpFormValues extends FirstAndLastName, SignInFormValues {}
+export interface SignUpFormValues {
+    firstName: string
+    lastName: string
+    username: string
+    password: string
+}
 
-export interface EditProfileFormValues extends FirstAndLastName {
+export interface EditProfileFormValues {
+    id: string
+    firstName: string
+    lastName: string
     username: string
 }
 
@@ -21,6 +24,11 @@ export interface CreateCalendarFormValues {
     name: string
     startDate: Date | null
     endDate: Date | null
+}
+
+export interface EditCalendarFormValues {
+    id: string
+    name: string
 }
 
 export interface CreateTaskFormValues {

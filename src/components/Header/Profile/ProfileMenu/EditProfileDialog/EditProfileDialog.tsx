@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import editProfileSchema from './EditProfileDialogSchema'
-
 import {
     EditProfileDialogProps,
     EditProfileFormValues,
 } from '../../../../../interfaces'
+
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import editProfileSchema from './EditProfileDialogSchema'
 
 import { useQuery } from '@apollo/client'
 import { GET_USERNAMES } from '../../../../../graphql'
@@ -17,7 +17,8 @@ import { RootState } from '../../../../../redux'
 
 import { useUpdateUser } from '../../../../../hooks'
 
-import { Dialog, FormLabel, Container, TextField, Box, Button } from '@mui/material'
+import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
+
 import useStyles from './EditProfileDialogStyles'
 
 const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
@@ -41,6 +42,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
                     : []
             )
         ),
+        defaultValues: { id: user.id },
     })
 
     const handleUpdateUser = useUpdateUser()
@@ -73,9 +75,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
                         name="firstName"
                         onChange={onChange}
                         error={Boolean(errors.firstName)}
-                        helperText={
-                            errors.firstName ? errors.firstName.message : ' '
-                        }
+                        helperText={errors.firstName?.message || ' '}
                         variant="filled"
                         className={classes.textField}
                     />
@@ -86,7 +86,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
                         name="lastName"
                         onChange={onChange}
                         error={Boolean(errors.lastName)}
-                        helperText={errors.lastName ? errors.lastName.message : ' '}
+                        helperText={errors.lastName?.message || ' '}
                         variant="filled"
                         className={classes.textField}
                     />
@@ -97,7 +97,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
                         name="username"
                         onChange={onChange}
                         error={Boolean(errors.username)}
-                        helperText={errors.username ? errors.username.message : ' '}
+                        helperText={errors.username?.message || ' '}
                         variant="filled"
                         className={classes.textField}
                     />

@@ -25,6 +25,10 @@ const useStyles = makeStyles()({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    iconButton: {
+        marginLeft: 'auto',
+    },
 })
 
 export default useStyles

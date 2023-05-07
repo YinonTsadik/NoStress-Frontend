@@ -35,4 +35,10 @@ export interface ElementProps {
     element: Task | Constraint
 }
 
+export interface EditCalendarDialogProps extends DialogProps {
+    calendar: Calendar
+}
+
+export interface DeleteCalendarDialogProps extends EditCalendarDialogProps {}
+
 export interface EditElementProps extends DialogProps, ElementProps {}

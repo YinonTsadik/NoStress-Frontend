@@ -97,8 +97,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                             label="Calendar Name *"
                             {...register('name')}
                             name="name"
-                            error={Boolean(errors.name)}
                             onChange={onChange}
+                            error={Boolean(errors.name)}
                             helperText={errors.name?.message || ' '}
                             variant="filled"
                         />

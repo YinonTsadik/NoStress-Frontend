@@ -1,11 +1,11 @@
 import { useLazyQuery } from '@apollo/client'
-import { GET_CALENDAR_CONSTRAINTS } from '../graphql'
+import { GET_CALENDAR_CONSTRAINTS } from '../../graphql'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { actionCreators } from '../../redux'
 import { bindActionCreators } from 'redux'
 
-import { Constraint } from '../interfaces'
+import { Constraint } from '../../interfaces'
 
 const useSetConstraints = (calendarID: string) => {
     const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS, {

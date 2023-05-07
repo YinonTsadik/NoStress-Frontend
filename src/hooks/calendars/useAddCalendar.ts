@@ -1,10 +1,10 @@
-import { CreateCalendarFormValues, Calendar } from '../interfaces'
+import { CreateCalendarFormValues, Calendar } from '../../interfaces'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_CALENDAR } from '../graphql'
+import { CREATE_CALENDAR } from '../../graphql'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { actionCreators } from '../../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddCalendar = () => {

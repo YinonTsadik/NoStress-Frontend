@@ -11,6 +11,9 @@ import { CalendarProps } from '../../../../../interfaces'
 import { MenuItem, Box, Typography, IconButton } from '@mui/material'
 import { Edit, Delete } from '@mui/icons-material'
 
+import EditCalendarDialog from './EditCalendarDialog'
+import DeleteCalendarDialog from './DeleteCalendarDialog'
+
 import useStyles from './CalendarStyles'
 
 const Calendar: React.FC<CalendarProps> = (props) => {
@@ -28,7 +31,6 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
 
     const handleOpenEditDialog = () => {
-        console.log('handleOpenEditDialog')
         setOpenEditDialog(true)
     }
 
@@ -37,7 +39,6 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     }
 
     const handleOpenDeleteDialog = () => {
-        console.log('handleOpenDeleteDialog')
         setOpenDeleteDialog(true)
     }
 
@@ -46,8 +47,6 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     }
 
     const handleChoose = async () => {
-        console.log('handleChoose')
-
         setCurrentCalendar(calendar)
 
         await handleSetTasks()
@@ -87,6 +86,16 @@ const Calendar: React.FC<CalendarProps> = (props) => {
             >
                 <Delete />
             </IconButton>
+            <EditCalendarDialog
+                open={openEditDialog}
+                onClose={handleCloseEditDialog}
+                calendar={calendar}
+            />
+            <DeleteCalendarDialog
+                open={openDeleteDialog}
+                onClose={handleCloseDeleteDialog}
+                calendar={calendar}
+            />
         </MenuItem>
     )
 }

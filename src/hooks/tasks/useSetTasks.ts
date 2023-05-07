@@ -1,11 +1,11 @@
 import { useLazyQuery } from '@apollo/client'
-import { GET_CALENDAR_TASKS } from '../graphql'
+import { GET_CALENDAR_TASKS } from '../../graphql'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { actionCreators } from '../../redux'
 import { bindActionCreators } from 'redux'
 
-import { Task } from '../interfaces'
+import { Task } from '../../interfaces'
 
 const useSetTasks = (calendarID: string) => {
     const [getTasks] = useLazyQuery(GET_CALENDAR_TASKS, {

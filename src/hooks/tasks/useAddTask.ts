@@ -1,10 +1,10 @@
-import { CreateTaskFormValues, Task } from '../interfaces'
+import { CreateTaskFormValues, Task } from '../../interfaces'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_TASK } from '../graphql'
+import { CREATE_TASK } from '../../graphql'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { actionCreators } from '../../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddTask = () => {

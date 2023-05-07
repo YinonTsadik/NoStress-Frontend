@@ -75,7 +75,6 @@ const SignInForm: React.FC = () => {
                 setAuthError(false)
             } else {
                 setAuthError(true)
-                // reset() // Maybe
             }
         })
     }
@@ -93,7 +92,7 @@ const SignInForm: React.FC = () => {
                     name="username"
                     onChange={onChange}
                     error={Boolean(errors.username || authError)}
-                    helperText={errors.username ? errors.username.message : ' '}
+                    helperText={errors.username?.message || ' '}
                     variant="filled"
                     className={classes.textField}
                 />
@@ -104,7 +103,7 @@ const SignInForm: React.FC = () => {
                     name="password"
                     onChange={onChange}
                     error={Boolean(errors.password || authError)}
-                    helperText={errors.password ? errors.password.message : ' '}
+                    helperText={errors.password?.message || ' '}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

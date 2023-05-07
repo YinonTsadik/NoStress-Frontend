@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client'
-import { OPTIMIZE } from '../graphql'
+import { OPTIMIZE } from '../../graphql'
 
 const useOptimize = (calendarID: string) => {
     const [optimize] = useMutation(OPTIMIZE, {

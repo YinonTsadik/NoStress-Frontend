@@ -1,10 +1,10 @@
-import { CreateConstraintFormValues, Constraint } from '../interfaces'
+import { CreateConstraintFormValues, Constraint } from '../../interfaces'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_CONSTRAINT } from '../graphql'
+import { CREATE_CONSTRAINT } from '../../graphql'
 
 import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { actionCreators } from '../../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddConstraint = () => {
