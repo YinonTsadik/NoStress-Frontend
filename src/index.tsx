@@ -22,3 +22,5 @@ root.render(
         </ApolloProvider>
     </React.StrictMode>
 )
+
+// To run the website, type 'npm start' in the terminal.
