@@ -44,7 +44,9 @@ const SignUpForm: React.FC = () => {
         resolver: yupResolver(signUpSchema(data ? data.usernames : [])),
     })
 
-    const [createUser] = useMutation(CREATE_USER)
+    const [createUser] = useMutation(CREATE_USER, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { signIn } = bindActionCreators(actionCreators, dispatch)

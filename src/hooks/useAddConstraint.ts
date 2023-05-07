@@ -8,16 +8,16 @@ import { actionCreators } from '../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddConstraint = () => {
-    const [createConstraint] = useMutation(CREATE_CONSTRAINT)
+    const [createConstraint] = useMutation(CREATE_CONSTRAINT, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { addConstraint } = bindActionCreators(actionCreators, dispatch)
 
-    const handleAddConstraint = async (
-        constraintFormData: CreateConstraintFormValues
-    ) => {
+    const handleAddConstraint = async (formData: CreateConstraintFormValues) => {
         await createConstraint({
-            variables: { input: { ...constraintFormData } },
+            variables: { input: { ...formData } },
         }).then(({ data }) => {
             if (data.createConstraint) {
                 console.log('Task created successfully!')

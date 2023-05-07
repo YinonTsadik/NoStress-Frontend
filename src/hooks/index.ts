@@ -4,6 +4,7 @@ import useAddConstraint from './useAddConstraint'
 import useSetTasks from './useSetTasks'
 import useSetConstraints from './useSetConstraints'
 import useSetEvents from './useSetEvents'
+import useUpdateUser from './useUpdateUser'
 import useOptimize from './useOptimize'
 
 export {
@@ -13,5 +14,6 @@ export {
     useSetTasks,
     useSetConstraints,
     useSetEvents,
+    useUpdateUser,
     useOptimize,
 }

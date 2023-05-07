@@ -8,15 +8,17 @@ import { actionCreators } from '../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddCalendar = () => {
-    const [createCalendar] = useMutation(CREATE_CALENDAR)
+    const [createCalendar] = useMutation(CREATE_CALENDAR, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { addCalendar, setCurrentCalendar, setTasks, setConstraints, setEvents } =
         bindActionCreators(actionCreators, dispatch)
 
-    const handleAddCalendar = async (calendarFormData: CreateCalendarFormValues) => {
+    const handleAddCalendar = async (formData: CreateCalendarFormValues) => {
         await createCalendar({
-            variables: { input: { ...calendarFormData } },
+            variables: { input: { ...formData } },
         }).then(({ data }) => {
             if (data.createCalendar) {
                 console.log('Calendar created successfully!')

@@ -8,7 +8,9 @@ import { bindActionCreators } from 'redux'
 import { Event } from '../interfaces'
 
 const useSetEvents = (calendarID: string) => {
-    const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS)
+    const [getEvents] = useLazyQuery(GET_CALENDAR_EVENTS, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { setEvents } = bindActionCreators(actionCreators, dispatch)

@@ -7,15 +7,15 @@ import editProfileSchema from './EditProfileDialogSchema'
 import {
     EditProfileDialogProps,
     EditProfileFormValues,
-    User,
 } from '../../../../../interfaces'
 
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_USERNAMES, UPDATE_USER } from '../../../../../graphql'
+import { useQuery } from '@apollo/client'
+import { GET_USERNAMES } from '../../../../../graphql'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, actionCreators } from '../../../../../redux'
-import { bindActionCreators } from 'redux'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux'
+
+import { useUpdateUser } from '../../../../../hooks'
 
 import { Dialog, FormLabel, Container, TextField, Box, Button } from '@mui/material'
 import useStyles from './EditProfileDialogStyles'
@@ -43,10 +43,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
         ),
     })
 
-    const [updateUser] = useMutation(UPDATE_USER)
-
-    const dispatch = useDispatch()
-    const { signIn: editUser } = bindActionCreators(actionCreators, dispatch)
+    const handleUpdateUser = useUpdateUser()
 
     type FormFields = 'firstName' | 'lastName'
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,18 +53,10 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
         trigger(name)
     }
 
-    const onSubmit = (formData: EditProfileFormValues) => {
-        updateUser({
-            variables: { input: { id: user.id, ...formData } },
-        }).then(({ data }) => {
-            if (data.updateUser) {
-                console.log('User updated successfully!')
-                const { __typename, ...rest } = data.updateUser
-                editUser(rest as User)
-                refetchUsernames()
-                handleCloseDialog()
-            }
-        })
+    const onSubmit = async (formData: EditProfileFormValues) => {
+        await handleUpdateUser(formData)
+        await refetchUsernames()
+        handleCloseDialog()
     }
 
     return (

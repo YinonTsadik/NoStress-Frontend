@@ -8,7 +8,7 @@ import { useSetTasks, useSetConstraints, useSetEvents } from '../../../../../hoo
 
 import { CalendarProps } from '../../../../../interfaces'
 
-import { Box, MenuItem, Typography, IconButton } from '@mui/material'
+import { MenuItem, Box, Typography, IconButton } from '@mui/material'
 import { Edit, Delete } from '@mui/icons-material'
 
 import useStyles from './CalendarStyles'
@@ -62,34 +62,32 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     }
 
     return (
-        <Box>
-            <MenuItem className={classes.root}>
-                <Box onClick={handleChoose}>
-                    <Typography>{calendar.name}</Typography>
-                    <Typography variant="caption" className={classes.caption}>
-                        {`${new Date(
-                            calendar.startDate
-                        ).toLocaleDateString()} - ${prevDay(
-                            new Date(calendar.endDate)
-                        ).toLocaleDateString()}`}
-                    </Typography>
-                </Box>
-                <IconButton
-                    onClick={handleOpenEditDialog}
-                    size="small"
-                    className={classes.editButton}
-                >
-                    <Edit />
-                </IconButton>
-                <IconButton
-                    onClick={handleOpenDeleteDialog}
-                    size="small"
-                    className={classes.deleteButton}
-                >
-                    <Delete />
-                </IconButton>
-            </MenuItem>
-        </Box>
+        <MenuItem className={classes.root}>
+            <Box onClick={handleChoose}>
+                <Typography>{calendar.name}</Typography>
+                <Typography variant="caption" className={classes.caption}>
+                    {`${new Date(
+                        calendar.startDate
+                    ).toLocaleDateString()} - ${prevDay(
+                        new Date(calendar.endDate)
+                    ).toLocaleDateString()}`}
+                </Typography>
+            </Box>
+            <IconButton
+                onClick={handleOpenEditDialog}
+                size="small"
+                className={classes.editButton}
+            >
+                <Edit />
+            </IconButton>
+            <IconButton
+                onClick={handleOpenDeleteDialog}
+                size="small"
+                className={classes.deleteButton}
+            >
+                <Delete />
+            </IconButton>
+        </MenuItem>
     )
 }
 

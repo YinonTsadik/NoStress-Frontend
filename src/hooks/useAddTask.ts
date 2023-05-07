@@ -8,13 +8,15 @@ import { actionCreators } from '../redux'
 import { bindActionCreators } from 'redux'
 
 const useAddTask = () => {
-    const [createTask] = useMutation(CREATE_TASK)
+    const [createTask] = useMutation(CREATE_TASK, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { addTask } = bindActionCreators(actionCreators, dispatch)
 
-    const handleAddTask = async (taskFormData: CreateTaskFormValues) => {
-        await createTask({ variables: { input: { ...taskFormData } } }).then(
+    const handleAddTask = async (formData: CreateTaskFormValues) => {
+        await createTask({ variables: { input: { ...formData } } }).then(
             ({ data }) => {
                 if (data.createTask) {
                     console.log('Task created successfully!')

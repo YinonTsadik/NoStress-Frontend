@@ -8,7 +8,9 @@ import { bindActionCreators } from 'redux'
 import { Constraint } from '../interfaces'
 
 const useSetConstraints = (calendarID: string) => {
-    const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS)
+    const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS, {
+        fetchPolicy: 'network-only',
+    })
 
     const dispatch = useDispatch()
     const { setConstraints } = bindActionCreators(actionCreators, dispatch)
