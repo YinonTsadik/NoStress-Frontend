@@ -5,7 +5,7 @@ import {
     EditCalendarFormValues,
 } from '../../../../../../interfaces'
 
-import { useUpdateCalendar } from '../../../../../../hooks'
+import { useCalendars } from '../../../../../../hooks'
 
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -30,7 +30,7 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
         defaultValues: { id: calendar.id },
     })
 
-    const handleUpdateCalendar = useUpdateCalendar()
+    const { handleUpdateCalendar } = useCalendars()
 
     type FormFields = 'name'
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

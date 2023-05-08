@@ -12,7 +12,7 @@ import createCalendarSchema from './AddCalendarDialogSchema'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../redux'
 
-import { useAddCalendar } from '../../../../hooks'
+import { useCalendars } from '../../../../hooks'
 
 import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
 
@@ -44,7 +44,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
         defaultValues: { userID: user.id },
     })
 
-    const handleAddCalendar = useAddCalendar()
+    const { handleAddCalendar } = useCalendars()
 
     useEffect(() => {
         const isValidDates =

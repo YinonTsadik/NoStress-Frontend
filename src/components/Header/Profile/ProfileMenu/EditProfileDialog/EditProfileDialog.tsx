@@ -15,7 +15,7 @@ import { GET_USERNAMES } from '../../../../../graphql'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux'
 
-import { useUpdateUser } from '../../../../../hooks'
+import { useUsers } from '../../../../../hooks'
 
 import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
 
@@ -45,7 +45,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
         defaultValues: { id: user.id },
     })
 
-    const handleUpdateUser = useUpdateUser()
+    const { handleUpdateUser } = useUsers()
 
     type FormFields = 'firstName' | 'lastName'
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

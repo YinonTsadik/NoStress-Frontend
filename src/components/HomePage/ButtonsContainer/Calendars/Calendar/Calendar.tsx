@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../../../../redux'
 import { bindActionCreators } from 'redux'
 
-import { useSetTasks, useSetConstraints, useSetEvents } from '../../../../../hooks'
+import { useTasks, useConstraints, useCalendars } from '../../../../../hooks'
 
 import { CalendarProps } from '../../../../../interfaces'
 
@@ -23,9 +23,9 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const dispatch = useDispatch()
     const { setCurrentCalendar } = bindActionCreators(actionCreators, dispatch)
 
-    const handleSetTasks = useSetTasks(calendar.id)
-    const handleSetConstraints = useSetConstraints(calendar.id)
-    const handleSetEvents = useSetEvents(calendar.id)
+    const { handleSetTasks } = useTasks()
+    const { handleSetConstraints } = useConstraints()
+    const { handleSetEvents } = useCalendars()
 
     const [openEditDialog, setOpenEditDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
@@ -49,9 +49,9 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const handleChoose = async () => {
         setCurrentCalendar(calendar)
 
-        await handleSetTasks()
-        await handleSetConstraints()
-        await handleSetEvents()
+        await handleSetTasks(calendar.id)
+        await handleSetConstraints(calendar.id)
+        await handleSetEvents(calendar.id)
 
         handleCloseMenu()
     }

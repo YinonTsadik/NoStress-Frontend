@@ -6,7 +6,7 @@ import signUpSchema from './SignUpFormSchema'
 
 import { SignUpFormValues } from '../../interfaces'
 
-import { useSignUp } from '../../hooks'
+import { useUsers } from '../../hooks'
 
 import { useQuery } from '@apollo/client'
 import { GET_USERNAMES } from '../../graphql'
@@ -42,7 +42,7 @@ const SignUpForm: React.FC = () => {
         resolver: yupResolver(signUpSchema(data ? data.usernames : [])),
     })
 
-    const handleSignUp = useSignUp()
+    const { handleSignUp } = useUsers()
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)

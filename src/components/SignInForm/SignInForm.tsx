@@ -6,7 +6,7 @@ import signInSchema from './SignInFormSchema'
 
 import { SignInFormValues } from '../../interfaces'
 
-import { useSignIn } from '../../hooks'
+import { useUsers } from '../../hooks'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -34,7 +34,7 @@ const SignInForm: React.FC = () => {
         formState: { errors, isValid },
     } = useForm<SignInFormValues>({ resolver: yupResolver(signInSchema()) })
 
-    const handleSignIn = useSignIn()
+    const { handleSignIn } = useUsers()
 
     const navigate = useNavigate()
     const [authError, setAuthError] = useState(false)

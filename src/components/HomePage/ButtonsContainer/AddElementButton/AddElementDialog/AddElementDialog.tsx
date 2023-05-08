@@ -15,12 +15,7 @@ import createElementSchema from './AddElementDialogSchema'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../redux'
 
-import {
-    useAddTask,
-    useAddConstraint,
-    useOptimize,
-    useSetEvents,
-} from '../../../../../hooks'
+import { useTasks, useConstraints, useCalendars } from '../../../../../hooks'
 
 import {
     Dialog,
@@ -64,10 +59,9 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
         resolver: yupResolver(createElementSchema(elementType)()),
     })
 
-    const handleAddTask = useAddTask()
-    const handleAddConstraint = useAddConstraint()
-    const handleOptimize = useOptimize(currentCalendar.id)
-    const handleSetEvents = useSetEvents(currentCalendar.id)
+    const { handleAddTask } = useTasks()
+    const { handleAddConstraint } = useConstraints()
+    const { handleOptimize, handleSetEvents } = useCalendars()
 
     useEffect(() => {
         const isValidDates =
@@ -102,8 +96,8 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
 
     const onSubmit = async (formData: CreateElementFormValues) => {
         await handleAddElement(formData)
-        // await handleOptimize()
-        await handleSetEvents()
+        // await handleOptimize(currentCalendar.id)
+        await handleSetEvents(currentCalendar.id)
         handleClose()
     }
 
