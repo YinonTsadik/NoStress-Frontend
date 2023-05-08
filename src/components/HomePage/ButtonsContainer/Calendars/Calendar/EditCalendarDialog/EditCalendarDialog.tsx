@@ -13,7 +13,7 @@ import editCalendarSchema from './EditCalendarDialogSchema'
 
 import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/material'
 
-import useStyles from '../CalendarStyles'
+import useStyles from './EditCalendarDialogStyles'
 
 const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
     const { classes } = useStyles()
@@ -23,6 +23,7 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
         register,
         setValue,
         trigger,
+        reset,
         handleSubmit,
         formState: { errors, isValid },
     } = useForm<EditCalendarFormValues>({
@@ -31,6 +32,11 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
     })
 
     const { handleUpdateCalendar } = useCalendars()
+
+    const handleClose = () => {
+        reset()
+        handleCloseDialog()
+    }
 
     type FormFields = 'name'
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,14 +48,14 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
 
     const onSubmit = async (formData: EditCalendarFormValues) => {
         await handleUpdateCalendar(formData)
-        handleCloseDialog()
+        handleClose()
     }
 
     return (
-        <Dialog open={open} onClose={handleCloseDialog}>
-            <Container>
-                <FormLabel>Edit a calendar</FormLabel>
-                <form onSubmit={handleSubmit(onSubmit)}>
+        <Dialog open={open} onClose={handleClose}>
+            <Container className={classes.root}>
+                <FormLabel className={classes.formLabel}>Edit a calendar</FormLabel>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <TextField
                         label="Calendar Name *"
                         defaultValue={calendar.name}
@@ -60,13 +66,23 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
                         helperText={errors.name?.message || ' '}
                         variant="filled"
                     />
+                    <Box className={classes.buttonsContainer}>
+                        <Button
+                            onClick={handleClose}
+                            className={classes.cancelButton}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            disabled={!isValid}
+                            variant="contained"
+                            className={`${classes.cancelButton} ${classes.saveButton}`}
+                        >
+                            Save
+                        </Button>
+                    </Box>
                 </form>
-                <Box>
-                    <Button onClick={handleCloseDialog}>Cancel</Button>
-                    <Button type="submit" variant="contained" disabled={!isValid}>
-                        Save
-                    </Button>
-                </Box>
             </Container>
         </Dialog>
     )

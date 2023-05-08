@@ -31,7 +31,7 @@ const useStyles = makeStyles()({
         margin: '3vh 0',
     },
 
-    buttonContainer: {
+    buttonsContainer: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

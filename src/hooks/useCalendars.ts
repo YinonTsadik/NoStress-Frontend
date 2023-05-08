@@ -13,11 +13,15 @@ import {
     GET_CALENDAR_EVENTS,
 } from '../graphql'
 
-import { useDispatch } from 'react-redux'
-import { actionCreators } from '../redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, actionCreators } from '../redux'
 import { bindActionCreators } from 'redux'
 
 const useCalendars = () => {
+    const currentCalendar = useSelector(
+        (state: RootState) => state.currentCalendar.data
+    )
+
     const [createCalendar] = useMutation(CREATE_CALENDAR, {
         fetchPolicy: 'network-only',
     })
@@ -69,6 +73,9 @@ const useCalendars = () => {
                 console.log('Calendar updated successfully!')
                 const { __typename, ...rest } = data.updateCalendar
                 editCalendar(rest as Calendar)
+                if (formData.id === currentCalendar.id) {
+                    setCurrentCalendar(rest as Calendar)
+                }
             }
         })
     }

@@ -32,6 +32,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
         register,
         setValue,
         trigger,
+        reset,
         handleSubmit,
         formState: { errors, isValid },
     } = useForm<EditProfileFormValues>({
@@ -47,6 +48,11 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
 
     const { handleUpdateUser } = useUsers()
 
+    const handleClose = () => {
+        reset()
+        handleCloseDialog()
+    }
+
     type FormFields = 'firstName' | 'lastName'
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.currentTarget.name as FormFields
@@ -58,11 +64,11 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
     const onSubmit = async (formData: EditProfileFormValues) => {
         await handleUpdateUser(formData)
         await refetchUsernames()
-        handleCloseDialog()
+        handleClose()
     }
 
     return (
-        <Dialog open={open} onClose={handleCloseDialog}>
+        <Dialog open={open} onClose={handleClose}>
             <Container className={classes.root}>
                 <FormLabel className={classes.formLabel}>
                     Edit your profile
@@ -103,7 +109,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
                     />
                     <Box className={classes.buttonContainer}>
                         <Button
-                            onClick={handleCloseDialog}
+                            onClick={handleClose}
                             className={classes.cancelButton}
                         >
                             Cancel

@@ -257,7 +257,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                             </>
                         )}
                     </LocalizationProvider>
-                    <Box className={classes.buttonContainer}>
+                    <Box className={classes.buttonsContainer}>
                         <Button
                             onClick={handleClose}
                             className={classes.cancelButton}
