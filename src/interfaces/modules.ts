@@ -43,3 +43,8 @@ export interface Constraint {
 }
 
 export interface Event extends EventInterface {}
+
+export interface AuthenticationDetails {
+    isAuthenticated: boolean
+    userID: string
+}

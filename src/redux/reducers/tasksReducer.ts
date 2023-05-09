@@ -4,26 +4,18 @@ import { TasksActionType } from '../action-types'
 
 const initialState: TasksReducer = {
     data: new Array<Task>(),
-    loaded: false,
 }
 
 const tasksReducer = (state = initialState, action: TasksActions) => {
     switch (action.type) {
         case TasksActionType.SET_TASKS:
-            return {
-                data: action.payload,
-                loaded: true,
-            }
+            return { data: action.payload }
 
         case TasksActionType.ADD_TASK:
-            return {
-                ...state,
-                data: [...state.data, action.payload],
-            }
+            return { data: [...state.data, action.payload] }
 
         case TasksActionType.EDIT_TASK:
             return {
-                ...state,
                 data: state.data.map((task) => {
                     return task.id === action.payload.id
                         ? { ...action.payload }
@@ -33,7 +25,6 @@ const tasksReducer = (state = initialState, action: TasksActions) => {
 
         case TasksActionType.REMOVE_TASK:
             return {
-                ...state,
                 data: state.data.filter((task) => task.id !== action.payload.id),
             }
 

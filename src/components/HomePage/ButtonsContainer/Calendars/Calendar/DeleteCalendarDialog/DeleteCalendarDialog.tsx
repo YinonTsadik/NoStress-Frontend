@@ -15,9 +15,8 @@ const DeleteCalendarDialog: React.FC<DeleteCalendarDialogProps> = (props) => {
     const { handleDeletecalendar } = useCalendars()
 
     const onDelete = async () => {
-        await handleDeletecalendar(calendar.id)
-
         handleCloseDialog()
+        await handleDeletecalendar(calendar.id)
     }
 
     return (

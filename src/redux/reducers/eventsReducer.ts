@@ -4,16 +4,12 @@ import { EventsActionType } from '../action-types'
 
 const initialState: EventsReducer = {
     data: new Array<Event>(),
-    loaded: false,
 }
 
 const eventsReducer = (state = initialState, action: EventsActions) => {
     switch (action.type) {
         case EventsActionType.SET_EVENTS:
-            return {
-                data: action.payload,
-                loaded: true,
-            }
+            return { data: action.payload }
 
         case EventsActionType.CLEAR_EVENTS:
             return { ...initialState }

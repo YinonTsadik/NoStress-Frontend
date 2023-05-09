@@ -10,7 +10,6 @@ const initialState: CurrentCalendarReducer = {
         startDate: new Date(),
         endDate: new Date(),
     },
-    loaded: false,
 }
 
 const currentCalendarReducer = (
@@ -19,10 +18,7 @@ const currentCalendarReducer = (
 ) => {
     switch (action.type) {
         case CurrentCalendarActionType.SET_CURRENT_CALENDAR:
-            return {
-                data: action.payload,
-                loaded: true,
-            }
+            return { data: action.payload }
 
         case CurrentCalendarActionType.CLEAR_CURRENT_CALENDAR:
             return { ...initialState }

@@ -1,38 +1,26 @@
 import { Constraint, CreateConstraintFormValues } from '../interfaces'
 
 import { useMutation, useLazyQuery } from '@apollo/client'
-import { CREATE_CONSTRAINT, GET_CALENDAR_CONSTRAINTS } from '../graphql'
+import { GET_CALENDAR_CONSTRAINTS, CREATE_CONSTRAINT } from '../graphql'
 
 import { useDispatch } from 'react-redux'
 import { actionCreators } from '../redux'
 import { bindActionCreators } from 'redux'
 
 const useConstraints = () => {
-    const [createConstraint] = useMutation(CREATE_CONSTRAINT, {
-        fetchPolicy: 'network-only',
-    })
-
     const [getConstraints] = useLazyQuery(GET_CALENDAR_CONSTRAINTS, {
         fetchPolicy: 'network-only',
     })
 
+    const [createConstraint] = useMutation(CREATE_CONSTRAINT, {
+        fetchPolicy: 'network-only',
+    })
+
     const dispatch = useDispatch()
-    const { addConstraint, setConstraints } = bindActionCreators(
+    const { setConstraints, addConstraint } = bindActionCreators(
         actionCreators,
         dispatch
     )
-
-    const handleAddConstraint = async (formData: CreateConstraintFormValues) => {
-        await createConstraint({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
-            if (data.createConstraint) {
-                console.log('Constraint created successfully!')
-                const { __typename, ...rest } = data.createConstraint
-                addConstraint(rest as Constraint)
-            }
-        })
-    }
 
     const handleSetConstraints = async (calendarID: string) => {
         await getConstraints({ variables: { calendarID } }).then(({ data }) => {
@@ -48,7 +36,19 @@ const useConstraints = () => {
         })
     }
 
-    return { handleAddConstraint, handleSetConstraints }
+    const handleAddConstraint = async (formData: CreateConstraintFormValues) => {
+        await createConstraint({
+            variables: { input: { ...formData } },
+        }).then(({ data }) => {
+            if (data.createConstraint) {
+                console.log('Constraint created successfully!')
+                const { __typename, ...rest } = data.createConstraint
+                addConstraint(rest as Constraint)
+            }
+        })
+    }
+
+    return { handleSetConstraints, handleAddConstraint }
 }
 
 export default useConstraints

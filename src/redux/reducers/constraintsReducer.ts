@@ -4,26 +4,18 @@ import { ConstraintsActionType } from '../action-types'
 
 const initialState: ConstraintsReducer = {
     data: new Array<Constraint>(),
-    loaded: false,
 }
 
 const constraintsReducer = (state = initialState, action: ConstraintsActions) => {
     switch (action.type) {
         case ConstraintsActionType.SET_CONSTRAINTS:
-            return {
-                data: action.payload,
-                loaded: true,
-            }
+            return { data: action.payload }
 
         case ConstraintsActionType.ADD_CONSTRAINT:
-            return {
-                ...state,
-                data: [...state.data, action.payload],
-            }
+            return { data: [...state.data, action.payload] }
 
         case ConstraintsActionType.EDIT_CONSTRAINT:
             return {
-                ...state,
                 data: state.data.map((constraint) => {
                     return constraint.id === action.payload.id
                         ? { ...action.payload }
@@ -33,7 +25,6 @@ const constraintsReducer = (state = initialState, action: ConstraintsActions) =>
 
         case ConstraintsActionType.REMOVE_CONSTRAINT:
             return {
-                ...state,
                 data: state.data.filter(
                     (constraint) => constraint.id !== action.payload.id
                 ),

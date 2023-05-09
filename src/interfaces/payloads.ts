@@ -1,25 +1,21 @@
 import { Calendar, Task, Constraint, Event } from './modules'
 
-interface Reducer {
-    loaded: boolean
-}
-
-export interface CalendarsReducer extends Reducer {
+export interface CalendarsReducer {
     data: Calendar[]
 }
 
-export interface CurrentCalendarReducer extends Reducer {
+export interface CurrentCalendarReducer {
     data: Calendar
 }
 
-export interface TasksReducer extends Reducer {
+export interface TasksReducer {
     data: Task[]
 }
 
-export interface ConstraintsReducer extends Reducer {
+export interface ConstraintsReducer {
     data: Constraint[]
 }
 
-export interface EventsReducer extends Reducer {
+export interface EventsReducer {
     data: Event[]
 }

@@ -4,26 +4,18 @@ import { CalendarsActionType } from '../action-types'
 
 const initialState: CalendarsReducer = {
     data: new Array<Calendar>(),
-    loaded: false,
 }
 
 const calendarsReducer = (state = initialState, action: CalendarsActions) => {
     switch (action.type) {
         case CalendarsActionType.SET_CALENDARS:
-            return {
-                data: action.payload,
-                loaded: true,
-            }
+            return { data: action.payload }
 
         case CalendarsActionType.ADD_CALENDAR:
-            return {
-                ...state,
-                data: [...state.data, action.payload],
-            }
+            return { data: [...state.data, action.payload] }
 
         case CalendarsActionType.EDIT_CALENDAR:
             return {
-                ...state,
                 data: state.data.map((calendar) => {
                     return calendar.id === action.payload.id
                         ? { ...action.payload }
@@ -33,7 +25,6 @@ const calendarsReducer = (state = initialState, action: CalendarsActions) => {
 
         case CalendarsActionType.REMOVE_CALENDAR:
             return {
-                ...state,
                 data: state.data.filter(
                     (calendar) => calendar.id !== action.payload.id
                 ),

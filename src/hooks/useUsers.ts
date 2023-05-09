@@ -1,5 +1,6 @@
 import {
     User,
+    AuthenticationDetails,
     SignInFormValues,
     SignUpFormValues,
     EditProfileFormValues,
@@ -29,7 +30,7 @@ const useUsers = () => {
     const { signIn } = bindActionCreators(actionCreators, dispatch)
 
     const handleSignIn = async (formData: SignInFormValues) => {
-        return new Promise<boolean>((resolve) => {
+        return new Promise<AuthenticationDetails>((resolve) => {
             checkAuthentication({
                 variables: { ...formData },
             }).then(({ data }) => {
@@ -37,16 +38,16 @@ const useUsers = () => {
                     console.log('Logged in successfully!')
                     const { __typename, ...rest } = data.user
                     signIn(rest as User)
-                    resolve(true)
+                    resolve({ isAuthenticated: true, userID: data.user.id })
                 } else {
-                    resolve(false)
+                    resolve({ isAuthenticated: false, userID: '' })
                 }
             })
         })
     }
 
     const handleSignUp = async (formData: SignUpFormValues) => {
-        return new Promise<boolean>((resolve) => {
+        return new Promise<AuthenticationDetails>((resolve) => {
             createUser({
                 variables: { ...formData },
             }).then(({ data }) => {
@@ -54,9 +55,9 @@ const useUsers = () => {
                     console.log('Signed up successfully!')
                     const { __typename, ...rest } = data.createUser
                     signIn(rest as User)
-                    resolve(true)
+                    resolve({ isAuthenticated: true, userID: data.createUser.id })
                 } else {
-                    resolve(false)
+                    resolve({ isAuthenticated: false, userID: '' })
                 }
             })
         })

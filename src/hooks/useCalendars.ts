@@ -7,6 +7,7 @@ import {
 
 import { useMutation, useLazyQuery } from '@apollo/client'
 import {
+    GET_USER_CALENDARS,
     CREATE_CALENDAR,
     UPDATE_CALENDAR,
     DELETE_CALENDAR,
@@ -22,11 +23,15 @@ import useTasks from './useTasks'
 import useConstraints from './useConstraints'
 
 const useCalendars = () => {
+    const calendars = useSelector((state: RootState) => state.calendars.data)
+
     const currentCalendar = useSelector(
         (state: RootState) => state.currentCalendar.data
     )
 
-    const calendars = useSelector((state: RootState) => state.calendars.data)
+    const [getCalendars] = useLazyQuery(GET_USER_CALENDARS, {
+        fetchPolicy: 'network-only',
+    })
 
     const [createCalendar] = useMutation(CREATE_CALENDAR, {
         fetchPolicy: 'network-only',
@@ -50,6 +55,7 @@ const useCalendars = () => {
 
     const dispatch = useDispatch()
     const {
+        setCalendars,
         addCalendar,
         editCalendar,
         removeCalendar,
@@ -62,6 +68,24 @@ const useCalendars = () => {
 
     const { handleSetTasks } = useTasks()
     const { handleSetConstraints } = useConstraints()
+
+    const initialize = async (userID: string) => {
+        await getCalendars({ variables: { userID } }).then(({ data }) => {
+            if (data.userCalendars) {
+                const calendars: Calendar[] = data.userCalendars.map(
+                    (calendar: any) => {
+                        const { __typename, ...rest } = calendar
+                        return rest as Calendar
+                    }
+                )
+                setCalendars(calendars)
+            }
+        })
+
+        if (calendars.length) {
+            await handleChangeCalendar(calendars[0])
+        }
+    }
 
     const handleAddCalendar = async (formData: CreateCalendarFormValues) => {
         await createCalendar({
@@ -103,6 +127,7 @@ const useCalendars = () => {
                 removeCalendar(rest as Calendar)
             }
         })
+
         if (id === currentCalendar.id) {
             if (calendars.length) {
                 await handleChangeCalendar(calendars[0])
@@ -145,6 +170,7 @@ const useCalendars = () => {
     }
 
     return {
+        initialize,
         handleAddCalendar,
         handleUpdateCalendar,
         handleDeletecalendar,

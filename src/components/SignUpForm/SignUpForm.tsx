@@ -6,7 +6,7 @@ import signUpSchema from './SignUpFormSchema'
 
 import { SignUpFormValues } from '../../interfaces'
 
-import { useUsers } from '../../hooks'
+import { useUsers, useCalendars } from '../../hooks'
 
 import { useQuery } from '@apollo/client'
 import { GET_USERNAMES } from '../../graphql'
@@ -43,6 +43,7 @@ const SignUpForm: React.FC = () => {
     })
 
     const { handleSignUp } = useUsers()
+    const { initialize } = useCalendars()
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
@@ -60,9 +61,10 @@ const SignUpForm: React.FC = () => {
     }
 
     const onSubmit = async (formData: SignUpFormValues) => {
-        const isSignedUp = await handleSignUp(formData)
+        const { isAuthenticated, userID } = await handleSignUp(formData)
 
-        if (isSignedUp) {
+        if (isAuthenticated) {
+            await initialize(userID)
             navigate('/')
         }
     }

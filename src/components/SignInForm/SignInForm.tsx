@@ -6,7 +6,7 @@ import signInSchema from './SignInFormSchema'
 
 import { SignInFormValues } from '../../interfaces'
 
-import { useUsers } from '../../hooks'
+import { useUsers, useCalendars } from '../../hooks'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -35,6 +35,7 @@ const SignInForm: React.FC = () => {
     } = useForm<SignInFormValues>({ resolver: yupResolver(signInSchema()) })
 
     const { handleSignIn } = useUsers()
+    const { initialize } = useCalendars()
 
     const navigate = useNavigate()
     const [authError, setAuthError] = useState(false)
@@ -55,11 +56,12 @@ const SignInForm: React.FC = () => {
     }
 
     const onSubmit = async (formData: SignInFormValues) => {
-        const isAuthenticated = await handleSignIn(formData)
+        const { isAuthenticated, userID } = await handleSignIn(formData)
 
         if (isAuthenticated) {
-            navigate('/')
             setAuthError(false)
+            await initialize(userID)
+            navigate('/')
         } else {
             setAuthError(true)
         }
