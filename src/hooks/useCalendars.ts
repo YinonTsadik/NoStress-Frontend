@@ -70,6 +70,7 @@ const useCalendars = () => {
     const { handleSetConstraints } = useConstraints()
 
     const initialize = async (userID: string) => {
+        console.log(' here 1')
         await getCalendars({ variables: { userID } }).then(({ data }) => {
             if (data.userCalendars) {
                 const calendars: Calendar[] = data.userCalendars.map(
@@ -78,13 +79,14 @@ const useCalendars = () => {
                         return rest as Calendar
                     }
                 )
+
                 setCalendars(calendars)
+
+                if (calendars.length) {
+                    handleChangeCalendar(calendars[0])
+                }
             }
         })
-
-        if (calendars.length) {
-            await handleChangeCalendar(calendars[0])
-        }
     }
 
     const handleAddCalendar = async (formData: CreateCalendarFormValues) => {
@@ -112,6 +114,7 @@ const useCalendars = () => {
                 console.log('Calendar updated successfully!')
                 const { __typename, ...rest } = data.updateCalendar
                 editCalendar(rest as Calendar)
+
                 if (formData.id === currentCalendar.id) {
                     setCurrentCalendar(rest as Calendar)
                 }
@@ -125,19 +128,20 @@ const useCalendars = () => {
                 console.log('Calendar deleted successfully!')
                 const { __typename, ...rest } = data.deleteCalendar
                 removeCalendar(rest as Calendar)
+
+                if (id === currentCalendar.id) {
+                    if (calendars.length) {
+                        handleChangeCalendar(calendars[0])
+                    } else {
+                        clearCurrentCalendar()
+                    }
+                }
             }
         })
-
-        if (id === currentCalendar.id) {
-            if (calendars.length) {
-                await handleChangeCalendar(calendars[0])
-            } else {
-                clearCurrentCalendar()
-            }
-        }
     }
 
     const handleChangeCalendar = async (calendar: Calendar) => {
+        console.log(' here 2')
         setCurrentCalendar(calendar)
         await handleSetTasks(calendar.id)
         await handleSetConstraints(calendar.id)
@@ -153,6 +157,7 @@ const useCalendars = () => {
     }
 
     const handleSetEvents = async (calendarID: string) => {
+        console.log(' here 5')
         await getEvents({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarEvents) {
                 const events: Event[] = data.calendarEvents.map((event: any) => {

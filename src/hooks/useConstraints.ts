@@ -23,6 +23,7 @@ const useConstraints = () => {
     )
 
     const handleSetConstraints = async (calendarID: string) => {
+        console.log(' here 4')
         await getConstraints({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarConstraints) {
                 const constraints: Constraint[] = data.calendarConstraints.map(

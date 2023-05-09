@@ -20,6 +20,7 @@ const useTasks = () => {
     const { setTasks, addTask } = bindActionCreators(actionCreators, dispatch)
 
     const handleSetTasks = async (calendarID: string) => {
+        console.log(' here 3')
         await getTasks({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarTasks) {
                 const tasks: Task[] = data.calendarTasks.map((task: any) => {
