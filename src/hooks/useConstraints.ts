@@ -23,7 +23,7 @@ const useConstraints = () => {
     )
 
     const handleSetConstraints = async (calendarID: string) => {
-        console.log(' here 4')
+        console.log('here 4')
         await getConstraints({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarConstraints) {
                 const constraints: Constraint[] = data.calendarConstraints.map(
@@ -32,6 +32,7 @@ const useConstraints = () => {
                         return rest as Constraint
                     }
                 )
+
                 setConstraints(constraints)
             }
         })

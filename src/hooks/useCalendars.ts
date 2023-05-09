@@ -23,6 +23,9 @@ import useTasks from './useTasks'
 import useConstraints from './useConstraints'
 
 const useCalendars = () => {
+    const { handleSetTasks } = useTasks()
+    const { handleSetConstraints } = useConstraints()
+
     const calendars = useSelector((state: RootState) => state.calendars.data)
 
     const currentCalendar = useSelector(
@@ -66,11 +69,8 @@ const useCalendars = () => {
         setEvents,
     } = bindActionCreators(actionCreators, dispatch)
 
-    const { handleSetTasks } = useTasks()
-    const { handleSetConstraints } = useConstraints()
-
     const initialize = async (userID: string) => {
-        console.log(' here 1')
+        console.log('here 1')
         await getCalendars({ variables: { userID } }).then(({ data }) => {
             if (data.userCalendars) {
                 const calendars: Calendar[] = data.userCalendars.map(
@@ -141,7 +141,7 @@ const useCalendars = () => {
     }
 
     const handleChangeCalendar = async (calendar: Calendar) => {
-        console.log(' here 2')
+        console.log('here 2')
         setCurrentCalendar(calendar)
         await handleSetTasks(calendar.id)
         await handleSetConstraints(calendar.id)
@@ -157,7 +157,7 @@ const useCalendars = () => {
     }
 
     const handleSetEvents = async (calendarID: string) => {
-        console.log(' here 5')
+        console.log('here 5')
         await getEvents({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarEvents) {
                 const events: Event[] = data.calendarEvents.map((event: any) => {
