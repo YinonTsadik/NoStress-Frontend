@@ -16,8 +16,8 @@ interface EditConstraint {
     payload: Constraint
 }
 
-interface DeleteConstraint {
-    type: ConstraintsActionType.DELETE_CONSTRAINT
+interface RemoveConstraint {
+    type: ConstraintsActionType.REMOVE_CONSTRAINT
     payload: Constraint
 }
 
@@ -29,5 +29,5 @@ export type ConstraintsActions =
     | SetConstraints
     | AddConstraint
     | EditConstraint
-    | DeleteConstraint
+    | RemoveConstraint
     | ClearConstraints

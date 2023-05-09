@@ -16,8 +16,8 @@ interface EditCalendar {
     payload: Calendar
 }
 
-interface DeleteCalendar {
-    type: CalendarsActionType.DELETE_CALENDAR
+interface RemoveCalendar {
+    type: CalendarsActionType.REMOVE_CALENDAR
     payload: Calendar
 }
 
@@ -29,5 +29,5 @@ export type CalendarsActions =
     | SetCalendars
     | AddCalendar
     | EditCalendar
-    | DeleteCalendar
+    | RemoveCalendar
     | ClearCalendars

@@ -31,7 +31,7 @@ const constraintsReducer = (state = initialState, action: ConstraintsActions) =>
                 }),
             }
 
-        case ConstraintsActionType.DELETE_CONSTRAINT:
+        case ConstraintsActionType.REMOVE_CONSTRAINT:
             return {
                 ...state,
                 data: state.data.filter(

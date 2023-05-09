@@ -48,7 +48,7 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
 
     const onSubmit = async (formData: EditCalendarFormValues) => {
         await handleUpdateCalendar(formData)
-        handleClose()
+        handleCloseDialog()
     }
 
     return (

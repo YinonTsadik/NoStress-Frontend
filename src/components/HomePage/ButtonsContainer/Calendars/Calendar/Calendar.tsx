@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux'
-import { actionCreators } from '../../../../../redux'
-import { bindActionCreators } from 'redux'
-
-import { useTasks, useConstraints, useCalendars } from '../../../../../hooks'
-
 import { CalendarProps } from '../../../../../interfaces'
+
+import { useCalendars } from '../../../../../hooks'
 
 import { MenuItem, Box, Typography, IconButton } from '@mui/material'
 import { Edit, Delete } from '@mui/icons-material'
@@ -20,12 +16,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     const { classes } = useStyles()
     const { calendar, handleCloseMenu } = props
 
-    const dispatch = useDispatch()
-    const { setCurrentCalendar } = bindActionCreators(actionCreators, dispatch)
-
-    const { handleSetTasks } = useTasks()
-    const { handleSetConstraints } = useConstraints()
-    const { handleSetEvents } = useCalendars()
+    const { handleChangeCalendar } = useCalendars()
 
     const [openEditDialog, setOpenEditDialog] = useState(false)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
@@ -47,12 +38,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     }
 
     const handleChoose = async () => {
-        setCurrentCalendar(calendar)
-
-        await handleSetTasks(calendar.id)
-        await handleSetConstraints(calendar.id)
-        await handleSetEvents(calendar.id)
-
+        await handleChangeCalendar(calendar)
         handleCloseMenu()
     }
 

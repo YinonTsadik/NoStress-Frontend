@@ -31,10 +31,10 @@ export const editCalendar = (calendar: Calendar) => {
     }
 }
 
-export const deleteCalendar = (calendar: Calendar) => {
+export const removeCalendar = (calendar: Calendar) => {
     return (dispatch: Dispatch<CalendarsActions>) => {
         dispatch({
-            type: CalendarsActionType.DELETE_CALENDAR,
+            type: CalendarsActionType.REMOVE_CALENDAR,
             payload: calendar,
         })
     }

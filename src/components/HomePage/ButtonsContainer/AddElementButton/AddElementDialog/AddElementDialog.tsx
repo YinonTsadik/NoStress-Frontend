@@ -75,9 +75,6 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
 
     const handleClose = () => {
         reset()
-        setValue('deadline', null)
-        setValue('startTime', null)
-        setValue('endTime', null)
 
         setStartTime(null)
         setEndTime(null)
@@ -102,13 +99,28 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
     }
 
     const handleAddElement = async (formData: CreateElementFormValues) => {
+        const calendarID = currentCalendar.id
+
         if (elementType === 'Task') {
-            const taskFormData = formData as CreateTaskFormValues
-            taskFormData.calendarID = currentCalendar.id
+            const { description, deadline, workHours } =
+                formData as CreateTaskFormValues
+            const taskFormData: CreateTaskFormValues = {
+                calendarID,
+                description,
+                deadline,
+                workHours,
+            }
             await handleAddTask(taskFormData)
         } else if (elementType === 'Constraint') {
-            const constraintFormData = formData as CreateConstraintFormValues
-            constraintFormData.calendarID = currentCalendar.id
+            const { description, startTime, endTime, type } =
+                formData as CreateConstraintFormValues
+            const constraintFormData: CreateConstraintFormValues = {
+                calendarID,
+                description,
+                startTime,
+                endTime,
+                type,
+            }
             await handleAddConstraint(constraintFormData)
         }
     }

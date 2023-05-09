@@ -31,10 +31,10 @@ export const editTask = (task: Task) => {
     }
 }
 
-export const deleteTask = (task: Task) => {
+export const removeTask = (task: Task) => {
     return (dispatch: Dispatch<TasksActions>) => {
         dispatch({
-            type: TasksActionType.DELETE_TASK,
+            type: TasksActionType.REMOVE_TASK,
             payload: task,
         })
     }

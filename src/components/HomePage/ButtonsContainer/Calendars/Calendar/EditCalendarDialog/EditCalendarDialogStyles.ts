@@ -5,8 +5,6 @@ const useStyles = makeStyles()({
         width: '30vw',
         display: 'flex',
         flexDirection: 'column',
-        top: '55%',
-        left: '50%',
         alignItems: 'center',
         padding: '4.5vh',
         borderRadius: '7px',

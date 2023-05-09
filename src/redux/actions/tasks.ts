@@ -16,8 +16,8 @@ interface EditTask {
     payload: Task
 }
 
-interface DeleteTask {
-    type: TasksActionType.DELETE_TASK
+interface RemoveTask {
+    type: TasksActionType.REMOVE_TASK
     payload: Task
 }
 
@@ -25,4 +25,4 @@ interface ClearTasks {
     type: TasksActionType.CLEAR_TASKS
 }
 
-export type TasksActions = SetTasks | AddTask | EditTask | DeleteTask | ClearTasks
+export type TasksActions = SetTasks | AddTask | EditTask | RemoveTask | ClearTasks

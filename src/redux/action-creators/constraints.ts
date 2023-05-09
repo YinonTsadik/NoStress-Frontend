@@ -31,10 +31,10 @@ export const editConstraint = (constraint: Constraint) => {
     }
 }
 
-export const deleteConstraint = (constraint: Constraint) => {
+export const removeConstraint = (constraint: Constraint) => {
     return (dispatch: Dispatch<ConstraintsActions>) => {
         dispatch({
-            type: ConstraintsActionType.DELETE_CONSTRAINT,
+            type: ConstraintsActionType.REMOVE_CONSTRAINT,
             payload: constraint,
         })
     }

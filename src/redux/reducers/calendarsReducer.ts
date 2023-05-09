@@ -31,7 +31,7 @@ const calendarsReducer = (state = initialState, action: CalendarsActions) => {
                 }),
             }
 
-        case CalendarsActionType.DELETE_CALENDAR:
+        case CalendarsActionType.REMOVE_CALENDAR:
             return {
                 ...state,
                 data: state.data.filter(

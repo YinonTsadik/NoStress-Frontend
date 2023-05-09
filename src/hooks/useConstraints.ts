@@ -27,7 +27,7 @@ const useConstraints = () => {
             variables: { input: { ...formData } },
         }).then(({ data }) => {
             if (data.createConstraint) {
-                console.log('Task created successfully!')
+                console.log('Constraint created successfully!')
                 const { __typename, ...rest } = data.createConstraint
                 addConstraint(rest as Constraint)
             }

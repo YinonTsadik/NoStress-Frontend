@@ -31,7 +31,7 @@ const tasksReducer = (state = initialState, action: TasksActions) => {
                 }),
             }
 
-        case TasksActionType.DELETE_TASK:
+        case TasksActionType.REMOVE_TASK:
             return {
                 ...state,
                 data: state.data.filter((task) => task.id !== action.payload.id),

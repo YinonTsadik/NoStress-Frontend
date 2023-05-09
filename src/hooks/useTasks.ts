@@ -32,15 +32,20 @@ const useTasks = () => {
     }
 
     const handleSetTasks = async (calendarID: string) => {
-        await getTasks({ variables: { calendarID } }).then(({ data }) => {
-            if (data.calendarTasks) {
-                const tasks: Task[] = data.calendarTasks.map((task: any) => {
-                    const { __typename, ...rest } = task
-                    return rest as Task
-                })
-                setTasks(tasks)
-            }
-        })
+        await getTasks({ variables: { calendarID } })
+            .then(({ data }) => {
+                console.log('here')
+                if (data.calendarTasks) {
+                    const tasks: Task[] = data.calendarTasks.map((task: any) => {
+                        const { __typename, ...rest } = task
+                        return rest as Task
+                    })
+                    setTasks(tasks)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     return { handleAddTask, handleSetTasks }

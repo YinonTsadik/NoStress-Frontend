@@ -9,7 +9,7 @@ const useStyles = makeStyles()({
         left: '50%',
         alignItems: 'center',
         padding: '4.5vh',
-        // borderRadius: '7px',
+        borderRadius: '7px',
         backgroundColor: '#FEFFE5',
         boxShadow: '0 0.5vh 2vh 0 rgba(0,0,0,0.2)',
     },
