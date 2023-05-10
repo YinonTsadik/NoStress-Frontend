@@ -27,8 +27,8 @@ const useConstraints = () => {
         await getConstraints({ variables: { calendarID } }).then(({ data }) => {
             if (data.calendarConstraints) {
                 const constraints: Constraint[] = data.calendarConstraints.map(
-                    (task: any) => {
-                        const { __typename, ...rest } = task
+                    (constraint: any) => {
+                        const { __typename, ...rest } = constraint
                         return rest as Constraint
                     }
                 )
