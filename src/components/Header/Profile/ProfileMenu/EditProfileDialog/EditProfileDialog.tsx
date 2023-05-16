@@ -64,7 +64,7 @@ const EditProfileDialog: React.FC<EditProfileDialogProps> = (props) => {
     const onSubmit = async (formData: EditProfileFormValues) => {
         await handleUpdateUser(formData)
         await refetchUsernames()
-        handleClose()
+        handleCloseDialog()
     }
 
     return (
