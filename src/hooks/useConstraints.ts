@@ -1,7 +1,16 @@
-import { Constraint, CreateConstraintFormValues } from '../interfaces'
+import {
+    Constraint,
+    CreateConstraintFormValues,
+    EditConstraintFormValues,
+} from '../interfaces'
 
 import { useMutation, useLazyQuery } from '@apollo/client'
-import { GET_CALENDAR_CONSTRAINTS, CREATE_CONSTRAINT } from '../graphql'
+import {
+    GET_CALENDAR_CONSTRAINTS,
+    CREATE_CONSTRAINT,
+    UPDATE_CONSTRAINT,
+    DELETE_CONSTRAINT,
+} from '../graphql'
 
 import { useDispatch } from 'react-redux'
 import { actionCreators } from '../redux'
@@ -16,11 +25,17 @@ const useConstraints = () => {
         fetchPolicy: 'network-only',
     })
 
+    const [updateConstraint] = useMutation(UPDATE_CONSTRAINT, {
+        fetchPolicy: 'network-only',
+    })
+
+    const [deleteConstraint] = useMutation(DELETE_CONSTRAINT, {
+        fetchPolicy: 'network-only',
+    })
+
     const dispatch = useDispatch()
-    const { setConstraints, addConstraint } = bindActionCreators(
-        actionCreators,
-        dispatch
-    )
+    const { setConstraints, addConstraint, editConstraint, removeConstraint } =
+        bindActionCreators(actionCreators, dispatch)
 
     const handleSetConstraints = async (calendarID: string) => {
         console.log('here 4')
@@ -50,7 +65,34 @@ const useConstraints = () => {
         })
     }
 
-    return { handleSetConstraints, handleAddConstraint }
+    const handleUpdateConstraint = async (formData: EditConstraintFormValues) => {
+        await updateConstraint({ variables: { input: { ...formData } } }).then(
+            ({ data }) => {
+                if (data.updateConstraint) {
+                    console.log('Constraint updated successfully!')
+                    const { __typename, ...rest } = data.updateConstraint
+                    editConstraint(rest as Constraint)
+                }
+            }
+        )
+    }
+
+    const handleDeleteConstraint = async (id: string) => {
+        await deleteConstraint({ variables: { id } }).then(({ data }) => {
+            if (data.deleteConstraint) {
+                console.log('Constraint deleted successfully!')
+                const { __typename, ...rest } = data.deleteConstraint
+                removeConstraint(rest as Constraint)
+            }
+        })
+    }
+
+    return {
+        handleSetConstraints,
+        handleAddConstraint,
+        handleUpdateConstraint,
+        handleDeleteConstraint,
+    }
 }
 
 export default useConstraints

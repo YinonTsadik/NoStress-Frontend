@@ -42,3 +42,5 @@ export interface EditCalendarDialogProps extends DialogProps {
 export interface DeleteCalendarDialogProps extends EditCalendarDialogProps {}
 
 export interface EditElementProps extends DialogProps, ElementProps {}
+
+export interface DeleteElementDialogProps extends DialogProps, ElementProps {}

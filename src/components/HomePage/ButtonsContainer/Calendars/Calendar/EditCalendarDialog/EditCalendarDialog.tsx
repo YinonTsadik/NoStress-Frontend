@@ -28,7 +28,7 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
         formState: { errors, isValid },
     } = useForm<EditCalendarFormValues>({
         resolver: yupResolver(editCalendarSchema()),
-        defaultValues: { id: calendar.id },
+        defaultValues: { id: calendar.id, name: calendar.name },
     })
 
     const { handleUpdateCalendar } = useCalendars()
@@ -58,7 +58,6 @@ const EditCalendarDialog: React.FC<EditCalendarDialogProps> = (props) => {
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <TextField
                         label="Calendar Name *"
-                        defaultValue={calendar.name}
                         {...register('name')}
                         name="name"
                         onChange={onChange}

@@ -6,6 +6,7 @@ import { Box, Typography, Divider, IconButton } from '@mui/material'
 import { Edit, Delete } from '@mui/icons-material'
 
 import EditElementDialog from './EditElementDialog'
+import DeleteElementDialog from './DeleteElementDialog'
 
 import useStyles from './ElementStyles'
 
@@ -73,6 +74,12 @@ const Element: React.FC<ElementProps> = (props) => {
                     elementType="Task"
                     element={element as Task}
                 />
+                <DeleteElementDialog
+                    open={openDeleteDialog}
+                    onClose={handleCloseDeleteDialog}
+                    elementType="Task"
+                    element={element as Task}
+                />
             </>
         )
     } else {
@@ -113,6 +120,12 @@ const Element: React.FC<ElementProps> = (props) => {
                 <EditElementDialog
                     open={openEditDialog}
                     onClose={handleCloseEditDialog}
+                    elementType="Constraint"
+                    element={element as Constraint}
+                />
+                <DeleteElementDialog
+                    open={openDeleteDialog}
+                    onClose={handleCloseDeleteDialog}
                     elementType="Constraint"
                     element={element as Constraint}
                 />

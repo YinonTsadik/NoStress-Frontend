@@ -18,7 +18,7 @@ import { Dialog, Container, FormLabel, TextField, Box, Button } from '@mui/mater
 
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { MobileDatePicker } from '@mui/x-date-pickers'
 
 import useStyles from './AddCalendarDialogStyles'
 
@@ -106,10 +106,10 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                             name="startDate"
                             control={control}
                             render={({ field: { onChange, value } }) => (
-                                <DatePicker
+                                <MobileDatePicker
                                     label="Start *"
+                                    showToolbar={false}
                                     disablePast
-                                    disableMaskedInput
                                     value={value || null}
                                     onChange={(newValue) => {
                                         newValue && onChange(newValue)
@@ -119,7 +119,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                         <TextField {...params} />
                                     )}
                                     inputFormat="dd/MM/yyyy"
-                                    PopperProps={{ placement: 'auto' }}
+                                    closeOnSelect
                                     className={classes.field}
                                 />
                             )}
@@ -128,10 +128,10 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                             name="endDate"
                             control={control}
                             render={({ field: { onChange, value } }) => (
-                                <DatePicker
+                                <MobileDatePicker
                                     label="End *"
+                                    showToolbar={false}
                                     disablePast
-                                    disableMaskedInput={true}
                                     disabled={startDate == null}
                                     minDate={startDate && nextDay(startDate)}
                                     value={value ? prevDay(value) : null}
@@ -143,7 +143,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                         <TextField {...params} />
                                     )}
                                     inputFormat="dd/MM/yyyy"
-                                    PopperProps={{ placement: 'auto' }}
+                                    closeOnSelect
                                     className={classes.field}
                                 />
                             )}

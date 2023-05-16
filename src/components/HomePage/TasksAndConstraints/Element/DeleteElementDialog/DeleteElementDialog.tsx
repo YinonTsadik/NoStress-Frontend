@@ -1,21 +1,37 @@
 import React from 'react'
 
-import { DeleteCalendarDialogProps } from '../../../../../../interfaces'
+import { DeleteElementDialogProps } from '../../../../../interfaces'
 
-import { useCalendars } from '../../../../../../hooks'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../redux'
+
+import { useTasks, useConstraints, useCalendars } from '../../../../../hooks'
 
 import { Dialog, Container, Typography, Box, Button } from '@mui/material'
 
-import useStyles from './DeleteCalendarDialogStyles'
+import useStyles from './DeleteElementDialogStyles'
 
-const DeleteCalendarDialog: React.FC<DeleteCalendarDialogProps> = (props) => {
+const DeleteElementDialog: React.FC<DeleteElementDialogProps> = (props) => {
     const { classes } = useStyles()
-    const { open, onClose: handleCloseDialog, calendar } = props
+    const { open, onClose: handleCloseDialog, elementType, element } = props
 
-    const { handleDeletecalendar } = useCalendars()
+    const currentCalendar = useSelector(
+        (state: RootState) => state.currentCalendar.data
+    )
+
+    const { handleDeleteTask } = useTasks()
+    const { handleDeleteConstraint } = useConstraints()
+    const { handleOptimize, handleSetEvents } = useCalendars()
 
     const onDelete = async () => {
-        await handleDeletecalendar(calendar.id)
+        if (elementType === 'Task') {
+            await handleDeleteTask(element.id)
+        } else if (elementType === 'Constraint') {
+            await handleDeleteConstraint(element.id)
+        }
+
+        await handleOptimize(currentCalendar.id)
+        await handleSetEvents(currentCalendar.id)
         handleCloseDialog()
     }
 
@@ -24,22 +40,14 @@ const DeleteCalendarDialog: React.FC<DeleteCalendarDialogProps> = (props) => {
             <Container className={classes.root}>
                 <form>
                     <Typography align="center" className={classes.title}>
-                        Delete a Calendar
+                        {`Delete a ${elementType.toLowerCase()}`}
                     </Typography>
                     <Typography
                         align="center"
                         color="black"
                         className={classes.subtitle}
                     >
-                        Are you sure you want to delete this calendar?
-                    </Typography>
-                    <Typography
-                        variant="caption"
-                        align="center"
-                        color="black"
-                        className={classes.subtitle}
-                    >
-                        All the tasks and constraints in it will also deleted.
+                        {`Are you sure you want to delete this ${elementType.toLowerCase()}?`}
                     </Typography>
                     <Box className={classes.buttonsContainer}>
                         <Button
@@ -63,4 +71,4 @@ const DeleteCalendarDialog: React.FC<DeleteCalendarDialogProps> = (props) => {
     )
 }
 
-export default DeleteCalendarDialog
+export default DeleteElementDialog

@@ -89,6 +89,14 @@ const useCalendars = () => {
         })
     }
 
+    const handleChangeCalendar = async (calendar: Calendar) => {
+        console.log('here 2')
+        setCurrentCalendar(calendar)
+        await handleSetTasks(calendar.id)
+        await handleSetConstraints(calendar.id)
+        await handleSetEvents(calendar.id)
+    }
+
     const handleAddCalendar = async (formData: CreateCalendarFormValues) => {
         await createCalendar({
             variables: { input: { ...formData } },
@@ -140,20 +148,12 @@ const useCalendars = () => {
         })
     }
 
-    const handleChangeCalendar = async (calendar: Calendar) => {
-        console.log('here 2')
-        setCurrentCalendar(calendar)
-        await handleSetTasks(calendar.id)
-        await handleSetConstraints(calendar.id)
-        await handleSetEvents(calendar.id)
-    }
-
     const handleOptimize = async (calendarID: string) => {
-        await optimize({ variables: { calendarID } }).then(({ data }) => {
-            if (data.optimize) {
-                console.log('Optimized successfully!')
-            }
-        })
+        // await optimize({ variables: { calendarID } }).then(({ data }) => {
+        //     if (data.optimize) {
+        //         console.log('Optimized successfully!')
+        //     }
+        // })
     }
 
     const handleSetEvents = async (calendarID: string) => {
@@ -176,10 +176,10 @@ const useCalendars = () => {
 
     return {
         initialize,
+        handleChangeCalendar,
         handleAddCalendar,
         handleUpdateCalendar,
         handleDeletecalendar,
-        handleChangeCalendar,
         handleOptimize,
         handleSetEvents,
     }

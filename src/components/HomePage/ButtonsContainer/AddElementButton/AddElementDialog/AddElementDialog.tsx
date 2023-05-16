@@ -31,7 +31,7 @@ import {
 
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { MobileDateTimePicker } from '@mui/x-date-pickers'
 
 import useStyles from './AddElementDialogStyles'
 
@@ -93,7 +93,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
 
     const onSubmit = async (formData: CreateElementFormValues) => {
         await handleAddElement(formData)
-        // await handleOptimize(currentCalendar.id)
+        await handleOptimize(currentCalendar.id)
         await handleSetEvents(currentCalendar.id)
         handleClose()
     }
@@ -148,10 +148,10 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                     name="deadline"
                                     control={control}
                                     render={({ field: { onChange, value } }) => (
-                                        <DateTimePicker
+                                        <MobileDateTimePicker
                                             label="Deadline *"
+                                            showToolbar={false}
                                             disablePast
-                                            disableMaskedInput
                                             minDateTime={
                                                 new Date(currentCalendar.startDate)
                                             }
@@ -168,7 +168,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                                 <TextField {...params} />
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
-                                            PopperProps={{ placement: 'auto' }}
+                                            closeOnSelect
                                             className={classes.field}
                                         />
                                     )}
@@ -194,10 +194,10 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                     name="startTime"
                                     control={control}
                                     render={({ field: { onChange, value } }) => (
-                                        <DateTimePicker
+                                        <MobileDateTimePicker
                                             label="Start *"
+                                            showToolbar={false}
                                             disablePast
-                                            disableMaskedInput
                                             minDateTime={
                                                 new Date(currentCalendar.startDate)
                                             }
@@ -215,7 +215,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                                 <TextField {...params} />
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
-                                            PopperProps={{ placement: 'auto' }}
+                                            closeOnSelect
                                             className={classes.field}
                                         />
                                     )}
@@ -224,10 +224,10 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                     name="endTime"
                                     control={control}
                                     render={({ field: { onChange, value } }) => (
-                                        <DateTimePicker
+                                        <MobileDateTimePicker
                                             label="End *"
+                                            showToolbar={false}
                                             disablePast
-                                            disableMaskedInput={true}
                                             disabled={startTime == null}
                                             minDateTime={startTime || null}
                                             maxDateTime={
@@ -244,7 +244,7 @@ const AddElementDialog: React.FC<AddElementDialogProps> = (props) => {
                                                 <TextField {...params} />
                                             )}
                                             inputFormat="dd/MM/yyyy HH:mm"
-                                            PopperProps={{ placement: 'auto' }}
+                                            closeOnSelect
                                             className={classes.field}
                                         />
                                     )}

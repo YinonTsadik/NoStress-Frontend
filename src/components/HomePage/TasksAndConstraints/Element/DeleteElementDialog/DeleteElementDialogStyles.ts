@@ -3,10 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 const useStyles = makeStyles()({
     root: {
         width: '30vw',
+        height: '35vh',
         display: 'flex',
         flexDirection: 'column',
-        top: '55%',
-        left: '50%',
         alignItems: 'center',
         padding: '4.5vh',
         borderRadius: '7px',
@@ -14,24 +13,18 @@ const useStyles = makeStyles()({
         boxShadow: '0 0.5vh 2vh 0 rgba(0,0,0,0.2)',
     },
 
-    formLabel: {
-        marginBottom: '2vh',
+    title: {
+        marginBottom: '5.25vh',
         fontSize: '2.25vw',
         fontWeight: 'bold',
-        color: 'black',
     },
 
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '80%',
-    },
-
-    field: {
-        margin: '3vh 0',
+    subtitle: {
+        fontSize: '1vw',
     },
 
     buttonsContainer: {
+        marginTop: '6vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -43,14 +36,10 @@ const useStyles = makeStyles()({
         padding: '1vh',
     },
 
-    saveButton: {
-        backgroundColor: '#3f51b5',
+    deleteButton: {
         borderRadius: '1vh',
         fontSize: '1vw',
         fontWeight: 'bold',
-        '&:hover': {
-            backgroundColor: '#2b3d91',
-        },
     },
 })
 

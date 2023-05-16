@@ -14,7 +14,7 @@ const useStyles = makeStyles()({
     },
 
     title: {
-        marginBottom: '2.25vh',
+        marginBottom: '4vh',
         fontSize: '2.25vw',
         fontWeight: 'bold',
     },
