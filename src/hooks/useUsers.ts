@@ -49,7 +49,7 @@ const useUsers = () => {
     const handleSignUp = async (formData: SignUpFormValues) => {
         return new Promise<AuthenticationDetails>((resolve) => {
             createUser({
-                variables: { ...formData },
+                variables: { input: { ...formData } },
             }).then(({ data }) => {
                 if (data.createUser) {
                     console.log('Signed up successfully!')
