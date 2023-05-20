@@ -41,7 +41,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
         formState: { errors, isValid },
     } = useForm<CreateCalendarFormValues>({
         resolver: yupResolver(createCalendarSchema()),
-        defaultValues: { userID: user.id },
+        defaultValues: { userID: user.id, endDate: null },
     })
 
     const { handleAddCalendar } = useCalendars()
@@ -85,6 +85,10 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
 
     const prevDay = (date: Date) => {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
+    }
+
+    const oneYearRange = (date: Date) => {
+        return new Date(date.getFullYear() + 1, date.getMonth(), date.getDate())
     }
 
     return (
@@ -134,7 +138,8 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                     disablePast
                                     disabled={startDate == null}
                                     minDate={startDate && nextDay(startDate)}
-                                    value={value ? prevDay(value) : null}
+                                    maxDate={startDate && oneYearRange(startDate)}
+                                    value={value && prevDay(value)}
                                     onChange={(newValue) => {
                                         newValue && onChange(nextDay(newValue))
                                         newValue && setEndDate(nextDay(newValue))

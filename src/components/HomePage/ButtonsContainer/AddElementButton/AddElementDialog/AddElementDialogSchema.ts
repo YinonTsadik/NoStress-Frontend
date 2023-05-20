@@ -12,7 +12,10 @@ const createTaskSchema = () => {
             .max(20, 'Task description must be at most 20 characters')
             .matches(noStartWithSpace, 'Task description cannot start with a space'),
         deadline: yup.date().required(' ').nullable(false),
-        workHours: yup.number().required(' '),
+        workHours: yup
+            .number()
+            .required(' ')
+            .min(1, 'Work hours must be 1 or greater'),
     })
 }
 
