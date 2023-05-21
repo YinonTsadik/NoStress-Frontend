@@ -38,7 +38,7 @@ const useUsers = () => {
             })
 
             if (data.user) {
-                console.log('Logged in successfully!')
+                console.log('Signed in successfully!')
                 const { __typename, ...rest } = data.user
                 signIn(rest as User)
                 return { isAuthenticated: true, userID: data.user.id }

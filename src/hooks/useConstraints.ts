@@ -38,8 +38,6 @@ const useConstraints = () => {
         bindActionCreators(actionCreators, dispatch)
 
     const handleSetConstraints = async (calendarID: string) => {
-        console.log('here 4')
-
         try {
             const { data } = await getConstraints({ variables: { calendarID } })
 
@@ -52,6 +50,8 @@ const useConstraints = () => {
                 )
 
                 setConstraints(constraints)
+
+                console.log('The constraints have been setted successfully!')
             }
         } catch (error) {
             console.error('An error occurred while setting constraints:', error)

@@ -70,7 +70,6 @@ const useCalendars = () => {
     } = bindActionCreators(actionCreators, dispatch)
 
     const initialize = async (userID: string) => {
-        console.log('here 1')
         try {
             const { data } = await getCalendars({ variables: { userID } })
 
@@ -84,6 +83,8 @@ const useCalendars = () => {
 
                 setCalendars(calendars)
 
+                console.log('The calendars have been setted successfully!')
+
                 if (calendars.length) {
                     await handleChangeCalendar(calendars[0])
                 }
@@ -94,12 +95,13 @@ const useCalendars = () => {
     }
 
     const handleChangeCalendar = async (calendar: Calendar) => {
-        console.log('here 2')
         try {
             setCurrentCalendar(calendar)
             await handleSetTasks(calendar.id)
             await handleSetConstraints(calendar.id)
             await handleSetEvents(calendar.id)
+
+            console.log('Calendar changed successfully!')
         } catch (error) {
             console.error('An error occurred while handling calendar change:', error)
         }
@@ -180,7 +182,6 @@ const useCalendars = () => {
     }
 
     const handleSetEvents = async (calendarID: string) => {
-        console.log('here 5')
         try {
             const { data } = await getEvents({ variables: { calendarID } })
 
@@ -195,6 +196,8 @@ const useCalendars = () => {
                     return formattedEvent
                 })
                 setEvents(events)
+
+                console.log('The events have been setted successfully!')
             }
         } catch (error) {
             console.error('An error occurred while setting events:', error)

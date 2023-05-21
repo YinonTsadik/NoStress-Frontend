@@ -32,7 +32,6 @@ const useTasks = () => {
     )
 
     const handleSetTasks = async (calendarID: string) => {
-        console.log('here 3')
         try {
             const { data } = await getTasks({ variables: { calendarID } })
 
@@ -43,6 +42,8 @@ const useTasks = () => {
                 })
 
                 setTasks(tasks)
+
+                console.log('The tasks have been setted successfully!')
             }
         } catch (error) {
             console.error('An error occurred while setting tasks:', error)
