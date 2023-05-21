@@ -29,50 +29,64 @@ const useUsers = () => {
     const dispatch = useDispatch()
     const { signIn } = bindActionCreators(actionCreators, dispatch)
 
-    const handleSignIn = async (formData: SignInFormValues) => {
-        return new Promise<AuthenticationDetails>((resolve) => {
-            checkAuthentication({
+    const handleSignIn = async (
+        formData: SignInFormValues
+    ): Promise<AuthenticationDetails> => {
+        try {
+            const { data } = await checkAuthentication({
                 variables: { ...formData },
-            }).then(({ data }) => {
-                if (data.user) {
-                    console.log('Logged in successfully!')
-                    const { __typename, ...rest } = data.user
-                    signIn(rest as User)
-                    resolve({ isAuthenticated: true, userID: data.user.id })
-                } else {
-                    resolve({ isAuthenticated: false, userID: '' })
-                }
             })
-        })
+
+            if (data.user) {
+                console.log('Logged in successfully!')
+                const { __typename, ...rest } = data.user
+                signIn(rest as User)
+                return { isAuthenticated: true, userID: data.user.id }
+            } else {
+                return { isAuthenticated: false, userID: '' }
+            }
+        } catch (error) {
+            console.error('An error occurred while signing in:', error)
+            return { isAuthenticated: false, userID: '' }
+        }
     }
 
-    const handleSignUp = async (formData: SignUpFormValues) => {
-        return new Promise<AuthenticationDetails>((resolve) => {
-            createUser({
+    const handleSignUp = async (
+        formData: SignUpFormValues
+    ): Promise<AuthenticationDetails> => {
+        try {
+            const { data } = await createUser({
                 variables: { input: { ...formData } },
-            }).then(({ data }) => {
-                if (data.createUser) {
-                    console.log('Signed up successfully!')
-                    const { __typename, ...rest } = data.createUser
-                    signIn(rest as User)
-                    resolve({ isAuthenticated: true, userID: data.createUser.id })
-                } else {
-                    resolve({ isAuthenticated: false, userID: '' })
-                }
             })
-        })
+
+            if (data.createUser) {
+                console.log('Signed up successfully!')
+                const { __typename, ...rest } = data.createUser
+                signIn(rest as User)
+                return { isAuthenticated: true, userID: data.createUser.id }
+            } else {
+                return { isAuthenticated: false, userID: '' }
+            }
+        } catch (error) {
+            console.error('An error occurred while signing up:', error)
+            return { isAuthenticated: false, userID: '' }
+        }
     }
 
     const handleUpdateUser = async (formData: EditProfileFormValues) => {
-        await updateUser({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
+        try {
+            const { data } = await updateUser({
+                variables: { input: { ...formData } },
+            })
+
             if (data.updateUser) {
                 console.log('User updated successfully!')
                 const { __typename, ...rest } = data.updateUser
                 signIn(rest as User)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while updating the user:', error)
+        }
     }
 
     return { handleSignIn, handleSignUp, handleUpdateUser }

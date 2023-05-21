@@ -71,7 +71,9 @@ const useCalendars = () => {
 
     const initialize = async (userID: string) => {
         console.log('here 1')
-        await getCalendars({ variables: { userID } }).then(({ data }) => {
+        try {
+            const { data } = await getCalendars({ variables: { userID } })
+
             if (data.userCalendars) {
                 const calendars: Calendar[] = data.userCalendars.map(
                     (calendar: any) => {
@@ -83,24 +85,32 @@ const useCalendars = () => {
                 setCalendars(calendars)
 
                 if (calendars.length) {
-                    handleChangeCalendar(calendars[0])
+                    await handleChangeCalendar(calendars[0])
                 }
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while initializing calendars:', error)
+        }
     }
 
     const handleChangeCalendar = async (calendar: Calendar) => {
         console.log('here 2')
-        setCurrentCalendar(calendar)
-        await handleSetTasks(calendar.id)
-        await handleSetConstraints(calendar.id)
-        await handleSetEvents(calendar.id)
+        try {
+            setCurrentCalendar(calendar)
+            await handleSetTasks(calendar.id)
+            await handleSetConstraints(calendar.id)
+            await handleSetEvents(calendar.id)
+        } catch (error) {
+            console.error('An error occurred while handling calendar change:', error)
+        }
     }
 
     const handleAddCalendar = async (formData: CreateCalendarFormValues) => {
-        await createCalendar({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
+        try {
+            const { data } = await createCalendar({
+                variables: { input: { ...formData } },
+            })
+
             if (data.createCalendar) {
                 console.log('Calendar created successfully!')
                 const { __typename, ...rest } = data.createCalendar
@@ -111,13 +121,17 @@ const useCalendars = () => {
                 setConstraints([])
                 setEvents([])
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while adding a calendar:', error)
+        }
     }
 
     const handleUpdateCalendar = async (formData: EditCalendarFormValues) => {
-        await updateCalendar({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
+        try {
+            const { data } = await updateCalendar({
+                variables: { input: { ...formData } },
+            })
+
             if (data.updateCalendar) {
                 console.log('Calendar updated successfully!')
                 const { __typename, ...rest } = data.updateCalendar
@@ -127,11 +141,15 @@ const useCalendars = () => {
                     setCurrentCalendar(rest as Calendar)
                 }
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while updating the calendar:', error)
+        }
     }
 
     const handleDeletecalendar = async (id: string) => {
-        await deleteCalendar({ variables: { id } }).then(({ data }) => {
+        try {
+            const { data } = await deleteCalendar({ variables: { id } })
+
             if (data.deleteCalendar) {
                 console.log('Calendar deleted successfully!')
                 const { __typename, ...rest } = data.deleteCalendar
@@ -139,26 +157,33 @@ const useCalendars = () => {
 
                 if (id === currentCalendar.id) {
                     if (calendars.length) {
-                        handleChangeCalendar(calendars[0])
+                        await handleChangeCalendar(calendars[0])
                     } else {
                         clearCurrentCalendar()
                     }
                 }
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while deleting the calendar:', error)
+        }
     }
 
     const handleOptimize = async (calendarID: string) => {
-        // await optimize({ variables: { calendarID } }).then(({ data }) => {
+        // try {
+        //     const { data } = await optimize({ variables: { calendarID } })
         //     if (data.optimize) {
         //         console.log('Optimized successfully!')
         //     }
-        // })
+        // } catch (error) {
+        //     console.error('An error occurred while optimizing:', error)
+        // }
     }
 
     const handleSetEvents = async (calendarID: string) => {
         console.log('here 5')
-        await getEvents({ variables: { calendarID } }).then(({ data }) => {
+        try {
+            const { data } = await getEvents({ variables: { calendarID } })
+
             if (data.calendarEvents) {
                 const events: Event[] = data.calendarEvents.map((event: any) => {
                     const { description, startTime, endTime } = event
@@ -171,7 +196,9 @@ const useCalendars = () => {
                 })
                 setEvents(events)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while setting events:', error)
+        }
     }
 
     return {

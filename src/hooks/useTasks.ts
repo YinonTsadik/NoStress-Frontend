@@ -33,7 +33,9 @@ const useTasks = () => {
 
     const handleSetTasks = async (calendarID: string) => {
         console.log('here 3')
-        await getTasks({ variables: { calendarID } }).then(({ data }) => {
+        try {
+            const { data } = await getTasks({ variables: { calendarID } })
+
             if (data.calendarTasks) {
                 const tasks: Task[] = data.calendarTasks.map((task: any) => {
                     const { __typename, ...rest } = task
@@ -42,41 +44,55 @@ const useTasks = () => {
 
                 setTasks(tasks)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while setting tasks:', error)
+        }
     }
 
     const handleAddTask = async (formData: CreateTaskFormValues) => {
-        await createTask({ variables: { input: { ...formData } } }).then(
-            ({ data }) => {
-                if (data.createTask) {
-                    console.log('Task created successfully!')
-                    const { __typename, ...rest } = data.createTask
-                    addTask(rest as Task)
-                }
+        try {
+            const { data } = await createTask({
+                variables: { input: { ...formData } },
+            })
+
+            if (data.createTask) {
+                console.log('Task created successfully!')
+                const { __typename, ...rest } = data.createTask
+                addTask(rest as Task)
             }
-        )
+        } catch (error) {
+            console.error('An error occurred while adding the task:', error)
+        }
     }
 
     const handleUpdateTask = async (formData: EditTaskFormValues) => {
-        await updateTask({ variables: { input: { ...formData } } }).then(
-            ({ data }) => {
-                if (data.updateTask) {
-                    console.log('Task updated successfully!')
-                    const { __typename, ...rest } = data.updateTask
-                    editTask(rest as Task)
-                }
+        try {
+            const { data } = await updateTask({
+                variables: { input: { ...formData } },
+            })
+
+            if (data.updateTask) {
+                console.log('Task updated successfully!')
+                const { __typename, ...rest } = data.updateTask
+                editTask(rest as Task)
             }
-        )
+        } catch (error) {
+            console.error('An error occurred while updating the task:', error)
+        }
     }
 
     const handleDeleteTask = async (id: string) => {
-        await deleteTask({ variables: { id } }).then(({ data }) => {
+        try {
+            const { data } = await deleteTask({ variables: { id } })
+
             if (data.deleteTask) {
                 console.log('Task deleted successfully!')
                 const { __typename, ...rest } = data.deleteTask
                 removeTask(rest as Task)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while deleting the task:', error)
+        }
     }
 
     return { handleSetTasks, handleAddTask, handleUpdateTask, handleDeleteTask }

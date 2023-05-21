@@ -39,7 +39,10 @@ const useConstraints = () => {
 
     const handleSetConstraints = async (calendarID: string) => {
         console.log('here 4')
-        await getConstraints({ variables: { calendarID } }).then(({ data }) => {
+
+        try {
+            const { data } = await getConstraints({ variables: { calendarID } })
+
             if (data.calendarConstraints) {
                 const constraints: Constraint[] = data.calendarConstraints.map(
                     (constraint: any) => {
@@ -50,41 +53,55 @@ const useConstraints = () => {
 
                 setConstraints(constraints)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while setting constraints:', error)
+        }
     }
 
     const handleAddConstraint = async (formData: CreateConstraintFormValues) => {
-        await createConstraint({
-            variables: { input: { ...formData } },
-        }).then(({ data }) => {
+        try {
+            const { data } = await createConstraint({
+                variables: { input: { ...formData } },
+            })
+
             if (data.createConstraint) {
                 console.log('Constraint created successfully!')
                 const { __typename, ...rest } = data.createConstraint
                 addConstraint(rest as Constraint)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while adding a constraint:', error)
+        }
     }
 
     const handleUpdateConstraint = async (formData: EditConstraintFormValues) => {
-        await updateConstraint({ variables: { input: { ...formData } } }).then(
-            ({ data }) => {
-                if (data.updateConstraint) {
-                    console.log('Constraint updated successfully!')
-                    const { __typename, ...rest } = data.updateConstraint
-                    editConstraint(rest as Constraint)
-                }
+        try {
+            const { data } = await updateConstraint({
+                variables: { input: { ...formData } },
+            })
+
+            if (data.updateConstraint) {
+                console.log('Constraint updated successfully!')
+                const { __typename, ...rest } = data.updateConstraint
+                editConstraint(rest as Constraint)
             }
-        )
+        } catch (error) {
+            console.error('An error occurred while updating a constraint:', error)
+        }
     }
 
     const handleDeleteConstraint = async (id: string) => {
-        await deleteConstraint({ variables: { id } }).then(({ data }) => {
+        try {
+            const { data } = await deleteConstraint({ variables: { id } })
+
             if (data.deleteConstraint) {
                 console.log('Constraint deleted successfully!')
                 const { __typename, ...rest } = data.deleteConstraint
                 removeConstraint(rest as Constraint)
             }
-        })
+        } catch (error) {
+            console.error('An error occurred while deleting a constraint:', error)
+        }
     }
 
     return {
