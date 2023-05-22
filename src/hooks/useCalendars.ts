@@ -171,14 +171,14 @@ const useCalendars = () => {
     }
 
     const handleOptimize = async (calendarID: string) => {
-        // try {
-        //     const { data } = await optimize({ variables: { calendarID } })
-        //     if (data.optimize) {
-        //         console.log('Optimized successfully!')
-        //     }
-        // } catch (error) {
-        //     console.error('An error occurred while optimizing:', error)
-        // }
+        try {
+            const { data } = await optimize({ variables: { calendarID } })
+            if (data.optimize) {
+                console.log('Optimized successfully!')
+            }
+        } catch (error) {
+            console.error('An error occurred while optimizing:', error)
+        }
     }
 
     const handleSetEvents = async (calendarID: string) => {
