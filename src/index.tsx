@@ -14,13 +14,13 @@ const client = new ApolloClient({
 })
 
 root.render(
-    <React.StrictMode>
+    <>
         <ApolloProvider client={client}>
             <Provider store={store}>
                 <App />
             </Provider>
         </ApolloProvider>
-    </React.StrictMode>
+    </>
 )
 
 // To run the website, type 'npm start' in the terminal.
