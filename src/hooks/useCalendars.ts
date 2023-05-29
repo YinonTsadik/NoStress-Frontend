@@ -173,6 +173,7 @@ const useCalendars = () => {
     const handleOptimize = async (calendarID: string) => {
         try {
             const { data } = await optimize({ variables: { calendarID } })
+
             if (data.optimize) {
                 console.log('Optimized successfully!')
             }
