@@ -178,6 +178,9 @@ const EditElementDialog: React.FC<EditElementProps> = (props) => {
                                             maxDateTime={
                                                 new Date(currentCalendar.endDate)
                                             }
+                                            defaultCalendarMonth={
+                                                new Date(currentCalendar.startDate)
+                                            }
                                             minutesStep={60}
                                             ampm={false}
                                             value={value}
@@ -225,6 +228,9 @@ const EditElementDialog: React.FC<EditElementProps> = (props) => {
                                             maxDateTime={
                                                 new Date(currentCalendar.endDate)
                                             }
+                                            defaultCalendarMonth={
+                                                new Date(currentCalendar.startDate)
+                                            }
                                             minutesStep={60}
                                             ampm={false}
                                             value={value}
@@ -254,6 +260,7 @@ const EditElementDialog: React.FC<EditElementProps> = (props) => {
                                             maxDateTime={
                                                 new Date(currentCalendar.endDate)
                                             }
+                                            defaultCalendarMonth={startTime || null}
                                             minutesStep={60}
                                             ampm={false}
                                             value={value}

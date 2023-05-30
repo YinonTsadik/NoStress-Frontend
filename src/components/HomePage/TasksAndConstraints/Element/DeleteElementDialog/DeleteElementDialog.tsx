@@ -24,15 +24,18 @@ const DeleteElementDialog: React.FC<DeleteElementDialogProps> = (props) => {
     const { handleOptimize, handleSetEvents } = useCalendars()
 
     const onDelete = async () => {
-        if (elementType === 'Task') {
-            await handleDeleteTask(element.id)
-        } else if (elementType === 'Constraint') {
-            await handleDeleteConstraint(element.id)
-        }
-
+        await handleDeleteElement(element.id)
         await handleOptimize(currentCalendar.id)
         await handleSetEvents(currentCalendar.id)
         handleCloseDialog()
+    }
+
+    const handleDeleteElement = async (id: string) => {
+        if (elementType === 'Task') {
+            await handleDeleteTask(id)
+        } else if (elementType === 'Constraint') {
+            await handleDeleteConstraint(id)
+        }
     }
 
     return (

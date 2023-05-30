@@ -139,6 +139,7 @@ const AddCalendarDialog: React.FC<AddCalendarDialogProps> = (props) => {
                                     disabled={startDate == null}
                                     minDate={startDate && nextDay(startDate)}
                                     maxDate={startDate && oneYearRange(startDate)}
+                                    defaultCalendarMonth={startDate || null}
                                     value={value && prevDay(value)}
                                     onChange={(newValue) => {
                                         newValue && onChange(nextDay(newValue))
